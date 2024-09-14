@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { authenticateToken, authorizeRole } = require('../middlewares/auth');
+const { authenticateToken, authorize } = require('../middlewares/auth');
 const {
   createBerkasPenilaian,
   getAllBerkasPenilaian,
@@ -9,10 +9,10 @@ const {
   deleteBerkasPenilaian
 } = require('../controllers/berkasPenilaianController');
 
-router.post('/', createBerkasPenilaian);
-router.get('/', getAllBerkasPenilaian);
-router.get('/:id', getBerkasPenilaianById);
-router.put('/:id', updateBerkasPenilaian);
-router.delete('/:id', deleteBerkasPenilaian);
+router.post('/', authenticateToken, authorize(['adminSiap', 'koor_mbkm']), createBerkasPenilaian);
+router.put('/:id', authenticateToken, authorize(['adminSiap', 'dosbing', 'koor_mbkm']), updateBerkasPenilaian);
+router.get('/', authenticateToken, authorize(['koor_mbkm', 'adminSiap', 'mahasiswa']), getAllBerkasPenilaian);
+router.get('/:id', authenticateToken, authorize(['koor_mbkm', 'adminSiap', 'mahasiswa']), getBerkasPenilaianById);
+router.delete('/:id', authenticateToken, authorize(['adminSiap', 'koor_mbkm']), deleteBerkasPenilaian);
 
 module.exports = router;

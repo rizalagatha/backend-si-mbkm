@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { authenticateToken, authorize } = require('../middlewares/auth');
 const {
   createPendaftaranMbkm,
   getAllPendaftaranMbkm,
@@ -8,10 +9,10 @@ const {
   deletePendaftaranMbkm
 } = require('../controllers/pendaftaranMbkmController');
 
-router.post('/', createPendaftaranMbkm);
+router.post('/', authenticateToken, authorize(['mahasiswa', 'koor_mbkm']), createPendaftaranMbkm);
 router.get('/', getAllPendaftaranMbkm);
 router.get('/:id', getPendaftaranMbkmById);
-router.put('/:id', updatePendaftaranMbkm);
-router.delete('/:id', deletePendaftaranMbkm);
+router.put('/:id', authenticateToken, authorize(['mahasiswa', 'koor_mbkm']), updatePendaftaranMbkm);
+router.delete('/:id', authenticateToken, authorize(['mahasiswa', 'koor_mbkm']), deletePendaftaranMbkm);
 
 module.exports = router;

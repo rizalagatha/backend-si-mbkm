@@ -7,12 +7,28 @@ const ProgramMbkm = sequelize.define('ProgramMbkm', {
     primaryKey: true,
     autoIncrement: true
   },
-  nama_program: {
+  company: {
     type: DataTypes.STRING,
     allowNull: false
   },
   deskripsi: {
     type: DataTypes.TEXT,
+    allowNull: true
+  },
+  role: {
+      type: DataTypes.STRING,
+      allowNull: true
+  },
+  category: {
+    type: DataTypes.STRING,
+    allowNull: true
+  },
+  status: {
+    type: DataTypes.STRING,
+    allowNull: true
+  },
+  date: {
+    type: DataTypes.DATE,
     allowNull: true
   }
 }, {

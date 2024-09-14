@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { authenticateToken, authorize } = require('../middlewares/auth');
 const {
   createDosbing,
   getAllDosbing,
@@ -8,10 +9,10 @@ const {
   deleteDosbing
 } = require('../controllers/dosbingController');
 
-router.post('/', createDosbing);
+router.post('/', authenticateToken, authorize(['koor_mbkm']), createDosbing);
 router.get('/', getAllDosbing);
 router.get('/:NIP_dosbing', getDosbingByNIP);
-router.put('/:NIP_dosbing', updateDosbing);
-router.delete('/:NIP_dosbing', deleteDosbing);
+router.put('/:NIP_dosbing', authenticateToken, authorize(['koor_mbkm']), updateDosbing);
+router.delete('/:NIP_dosbing', authenticateToken, authorize(['koor_mbkm']), deleteDosbing);
 
 module.exports = router;
