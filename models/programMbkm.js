@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
+const Categories = require('./categories');
 
 const ProgramMbkm = sequelize.define('ProgramMbkm', {
   id_program_mbkm: {
@@ -19,10 +20,6 @@ const ProgramMbkm = sequelize.define('ProgramMbkm', {
       type: DataTypes.STRING,
       allowNull: true
   },
-  category: {
-    type: DataTypes.STRING,
-    allowNull: true
-  },
   status: {
     type: DataTypes.STRING,
     allowNull: true
@@ -30,7 +27,15 @@ const ProgramMbkm = sequelize.define('ProgramMbkm', {
   date: {
     type: DataTypes.DATE,
     allowNull: true
-  }
+  },
+  category_id: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    references: {
+      model: 'Categories', // Name of the table you're referencing
+      key: 'id',
+    },
+  },
 }, {
   tableName: 'program_mbkm',
   timestamps: false

@@ -18,7 +18,9 @@ const createProgramMbkm = async (req, res) => {
 // Get all Programs MBKM
 const getAllProgramMbkm = async (req, res) => {
   try {
-    const programsMbkm = await ProgramMbkm.findAll();
+    const programs = await ProgramMbkm.findAll({
+      include: Category, // Include category data
+    });
     res.status(200).json(programsMbkm);
   } catch (error) {
     res.status(500).json({ message: error.message });
