@@ -17,8 +17,8 @@ const ProgramMbkm = sequelize.define('ProgramMbkm', {
     allowNull: true
   },
   role: {
-      type: DataTypes.STRING,
-      allowNull: true
+    type: DataTypes.STRING,
+    allowNull: true
   },
   status: {
     type: DataTypes.STRING,
@@ -32,7 +32,7 @@ const ProgramMbkm = sequelize.define('ProgramMbkm', {
     type: DataTypes.STRING,
     allowNull: false,
     references: {
-      model: 'Categories', // Name of the table you're referencing
+      model: 'Categories', // Refers to Categories table
       key: 'id',
     },
   },
@@ -40,5 +40,8 @@ const ProgramMbkm = sequelize.define('ProgramMbkm', {
   tableName: 'program_mbkm',
   timestamps: false
 });
+
+// Add association here
+ProgramMbkm.belongsTo(Categories, { foreignKey: 'category_id' });
 
 module.exports = ProgramMbkm;

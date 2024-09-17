@@ -2,14 +2,16 @@ const Mahasiswa = require('../models/mahasiswa');
 
 // Create a new Mahasiswa
 const createMahasiswa = async (req, res) => {
-  const { NIM, nama_mahasiswa, semester, id_program_mbkm, NIP_dosbing } = req.body;
+  const { NIM, nama_mahasiswa, semester, id_program_mbkm, NIP_dosbing, perusahaan, category_id } = req.body;
   try {
     const mahasiswa = await Mahasiswa.create({
       NIM,
       nama_mahasiswa,
       semester,
       id_program_mbkm,
-      NIP_dosbing
+      NIP_dosbing,
+      perusahaan,
+      category_id
     });
     res.status(201).json({ message: 'Mahasiswa created successfully', mahasiswa });
   } catch (error) {
@@ -20,7 +22,9 @@ const createMahasiswa = async (req, res) => {
 // Get all Mahasiswa
 const getAllMahasiswa = async (req, res) => {
   try {
-    const mahasiswa = await Mahasiswa.findAll();
+    const mahasiswa = await Mahasiswa.findAll({
+      include: Categories, // Include category data
+    });
     res.status(200).json(mahasiswa);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -45,10 +49,10 @@ const getMahasiswaByNIM = async (req, res) => {
 // Update a Mahasiswa
 const updateMahasiswa = async (req, res) => {
   const { NIM } = req.params;
-  const { nama_mahasiswa, semester, id_program_mbkm, NIP_dosbing } = req.body;
+  const { nama_mahasiswa, semester, id_program_mbkm, NIP_dosbing, perusahaan, category_id } = req.body;
   try {
     const [updated] = await Mahasiswa.update(
-      { nama_mahasiswa, semester, id_program_mbkm, NIP_dosbing },
+      { nama_mahasiswa, semester, id_program_mbkm, NIP_dosbing, perusahaan, category_id },
       { where: { NIM } }
     );
     if (updated) {

@@ -14,6 +14,7 @@ const pendaftaranMbkmRoutes = require('./routes/pendaftaranMbkmRoutes');
 const pengumumanRoutes = require('./routes/pengumumanRoutes');
 const programMbkmRoutes = require('./routes/programMbkmRoutes');
 const authRoutes = require('./routes/authRoutes');
+const categoriesRoutes = require('./routes/categoriesRoutes');
 
 dotenv.config();
 
@@ -43,6 +44,7 @@ app.use('/api/pendaftaran-mbkm', pendaftaranMbkmRoutes);
 app.use('/api/pengumuman', pengumumanRoutes);
 app.use('/api/program-mbkm', programMbkmRoutes);
 app.use('/auth', authRoutes);
+app.use('/api', categoriesRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

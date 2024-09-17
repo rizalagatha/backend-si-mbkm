@@ -1,6 +1,6 @@
-// models/category.js
 const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
+const sequelize = require('../config/db');
+const ProgramMbkm = require('./programMbkm');
 
 const Categories = sequelize.define('Categories', {
   id: {
@@ -14,7 +14,7 @@ const Categories = sequelize.define('Categories', {
   },
 }, {
     tableName: 'categories',
-    timestamps: false, // If you don't need createdAt and updatedAt fields
+    timestamps: false,
 });
 
-module.exports = Category;
+module.exports = Categories;
