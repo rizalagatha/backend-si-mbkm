@@ -15,7 +15,7 @@ const createAdminSiap = async (req, res) => {
   const { NIP_admin_siap, nama_admin_siap } = req.body;
   try {
     const admin = await AdminSiap.create({ NIP_admin_siap, nama_admin_siap });
-    res.status(201).json({ message: 'Admin created successfully', data: admin });
+    res.status(201).json({ message: 'Berhasil membuat data Admin SIAP', data: admin });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -27,7 +27,7 @@ const updateAdminSiap = async (req, res) => {
   const { nama_admin_siap } = req.body;
   try {
     await AdminSiap.update({ nama_admin_siap }, { where: { NIP_admin_siap } });
-    res.status(200).json({ message: 'Admin updated' });
+    res.status(200).json({ message: 'Data Admin SIAP berhasil diperbarui' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -38,7 +38,7 @@ const deleteAdminSiap = async (req, res) => {
   const { NIP_admin_siap } = req.params;
   try {
     await AdminSiap.destroy({ where: { NIP_admin_siap } });
-    res.status(200).json({ message: 'Admin deleted' });
+    res.status(200).json({ message: 'Data Admin SIAP berhasil dihapus' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

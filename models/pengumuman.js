@@ -21,7 +21,7 @@ const Pengumuman = sequelize.define('Pengumuman', {
     allowNull: false
   },
   NIP_koor_mbkm: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.BIGINT,
     allowNull: false,
     references: {
       model: KoorMbkm,

@@ -1,5 +1,9 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/user'); // Model untuk user
+const AdminSiap = require('../models/adminSiap');
+const Dosbing = require('../models/dosbing');
+const KoorMbkm = require('../models/koorMbkm');
+const Mahasiswa = require('../models/mahasiswa');
 
 // Fungsi Login
 const login = async (req, res) => {
@@ -18,7 +22,7 @@ const login = async (req, res) => {
 
 // Fungsi Register
 const register = async (req, res) => {
-  const { name, email, password, role } = req.body;
+  const { name, email, password, role, NIP_dosbing, NIP_admin_siap, NIP_koor_mbkm, NIM, semester, id_program_mbkm } = req.body;
 
   // Daftar role yang valid
   const validRoles = ['koor_mbkm', 'admin_siap', 'dosbing', 'mahasiswa'];
@@ -29,8 +33,41 @@ const register = async (req, res) => {
   }
 
   try {
+    // Simpan ke tabel User
     const user = await User.create({ name, email, password, role });
-    res.status(201).json(user);
+
+    // Simpan data berdasarkan role
+    switch (role) {
+      case 'admin_siap':
+        await AdminSiap.create({
+          NIP_admin_siap: NIP_or_NIM,  // NIP untuk Admin Siap
+          nama_admin_siap: name,
+        });
+        break;
+      case 'dosbing':
+        await Dosbing.create({
+          NIP_dosbing: NIP_or_NIM,  // NIP untuk Dosbing
+          nama_dosbing: name,
+        });
+        break;
+      case 'koor_mbkm':
+        await KoorMbkm.create({
+          NIP_koor_mbkm: NIP_or_NIM,  // NIP untuk Koordinator MBKM
+          nama_koor_mbkm: name,
+        });
+        break;
+      case 'mahasiswa':
+        await Mahasiswa.create({
+          NIM,                          // Primary Key di tabel mahasiswa
+          nama_mahasiswa: name,         // Nama mahasiswa dari input
+          semester,                     // Semester dari input
+          id_program_mbkm,              // Foreign Key ke program_mbkm
+          NIP_dosbing                   // Foreign Key ke dosbing
+        });
+        break;
+    }
+
+    res.status(201).json({ message: 'Registration successful', user });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

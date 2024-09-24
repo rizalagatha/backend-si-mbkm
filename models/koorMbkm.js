@@ -3,7 +3,7 @@ const sequelize = require('../config/db');
 
 const KoorMbkm = sequelize.define('KoorMbkm', {
   NIP_koor_mbkm: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.BIGINT,
     primaryKey: true,
     allowNull: false
   },

@@ -10,7 +10,7 @@ const PendaftaranAkun = sequelize.define('PendaftaranAkun', {
     autoIncrement: true
   },
   NIM: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.BIGINT,
     allowNull: false,
     references: {
       model: Mahasiswa,
@@ -18,7 +18,7 @@ const PendaftaranAkun = sequelize.define('PendaftaranAkun', {
     }
   },
   NIP_koor_mbkm: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.BIGINT,
     allowNull: false,
     references: {
       model: KoorMbkm,

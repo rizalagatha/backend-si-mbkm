@@ -8,7 +8,7 @@ const createDosbing = async (req, res) => {
       NIP_dosbing,
       nama_dosbing
     });
-    res.status(201).json({ message: 'Dosbing created successfully', dosbing });
+    res.status(201).json({ message: 'Berhasil membuat data Dosen Pembimbing', dosbing });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -32,7 +32,7 @@ const getDosbingByNIP = async (req, res) => {
     if (dosbing) {
       res.status(200).json(dosbing);
     } else {
-      res.status(404).json({ message: 'Dosbing not found' });
+      res.status(404).json({ message: 'Data Dosen Pembimbing tidak ditemukan!' });
     }
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -50,9 +50,9 @@ const updateDosbing = async (req, res) => {
     );
     if (updated) {
       const updatedDosbing = await Dosbing.findByPk(NIP_dosbing);
-      res.status(200).json({ message: 'Dosbing updated successfully', updatedDosbing });
+      res.status(200).json({ message: 'Data Dosen Pembimbing berhasil diperbarui', updatedDosbing });
     } else {
-      res.status(404).json({ message: 'Dosbing not found' });
+      res.status(404).json({ message: 'Data Dosen Pembimbing tidak ditemukan!' });
     }
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -65,9 +65,9 @@ const deleteDosbing = async (req, res) => {
   try {
     const deleted = await Dosbing.destroy({ where: { NIP_dosbing } });
     if (deleted) {
-      res.status(204).json({ message: 'Dosbing deleted successfully' });
+      res.status(204).json({ message: 'Data Dosen Pembimbing berhasil dihapus' });
     } else {
-      res.status(404).json({ message: 'Dosbing not found' });
+      res.status(404).json({ message: 'Data Dosen Pembimbing tidak ditemukan!' });
     }
   } catch (error) {
     res.status(500).json({ message: error.message });

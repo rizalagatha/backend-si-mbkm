@@ -3,7 +3,7 @@ const sequelize = require('../config/db');
 
 const Dosbing = sequelize.define('Dosbing', {
   NIP_dosbing: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.BIGINT,
     primaryKey: true,
     allowNull: false
   },

@@ -2,11 +2,10 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
 const ProgramMbkm = require('./programMbkm');  // FK ke tabel program_mbkm
 const Dosbing = require('./dosbing');          // FK ke tabel dosbing
-const Categories = require('./categories');
 
 const Mahasiswa = sequelize.define('Mahasiswa', {
   NIM: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.BIGINT,
     primaryKey: true,
     allowNull: false
   },
@@ -19,7 +18,7 @@ const Mahasiswa = sequelize.define('Mahasiswa', {
     allowNull: false
   },
   id_program_mbkm: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.INTEGER ,
     allowNull: false,
     references: {
       model: ProgramMbkm,
@@ -27,23 +26,11 @@ const Mahasiswa = sequelize.define('Mahasiswa', {
     }
   },
   NIP_dosbing: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.BIGINT,
     allowNull: false,
     references: {
       model: Dosbing,
       key: 'NIP_dosbing'
-    }
-  },
-  perusahaan: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  category_id: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    references: {
-      model: Categories,
-      key: 'id'
     }
   }
 }, {

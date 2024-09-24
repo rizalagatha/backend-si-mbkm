@@ -10,7 +10,7 @@ const KonversiNilai = sequelize.define('KonversiNilai', {
     autoIncrement: true
   },
   NIP_admin_siap: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.BIGINT,
     allowNull: false,
     references: {
       model: AdminSiap,

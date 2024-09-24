@@ -9,10 +9,10 @@ const {
   deleteBerkasPenilaian
 } = require('../controllers/berkasPenilaianController');
 
-router.post('/', authenticateToken, authorize(['adminSiap', 'koor_mbkm']), createBerkasPenilaian);
+router.post('/', authenticateToken, authorize(['adminSiap', 'mahasiswa', 'koor_mbkm']), createBerkasPenilaian);
 router.put('/:id', authenticateToken, authorize(['adminSiap', 'dosbing', 'koor_mbkm']), updateBerkasPenilaian);
-router.get('/', authenticateToken, authorize(['koor_mbkm', 'adminSiap', 'mahasiswa']), getAllBerkasPenilaian);
-router.get('/:id', authenticateToken, authorize(['koor_mbkm', 'adminSiap', 'mahasiswa']), getBerkasPenilaianById);
-router.delete('/:id', authenticateToken, authorize(['adminSiap', 'koor_mbkm']), deleteBerkasPenilaian);
+router.get('/', authenticateToken, authorize(['koor_mbkm', 'adminSiap', 'dosbing', 'mahasiswa']), getAllBerkasPenilaian);
+router.get('/:id', authenticateToken, authorize(['koor_mbkm', 'adminSiap','dosbing', 'mahasiswa']), getBerkasPenilaianById);
+router.delete('/:id', authenticateToken, authorize(['adminSiap','mahasiswa', 'koor_mbkm']), deleteBerkasPenilaian);
 
 module.exports = router;

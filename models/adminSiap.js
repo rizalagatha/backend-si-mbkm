@@ -3,7 +3,7 @@ const sequelize = require('../config/db');
 
 const AdminSiap = sequelize.define('AdminSiap', {
   NIP_admin_siap: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.BIGINT,
     primaryKey: true,
   },
   nama_admin_siap: {
