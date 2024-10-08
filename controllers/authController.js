@@ -40,19 +40,19 @@ const register = async (req, res) => {
     switch (role) {
       case 'admin_siap':
         await AdminSiap.create({
-          NIP_admin_siap: NIP_or_NIM,  // NIP untuk Admin Siap
+          NIP_admin_siap: NIP_admin_siap,  // NIP untuk Admin Siap
           nama_admin_siap: name,
         });
         break;
       case 'dosbing':
         await Dosbing.create({
-          NIP_dosbing: NIP_or_NIM,  // NIP untuk Dosbing
+          NIP_dosbing: NIP_dosbing,  // NIP untuk Dosbing
           nama_dosbing: name,
         });
         break;
       case 'koor_mbkm':
         await KoorMbkm.create({
-          NIP_koor_mbkm: NIP_or_NIM,  // NIP untuk Koordinator MBKM
+          NIP_koor_mbkm: NIP_koor_mbkm,  // NIP untuk Koordinator MBKM
           nama_koor_mbkm: name,
         });
         break;

@@ -24,11 +24,9 @@ app.use(cors());
 app.use(express.json());
 
 // Tambahkan route untuk root URL
-app.get('/', (req, res) => {
-    res.json({
-        message: 'Welcome to the User API. Use /api/users/register to register and /api/users/login to login.',
-    });
-});
+app.get('/api/hello', (req, res) => {
+    res.status(200).json({ message: 'Hello from Vercel API!' });
+  });
 
 // Gunakan routes untuk user
 app.use('/api/users', userRoutes);
