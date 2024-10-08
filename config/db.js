@@ -1,3 +1,4 @@
+const pg = require('pg');
 const { Sequelize } = require('sequelize');
 const dotenv = require('dotenv');
 
@@ -23,4 +24,3 @@ sequelize.authenticate()
   });
 
 module.exports = sequelize;
-  
