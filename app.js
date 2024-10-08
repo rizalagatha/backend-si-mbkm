@@ -46,5 +46,9 @@ app.use('/auth', authRoutes);
 app.use('/api', categoriesRoutes);
 app.use('/api/', uploadRoutes);
 
+sequelize.authenticate()
+  .then(() => console.log('Database connected...'))
+  .catch(err => console.log('Error: ' + err));
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
