@@ -45,6 +45,18 @@ app.use('/api/program-mbkm', programMbkmRoutes);
 app.use('/auth', authRoutes);
 app.use('/api', categoriesRoutes);
 app.use('/api/', uploadRoutes);
+app.get('/api/test-supabase', async (req, res) => {
+  try {
+    const response = await axios.get('https://heqapgykhabdiolwblvj.supabase.co/rest/v1/', {
+      headers: {
+        apikey: process.env.SUPABASE_API_KEY,
+      }
+    });
+    res.status(200).json(response.data);
+  } catch (error) {
+    res.status(500).json({ message: 'Error connecting to Supabase', error: error.message });
+  }
+});
 
 sequelize.authenticate()
   .then(() => console.log('Database connected...'))
