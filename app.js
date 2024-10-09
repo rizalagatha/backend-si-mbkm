@@ -58,6 +58,15 @@ app.get('/api/test-supabase', async (req, res) => {
   }
 });
 
+app.get('/api/check-dns', (req, res) => {
+  dns.lookup('db.heqapgykhabdiolwblvj.supabase.co', (err, address) => {
+    if (err) {
+      return res.status(500).json({ message: 'DNS lookup failed', error: err.message });
+    }
+    res.status(200).json({ message: 'DNS lookup succeeded', address });
+  });
+});
+
 sequelize.authenticate()
   .then(() => console.log('Database connected...'))
   .catch(err => console.log('Error: ' + err));
