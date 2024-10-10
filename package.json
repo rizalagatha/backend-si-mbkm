@@ -4,7 +4,8 @@
   "description": "ya ya ya saya setuju",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "build": "prisma generate && node app.js",
+    "prisma:generate": "prisma generate"
   },
   "keywords": [],
   "author": "",
