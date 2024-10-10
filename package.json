@@ -4,8 +4,8 @@
   "description": "ya ya ya saya setuju",
   "main": "app.js",
   "scripts": {
-    "build": "prisma generate && node app.js",
-    "prisma:generate": "prisma generate"
+    "start": "node app.js",
+    "migrate": "sequelize-cli --config config/config.js db:migrate"
   },
   "keywords": [],
   "author": "",
@@ -27,6 +27,7 @@
     "sequelize": "^6.37.3"
   },
   "devDependencies": {
-    "prisma": "^5.20.0"
+    "prisma": "^5.20.0",
+    "sequelize-cli": "^6.6.2"
   }
 }
