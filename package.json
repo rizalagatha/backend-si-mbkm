@@ -4,8 +4,8 @@
   "description": "ya ya ya saya setuju",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "migrate": "sequelize-cli --config config/config.js db:migrate"
+    "migrate": "npx sequelize-cli db:migrate",
+    "start": "npm run migrate && node app.js"
   },
   "keywords": [],
   "author": "",
