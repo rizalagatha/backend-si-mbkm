@@ -73,5 +73,13 @@ sequelize.authenticate()
   .then(() => console.log('Database connected...'))
   .catch(err => console.log('Error: ' + err));
 
+sequelize.sync({ alter: true })
+  .then(() => {
+    console.log('All models were synchronized successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to synchronize the models:', err);
+  });
+  
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
