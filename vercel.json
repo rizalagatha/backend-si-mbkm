@@ -9,9 +9,6 @@
         }
       }
     ],
-    "scripts": {
-      "build": "npm run prisma:generate"
-    },
     "routes": [
       {
         "src": "/(.*)",        
