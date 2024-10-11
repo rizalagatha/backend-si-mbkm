@@ -4,7 +4,8 @@ const cors = require('cors');
 const sequelize = require('./config/db');
 const axios = require('axios');
 const dns = require('dns');
-const swaggerConfig = require('./config/swagger');
+const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
 const userRoutes = require('./routes/userRoutes');
 const adminSiapRoutes = require('./routes/adminSiapRoutes');
 const berkasPenilaianRoutes = require('./routes/berkasPenilaianRoutes');
@@ -26,8 +27,25 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-swaggerConfig(app);
+const swaggerOptions = {
+  swaggerDefinition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'SI-MBKM API',
+      version: '1.0.0',
+      description: 'Dokumentasi API untuk Sistem MBKM',
+    },
+    servers: [
+      {
+        url: 'https://backend-si-mbkm.vercel.app',
+      },
+    ],
+  },
+  apis: ['./routes/*.js'], // Lokasi file route Anda
+};
 
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 // Tambahkan route untuk root URL
 app.get('/api/hello', (req, res) => {
     res.status(200).json({ message: 'Hello from Vercel API!' });
