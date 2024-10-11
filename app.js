@@ -4,6 +4,7 @@
   const sequelize = require('./config/db');
   const axios = require('axios');
   const dns = require('dns');
+  const path = require('path');
   const swaggerSetup = require('./config/swagger');
   const userRoutes = require('./routes/userRoutes');
   const adminSiapRoutes = require('./routes/adminSiapRoutes');
@@ -75,6 +76,8 @@
   app.get('/api-docs-test', (req, res) => {
     res.send('Swagger Test Endpoint');
   });
+  
+  app.use('/swagger-ui', express.static(path.join(__dirname, 'node_modules', 'swagger-ui-dist')));
 
   sequelize.authenticate()
     .then(() => console.log('Database connected...'))
