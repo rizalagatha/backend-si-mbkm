@@ -9,10 +9,120 @@ const {
   deletePendaftaranMbkm
 } = require('../controllers/pendaftaranMbkmController');
 
+/**
+ * @swagger
+ * tags:
+ *   name: PendaftaranMbkm
+ *   description: API untuk mengelola data Pendaftaran MBKM
+ */
+
+/**
+ * @swagger
+ * /api/pendaftaran-mbkm:
+ *   post:
+ *     summary: Menambahkan data Pendaftaran MBKM baru
+ *     tags: [PendaftaranMbkm]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/PendaftaranMbkm'
+ *     responses:
+ *       201:
+ *         description: Data Pendaftaran MBKM berhasil ditambahkan
+ */
 router.post('/', authenticateToken, authorize(['mahasiswa', 'koor_mbkm']), createPendaftaranMbkm);
+
+/**
+ * @swagger
+ * /api/pendaftaran-mbkm:
+ *   get:
+ *     summary: Mengambil semua data Pendaftaran MBKM
+ *     tags: [PendaftaranMbkm]
+ *     responses:
+ *       200:
+ *         description: Berhasil mengambil data Pendaftaran MBKM
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/PendaftaranMbkm'
+ */
 router.get('/', getAllPendaftaranMbkm);
+
+/**
+ * @swagger
+ * /api/pendaftaran-mbkm/{id}:
+ *   get:
+ *     summary: Mengambil data Pendaftaran MBKM berdasarkan ID
+ *     tags: [PendaftaranMbkm]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID Pendaftaran MBKM yang akan diambil
+ *     responses:
+ *       200:
+ *         description: Berhasil mengambil data Pendaftaran MBKM
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/PendaftaranMbkm'
+ */
 router.get('/:id', getPendaftaranMbkmById);
+
+/**
+ * @swagger
+ * /api/pendaftaran-mbkm/{id}:
+ *   put:
+ *     summary: Memperbarui data Pendaftaran MBKM berdasarkan ID
+ *     tags: [PendaftaranMbkm]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID Pendaftaran MBKM yang akan diperbarui
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/PendaftaranMbkm'
+ *     responses:
+ *       200:
+ *         description: Data Pendaftaran MBKM berhasil diperbarui
+ */
 router.put('/:id', authenticateToken, authorize(['mahasiswa', 'koor_mbkm']), updatePendaftaranMbkm);
+
+/**
+ * @swagger
+ * /api/pendaftaran-mbkm/{id}:
+ *   delete:
+ *     summary: Menghapus data Pendaftaran MBKM berdasarkan ID
+ *     tags: [PendaftaranMbkm]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID Pendaftaran MBKM yang akan dihapus
+ *     responses:
+ *       204:
+ *         description: Data Pendaftaran MBKM berhasil dihapus
+ */
 router.delete('/:id', authenticateToken, authorize(['mahasiswa', 'koor_mbkm']), deletePendaftaranMbkm);
 
 module.exports = router;

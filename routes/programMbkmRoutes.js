@@ -9,10 +9,125 @@ const {
   deleteProgramMbkm
 } = require('../controllers/programMbkmController');
 
+/**
+ * @swagger
+ * /api/program-mbkm:
+ *   post:
+ *     summary: Create a new Program MBKM
+ *     security:
+ *       - bearerAuth: []
+ *     tags: [ProgramMbkm]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/ProgramMbkm'
+ *     responses:
+ *       201:
+ *         description: Program MBKM created successfully
+ *       401:
+ *         description: Unauthorized
+ */
 router.post('/', authenticateToken, authorize(['koor_mbkm']), createProgramMbkm);
+
+/**
+ * @swagger
+ * /api/program-mbkm:
+ *   get:
+ *     summary: Get all Program MBKM
+ *     tags: [ProgramMbkm]
+ *     responses:
+ *       200:
+ *         description: A list of Program MBKM
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/ProgramMbkm'
+ */
 router.get('/', getAllProgramMbkm);
+
+/**
+ * @swagger
+ * /api/program-mbkm/{id}:
+ *   get:
+ *     summary: Get a Program MBKM by ID
+ *     tags: [ProgramMbkm]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The ID of the Program MBKM
+ *     responses:
+ *       200:
+ *         description: The Program MBKM data
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ProgramMbkm'
+ *       404:
+ *         description: Program MBKM not found
+ */
 router.get('/:id', getProgramMbkmById);
+
+/**
+ * @swagger
+ * /api/program-mbkm/{id}:
+ *   put:
+ *     summary: Update a Program MBKM
+ *     security:
+ *       - bearerAuth: []
+ *     tags: [ProgramMbkm]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The ID of the Program MBKM
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/ProgramMbkm'
+ *     responses:
+ *       200:
+ *         description: Program MBKM updated successfully
+ *       404:
+ *         description: Program MBKM not found
+ *       401:
+ *         description: Unauthorized
+ */
 router.put('/:id', authenticateToken, authorize(['koor_mbkm']), updateProgramMbkm);
+
+/**
+ * @swagger
+ * /api/program-mbkm/{id}:
+ *   delete:
+ *     summary: Delete a Program MBKM
+ *     security:
+ *       - bearerAuth: []
+ *     tags: [ProgramMbkm]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The ID of the Program MBKM
+ *     responses:
+ *       204:
+ *         description: Program MBKM deleted successfully
+ *       404:
+ *         description: Program MBKM not found
+ *       401:
+ *         description: Unauthorized
+ */
 router.delete('/:id', authenticateToken, authorize(['koor_mbkm']), deleteProgramMbkm);
 
 module.exports = router;

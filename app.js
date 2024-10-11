@@ -4,6 +4,7 @@ const cors = require('cors');
 const sequelize = require('./config/db');
 const axios = require('axios');
 const dns = require('dns');
+const swaggerConfig = require('./config/swagger');
 const userRoutes = require('./routes/userRoutes');
 const adminSiapRoutes = require('./routes/adminSiapRoutes');
 const berkasPenilaianRoutes = require('./routes/berkasPenilaianRoutes');
@@ -24,6 +25,8 @@ dotenv.config();
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+swaggerConfig(app);
 
 // Tambahkan route untuk root URL
 app.get('/api/hello', (req, res) => {
