@@ -1,3 +1,33 @@
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Mahasiswa:
+ *       type: object
+ *       required:
+ *         - NIM
+ *         - nama_mahasiswa
+ *         - semester
+ *         - id_program_mbkm
+ *         - NIP_dosbing
+ *       properties:
+ *         NIM:
+ *           type: integer
+ *           description: Nomor Induk Mahasiswa
+ *         nama_mahasiswa:
+ *           type: string
+ *           description: Nama lengkap Mahasiswa
+ *         semester:
+ *           type: integer
+ *           description: Semester Mahasiswa saat ini
+ *         id_program_mbkm:
+ *           type: integer
+ *           description: ID program MBKM yang diikuti Mahasiswa
+ *         NIP_dosbing:
+ *           type: integer
+ *           description: NIP Dosen Pembimbing
+ */
+
 const express = require('express');
 const router = express.Router();
 const { authenticateToken, authorize } = require('../middlewares/auth');

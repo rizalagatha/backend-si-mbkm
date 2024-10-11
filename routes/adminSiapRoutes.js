@@ -1,3 +1,22 @@
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     AdminSiap:
+ *       type: object
+ *       required:
+ *         - NIP_admin_siap
+ *         - nama_admin_siap
+ *       properties:
+ *         NIP_admin_siap:
+ *           type: integer
+ *           description: Nomor Induk Pegawai dari Admin Siap
+ *         nama_admin_siap:
+ *           type: string
+ *           description: Nama lengkap Admin Siap
+ */
+
+
 const express = require('express');
 const router = express.Router();
 const { authenticateToken, authorize } = require('../middlewares/auth');

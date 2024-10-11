@@ -1,3 +1,28 @@
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     BerkasPenilaian:
+ *       type: object
+ *       required:
+ *         - id_pendaftaran_mbkm
+ *         - id_konversi_nilai
+ *         - nama_berkas
+ *       properties:
+ *         id_berkas_penilaian:
+ *           type: integer
+ *           description: ID unik dari berkas penilaian
+ *         id_pendaftaran_mbkm:
+ *           type: integer
+ *           description: ID pendaftaran MBKM yang terkait dengan berkas ini
+ *         id_konversi_nilai:
+ *           type: integer
+ *           description: ID konversi nilai yang terkait dengan berkas ini
+ *         nama_berkas:
+ *           type: string
+ *           description: Nama berkas penilaian
+ */
+
 const express = require('express');
 const router = express.Router();
 const { authenticateToken, authorize } = require('../middlewares/auth');

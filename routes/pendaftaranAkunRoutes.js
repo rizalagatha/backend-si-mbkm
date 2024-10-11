@@ -1,3 +1,36 @@
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     PendaftaranAkun:
+ *       type: object
+ *       required:
+ *         - id_pendaftaran_akun
+ *         - NIM
+ *         - NIP_koor_mbkm
+ *         - tanggal
+ *       properties:
+ *         id_pendaftaran_akun:
+ *           type: integer
+ *           description: ID dari Pendaftaran Akun
+ *         NIM:
+ *           type: integer
+ *           description: Nomor Induk Mahasiswa yang mendaftar
+ *         NIP_koor_mbkm:
+ *           type: integer
+ *           description: NIP Koordinator MBKM yang menyetujui pendaftaran
+ *         tanggal:
+ *           type: string
+ *           format: date-time
+ *           description: Tanggal pendaftaran akun
+ *       example:
+ *         id_pendaftaran_akun: 1
+ *         NIM: 123456789
+ *         NIP_koor_mbkm: 987654321
+ *         tanggal: "2024-10-11T10:00:00Z"
+ */
+
+
 const express = require('express');
 const router = express.Router();
 const { authenticateToken, authorize } = require('../middlewares/auth');

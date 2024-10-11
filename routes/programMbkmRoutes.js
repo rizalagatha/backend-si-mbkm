@@ -1,3 +1,46 @@
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     ProgramMbkm:
+ *       type: object
+ *       required:
+ *         - id_program_mbkm
+ *         - company
+ *         - category_id
+ *       properties:
+ *         id_program_mbkm:
+ *           type: integer
+ *           description: ID dari Program MBKM
+ *         company:
+ *           type: string
+ *           description: Nama perusahaan untuk program MBKM
+ *         deskripsi:
+ *           type: string
+ *           description: Deskripsi program MBKM
+ *         role:
+ *           type: string
+ *           description: Role dalam program MBKM
+ *         status:
+ *           type: string
+ *           description: Status dari program MBKM
+ *         date:
+ *           type: string
+ *           format: date-time
+ *           description: Tanggal program dimulai
+ *         category_id:
+ *           type: string
+ *           description: ID kategori program
+ *       example:
+ *         id_program_mbkm: 1
+ *         company: "Perusahaan A"
+ *         deskripsi: "Program magang untuk mahasiswa"
+ *         role: "Magang"
+ *         status: "Aktif"
+ *         date: "2024-10-12T08:00:00Z"
+ *         category_id: "1"
+ */
+
 const express = require('express');
 const router = express.Router();
 const { authenticateToken, authorize } = require('../middlewares/auth');

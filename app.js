@@ -40,8 +40,22 @@ const swaggerOptions = {
         url: 'https://backend-si-mbkm.vercel.app',
       },
     ],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+      },
+    },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
-  apis: ['./routes/*.js'], // Lokasi file route Anda
+  apis: ['./routes/*.js'],
 };
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);

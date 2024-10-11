@@ -1,3 +1,32 @@
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     KonversiNilai:
+ *       type: object
+ *       required:
+ *         - NIP_admin_siap
+ *         - id_berkas_penilaian
+ *         - nilai_akhir
+ *         - grade
+ *       properties:
+ *         id_konversi_nilai:
+ *           type: integer
+ *           description: ID dari konversi nilai
+ *         NIP_admin_siap:
+ *           type: integer
+ *           description: NIP dari admin siap yang menambahkan konversi nilai
+ *         id_berkas_penilaian:
+ *           type: integer
+ *           description: ID dari berkas penilaian yang terkait
+ *         nilai_akhir:
+ *           type: integer
+ *           description: Nilai akhir dari konversi nilai
+ *         grade:
+ *           type: string
+ *           description: Grade dari konversi nilai
+ */
+
 const express = require('express');
 const router = express.Router();
 const { authenticateToken, authorize } = require('../middlewares/auth');

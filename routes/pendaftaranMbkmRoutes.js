@@ -1,3 +1,40 @@
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     PendaftaranMbkm:
+ *       type: object
+ *       required:
+ *         - id_pendaftaran_mbkm
+ *         - NIM
+ *         - NIP_dosbing
+ *         - NIP_koor_mbkm
+ *         - tanggal
+ *       properties:
+ *         id_pendaftaran_mbkm:
+ *           type: integer
+ *           description: ID dari Pendaftaran MBKM
+ *         NIM:
+ *           type: integer
+ *           description: Nomor Induk Mahasiswa yang mendaftar MBKM
+ *         NIP_dosbing:
+ *           type: integer
+ *           description: Nomor Induk Pegawai dosen pembimbing
+ *         NIP_koor_mbkm:
+ *           type: integer
+ *           description: Nomor Induk Pegawai koordinator MBKM
+ *         tanggal:
+ *           type: string
+ *           format: date-time
+ *           description: Tanggal pendaftaran MBKM
+ *       example:
+ *         id_pendaftaran_mbkm: 1
+ *         NIM: 123456789
+ *         NIP_dosbing: 987654321
+ *         NIP_koor_mbkm: 123456789
+ *         tanggal: "2024-10-11T10:00:00Z"
+ */
+
 const express = require('express');
 const router = express.Router();
 const { authenticateToken, authorize } = require('../middlewares/auth');

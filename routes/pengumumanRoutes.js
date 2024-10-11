@@ -1,3 +1,40 @@
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Pengumuman:
+ *       type: object
+ *       required:
+ *         - id_pengumuman
+ *         - judul
+ *         - isi
+ *         - tanggal
+ *         - NIP_koor_mbkm
+ *       properties:
+ *         id_pengumuman:
+ *           type: integer
+ *           description: ID dari pengumuman
+ *         judul:
+ *           type: string
+ *           description: Judul pengumuman
+ *         isi:
+ *           type: string
+ *           description: Isi dari pengumuman
+ *         tanggal:
+ *           type: string
+ *           format: date-time
+ *           description: Tanggal pengumuman
+ *         NIP_koor_mbkm:
+ *           type: integer
+ *           description: NIP dari koordinator MBKM yang membuat pengumuman
+ *       example:
+ *         id_pengumuman: 1
+ *         judul: "Pengumuman Penting"
+ *         isi: "Ini adalah isi dari pengumuman penting."
+ *         tanggal: "2024-10-12T08:00:00Z"
+ *         NIP_koor_mbkm: 123456789
+ */
+
 const express = require('express');
 const router = express.Router();
 const { authenticateToken, authorize } = require('../middlewares/auth');

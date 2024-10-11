@@ -1,3 +1,21 @@
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     KoorMbkm:
+ *       type: object
+ *       required:
+ *         - NIP_koor_mbkm
+ *         - nama_koor_mbkm
+ *       properties:
+ *         NIP_koor_mbkm:
+ *           type: integer
+ *           description: Nomor Induk Pegawai Koor MBKM
+ *         nama_koor_mbkm:
+ *           type: string
+ *           description: Nama lengkap Koor MBKM
+ */
+
 const express = require('express');
 const router = express.Router();
 const { authenticateToken, authorize } = require('../middlewares/auth');

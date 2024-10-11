@@ -1,3 +1,21 @@
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Dosbing:
+ *       type: object
+ *       required:
+ *         - NIP_dosbing
+ *         - nama_dosbing
+ *       properties:
+ *         NIP_dosbing:
+ *           type: integer
+ *           description: Nomor Induk Pegawai dosbing
+ *         nama_dosbing:
+ *           type: string
+ *           description: Nama lengkap dosbing
+ */
+
 const express = require('express');
 const router = express.Router();
 const { authenticateToken, authorize } = require('../middlewares/auth');
