@@ -38,5 +38,14 @@ const swaggerDocs = swaggerJsDoc(swaggerOptions);
 console.log(swaggerDocs);
 
 module.exports = (app) => {
-  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs, {
+    swaggerOptions: {
+      docExpansion: 'none',
+    },
+    customJs: `
+      window.onload = function() {
+        document.querySelector('.topbar-wrapper .link').innerText = 'SI-MBKM API Documentation'; // Ganti dengan teks yang Anda inginkan
+      };
+    `,
+  }));
 };
