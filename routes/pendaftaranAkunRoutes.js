@@ -30,7 +30,6 @@
  *         tanggal: "2024-10-11T10:00:00Z"
  */
 
-
 const express = require('express');
 const router = express.Router();
 const { authenticateToken, authorize } = require('../middlewares/auth');

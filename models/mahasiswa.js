@@ -19,7 +19,7 @@ const Mahasiswa = sequelize.define('Mahasiswa', {
   },
   id_program_mbkm: {
     type: DataTypes.INTEGER ,
-    allowNull: false,
+    allowNull: true,
     references: {
       model: ProgramMbkm,
       key: 'id_program_mbkm'
@@ -27,7 +27,7 @@ const Mahasiswa = sequelize.define('Mahasiswa', {
   },
   NIP_dosbing: {
     type: DataTypes.BIGINT,
-    allowNull: false,
+    allowNull: true,
     references: {
       model: Dosbing,
       key: 'NIP_dosbing'

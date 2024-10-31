@@ -1,31 +1,27 @@
 const multer = require('multer');
 const path = require('path');
 
-// Setup storage destination and file naming
+// Set up storage engine
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads/');  // Tempat penyimpanan file yang diupload
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/'); // Folder 'uploads' untuk menyimpan file
   },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname));  // Penamaan file dengan timestamp
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, uniqueSuffix + path.extname(file.originalname)); // Nama file unik
   }
 });
 
-// File upload restrictions
-const upload = multer({
-  storage: storage,
-  limits: { fileSize: 2 * 1024 * 1024 }, // Limit ukuran file 2MB
-  fileFilter: function (req, file, cb) {
-    const filetypes = /pdf/;
-    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-    const mimetype = filetypes.test(file.mimetype);
-
-    if (mimetype && extname) {
-      return cb(null, true);
-    } else {
-      cb('Error: Hanya file PDF yang diperbolehkan!');
-    }
+// File filter
+const fileFilter = (req, file, cb) => {
+  const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png'];
+  if (allowedTypes.includes(file.mimetype)) {
+    cb(null, true);
+  } else {
+    cb(new Error('Only .pdf, .jpg, and .png formats are allowed'), false);
   }
-});
+};
+
+const upload = multer({ storage, fileFilter });
 
 module.exports = upload;

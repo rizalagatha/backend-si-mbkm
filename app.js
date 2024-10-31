@@ -20,6 +20,7 @@
   const authRoutes = require('./routes/authRoutes');
   const categoriesRoutes = require('./routes/categoriesRoutes');
   const uploadRoutes = require('./routes/uploadRoutes');
+  const logbookRoutes = require('./routes/logbookRoutes');
 
   dotenv.config();
 
@@ -50,7 +51,8 @@
   app.use('/api/program-mbkm', programMbkmRoutes);
   app.use('/auth', authRoutes);
   app.use('/api', categoriesRoutes);
-  app.use('/api/', uploadRoutes);
+  app.use('/api/upload', uploadRoutes);
+  app.use('/api/logbook', logbookRoutes);
   app.get('/api/test-supabase', async (req, res) => {
     try {
       const response = await axios.get('https://heqapgykhabdiolwblvj.supabase.co/rest/v1/', {
