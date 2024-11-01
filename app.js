@@ -51,7 +51,7 @@
   app.use('/api/program-mbkm', programMbkmRoutes);
   app.use('/auth', authRoutes);
   app.use('/api', categoriesRoutes);
-  app.use('/api/upload', uploadRoutes);
+  app.use('/api/', uploadRoutes);
   app.use('/api/logbook', logbookRoutes);
   app.get('/api/test-supabase', async (req, res) => {
     try {
