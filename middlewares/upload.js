@@ -1,4 +1,5 @@
 // middlewares/upload.js
+const path = require('path');
 const multer = require('multer');
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const cloudinary = require('cloudinary').v2;
@@ -13,13 +14,12 @@ cloudinary.config({
 // Konfigurasi CloudinaryStorage
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
-  params: {
-    folder: 'uploads-mbkm', // Ganti 'uploads' dengan nama folder yang Anda inginkan di Cloudinary
-    format: async (req, file) => {
-      const ext = path.extname(file.originalname).substring(1);
-      return ext === 'jpg' ? 'jpeg' : ext; // Mengubah 'jpg' ke 'jpeg' jika diperlukan
-    },
-    public_id: (req, file) => file.originalname.split('.')[0], // Nama file di Cloudinary
+  params: async (req, file) => {
+    return {
+      folder: 'nama-folder-anda', // Ganti dengan nama folder yang diinginkan di Cloudinary
+      format: path.extname(file.originalname).slice(1), // Ekstensi file, misalnya: pdf, jpg, dll.
+      public_id: path.basename(file.originalname, path.extname(file.originalname)), // Nama file tanpa ekstensi
+    };
   },
 });
 
