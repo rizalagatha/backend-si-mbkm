@@ -73,23 +73,21 @@ const BerkasPenilaian = require('../models/berkasPenilaian');
 // Rute untuk unggah CV
 router.post('/upload/cv', upload.single('cv'), async (req, res) => {
   try {
-    if (!req.file) {
-      return res.status(400).send('Tidak ada file yang diunggah.');
-    }
+    if (!req.file) return res.status(400).json({ error: 'Tidak ada file CV yang diunggah.' });
 
-    // Simpan URL file ke basis data
     const newBerkas = await BerkasPenilaian.create({
-      id_pendaftaran_mbkm: req.body.id_pendaftaran_mbkm, 
+      id_pendaftaran_mbkm: req.body.id_pendaftaran_mbkm,
       id_konversi_nilai: req.body.id_konversi_nilai,
-      nama_berkas: req.file.path // URL Cloudinary tersimpan di req.file.path
+      nama_berkas: req.file.path // URL Cloudinary
     });
 
     res.status(200).json({ message: 'CV berhasil diunggah', data: newBerkas });
   } catch (error) {
-    console.error(error);  // Log error untuk debugging
+    console.error(error);
     res.status(500).json({ error: 'Terjadi kesalahan saat mengunggah CV' });
   }
 });
+
 
 /**
  * @swagger
@@ -128,19 +126,17 @@ router.post('/upload/cv', upload.single('cv'), async (req, res) => {
 // Rute untuk unggah transkrip
 router.post('/upload/transkrip', upload.single('transkrip'), async (req, res) => {
   try {
-    if (!req.file) {
-      return res.status(400).send('Tidak ada file yang diunggah.');
-    }
+    if (!req.file) return res.status(400).json({ error: 'Tidak ada file transkrip yang diunggah.' });
 
-    // Simpan URL file ke basis data
     const newBerkas = await BerkasPenilaian.create({
       id_pendaftaran_mbkm: req.body.id_pendaftaran_mbkm,
       id_konversi_nilai: req.body.id_konversi_nilai,
-      nama_berkas: req.file.path // URL Cloudinary tersimpan di req.file.path
+      nama_berkas: req.file.path
     });
 
     res.status(200).json({ message: 'Transkrip berhasil diunggah', data: newBerkas });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: 'Terjadi kesalahan saat mengunggah transkrip' });
   }
 });
