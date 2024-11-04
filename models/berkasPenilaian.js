@@ -11,7 +11,7 @@ const BerkasPenilaian = sequelize.define('BerkasPenilaian', {
   },
   id_pendaftaran_mbkm: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    allowNull: true,
     references: {
       model: PendaftaranMbkm,
       key: 'id_pendaftaran_mbkm'
@@ -19,7 +19,7 @@ const BerkasPenilaian = sequelize.define('BerkasPenilaian', {
   },
   id_konversi_nilai: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    allowNull: true,
     references: {
       model: KonversiNilai,
       key: 'id_konversi_nilai'
@@ -27,7 +27,7 @@ const BerkasPenilaian = sequelize.define('BerkasPenilaian', {
   },
   nama_berkas: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: true
   }
 }, {
   tableName: 'berkas_penilaian',
