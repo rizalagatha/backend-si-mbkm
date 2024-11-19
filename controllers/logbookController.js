@@ -30,21 +30,27 @@ exports.getLogbookById = async (req, res) => {
 
 // Membuat logbook baru
 exports.createLogbook = async (req, res) => {
-    const { judul, subjek, NIM } = req.body;
-    const file = req.file ? req.file.filename : null;
-  
-    try {
-      const logbook = await Logbook.create({
-        judul,
-        subjek,
-        nama_file: file, // Menyimpan nama file jika ada
-        NIM,
-      });
-      res.status(201).json(logbook);
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
-  };
+  try {
+    const { judul, subjek } = req.body;
+    const NIM = req.user.NIM;  // Mengambil NIM dari token atau req.user yang di-assign dalam authenticateToken
+
+    // Menyimpan data logbook ke database
+    const newLogbook = await Logbook.create({
+      judul,
+      subjek,
+      nama_file: req.file?.path, // Menyimpan URL file yang di-upload
+      NIM
+    });
+
+    return res.status(201).json({
+      message: 'Logbook successfully created',
+      data: newLogbook
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Failed to create logbook', error: error.message });
+  }
+};
 
 // Mengupdate logbook berdasarkan ID
 exports.updateLogbook = async (req, res) => {
