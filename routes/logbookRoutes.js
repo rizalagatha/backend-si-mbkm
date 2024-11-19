@@ -157,18 +157,18 @@ const logbookController = require('../controllers/logbookController');
 const upload = require('../middlewares/upload');
 
 // Mendapatkan semua logbooks
-router.get('/logbook', logbookController.getAllLogbooks);
+router.get('/', logbookController.getAllLogbooks);
 
 // Mendapatkan logbook berdasarkan ID
-router.get('/logbook/:id', logbookController.getLogbookById);
+router.get('/:id', logbookController.getLogbookById);
 
 // Membuat logbook baru
-router.post('/logbook', authenticateToken, authorize(['mahasiswa']), upload.single('file'), logbookController.createLogbook);
+router.post('/', authenticateToken, authorize(['mahasiswa']), upload.single('file'), logbookController.createLogbook);
 
 // Mengupdate logbook berdasarkan ID
-router.put('/logbook/:id', authenticateToken, authorize(['mahasiswa','dosbing']), logbookController.updateLogbook);
+router.put('/:id', authenticateToken, authorize(['mahasiswa','dosbing']), logbookController.updateLogbook);
 
 // Menghapus logbook berdasarkan ID
-router.delete('/logbook/:id', logbookController.deleteLogbook);
+router.delete('/:id', logbookController.deleteLogbook);
 
 module.exports = router;

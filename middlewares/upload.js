@@ -16,7 +16,7 @@ const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: async (req, file) => {
     return {
-      folder: 'nama-folder-anda', // Ganti dengan nama folder yang diinginkan di Cloudinary
+      folder: 'uploads-mbkm', // Ganti dengan nama folder yang diinginkan di Cloudinary
       format: path.extname(file.originalname).slice(1), // Ekstensi file, misalnya: pdf, jpg, dll.
       public_id: path.basename(file.originalname, path.extname(file.originalname)), // Nama file tanpa ekstensi
     };

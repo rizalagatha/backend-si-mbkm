@@ -53,31 +53,6 @@
   app.use('/api', categoriesRoutes);
   app.use('/api/', uploadRoutes);
   app.use('/api/logbook', logbookRoutes);
-  app.get('/api/test-supabase', async (req, res) => {
-    try {
-      const response = await axios.get('https://heqapgykhabdiolwblvj.supabase.co/rest/v1/', {
-        headers: {
-          apikey: process.env.SUPABASE_API_KEY,
-        }
-      });
-      res.status(200).json(response.data);
-    } catch (error) {
-      res.status(500).json({ message: 'Error connecting to Supabase', error: error.message });
-    }
-  });
-
-  app.get('/api/check-dns', (req, res) => {
-    dns.lookup('db.heqapgykhabdiolwblvj.supabase.co', (err, address) => {
-      if (err) {
-        return res.status(500).json({ message: 'DNS lookup failed', error: err.message });
-      }
-      res.status(200).json({ message: 'DNS lookup succeeded', address });
-    });
-  });
-
-  app.get('/api-docs-test', (req, res) => {
-    res.send('Swagger Test Endpoint');
-  });
   
   app.use('/swagger-ui', express.static(path.join(__dirname, 'node_modules', 'swagger-ui-dist')));
 
