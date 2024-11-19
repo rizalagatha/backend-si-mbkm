@@ -9,7 +9,7 @@
 
 /**
  * @swagger
- * /logbook:
+ * /api/logbook:
  *   get:
  *     summary: Get all logbooks
  *     tags: [Logbook]
@@ -37,7 +37,7 @@
 
 /**
  * @swagger
- * /logbook/{id}:
+ * /api/logbook/{id}:
  *   get:
  *     summary: Get a logbook by ID
  *     tags: [Logbook]
@@ -72,7 +72,7 @@
 
 /**
  * @swagger
- * /logbook:
+ * /api/logbook:
  *   post:
  *     summary: Create a new logbook entry
  *     tags: [Logbook]
@@ -101,7 +101,7 @@
 
 /**
  * @swagger
- * /logbook/{id}:
+ * /api/logbook/{id}:
  *   put:
  *     summary: Update a logbook entry
  *     tags: [Logbook]
@@ -132,7 +132,7 @@
 
 /**
  * @swagger
- * /logbook/{id}:
+ * /api/logbook/{id}:
  *   delete:
  *     summary: Delete a logbook entry
  *     tags: [Logbook]
