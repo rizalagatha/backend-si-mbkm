@@ -52,6 +52,7 @@ const createLogbook = async (req, res) => {
   }
 };
 
+
 // Mengupdate logbook berdasarkan ID
 exports.updateLogbook = async (req, res) => {
   const { id } = req.params;
