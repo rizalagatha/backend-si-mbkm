@@ -29,7 +29,7 @@ exports.getLogbookById = async (req, res) => {
 };
 
 // Membuat logbook baru
-const createLogbook = async (req, res) => {
+exports.createLogbook = async (req, res) => {
   try {
     const { judul, subjek } = req.body;
     const NIM = req.user?.NIM || req.body.NIM; // Ambil dari token atau body
