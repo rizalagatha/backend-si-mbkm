@@ -18,27 +18,62 @@ const login = async (req, res) => {
   const { email, password } = req.body;
 
   try {
+    // Find the user by email
     const user = await User.findOne({ where: { email } });
 
-    if (!user || !(await user.isPasswordValid(password))) {
-      return res.status(401).json({ message: 'Invalid credentials' });
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid credentials: User not found' });
     }
 
+    // Validate the password
+    if (!(await user.isPasswordValid(password))) {
+      return res.status(401).json({ message: 'Invalid credentials: Wrong password' });
+    }
+
+    // Fetch additional data based on role
     let additionalInfo = {};
-    if (user.role === 'mahasiswa') {
-      const mahasiswa = await Mahasiswa.findOne({ where: { userId: user.id } });
-      additionalInfo.NIM = mahasiswa.NIM;
-    } else if (user.role === 'koor_mbkm') {
-      const koor = await KoorMbkm.findOne({ where: { userId: user.id } });
-      additionalInfo.NIP_koor_mbkm = koor.NIP_koor_mbkm;
-    } else if (user.role === 'dosbing') {
-      const dosbing = await Dosbing.findOne({ where: { userId: user.id } });
-      additionalInfo.NIP_dosbing = dosbing.NIP_dosbing;
-    } else if (user.role === 'admin_siap') {
-      const adminSiap = await AdminSiap.findOne({ where: { userId: user.id } });
-      additionalInfo.NIP_admin_siap = adminSiap.NIP_admin_siap;
+    switch (user.role) {
+      case 'mahasiswa':
+        const mahasiswa = await Mahasiswa.findOne({ where: { userId: user.id } });
+        if (mahasiswa) {
+          additionalInfo.NIM = mahasiswa.NIM;
+        } else {
+          return res.status(404).json({ message: 'Mahasiswa data not found' });
+        }
+        break;
+
+      case 'koor_mbkm':
+        const koor = await KoorMbkm.findOne({ where: { userId: user.id } });
+        if (koor) {
+          additionalInfo.NIP_koor_mbkm = koor.NIP_koor_mbkm;
+        } else {
+          return res.status(404).json({ message: 'Koordinator MBKM data not found' });
+        }
+        break;
+
+      case 'dosbing':
+        const dosbing = await Dosbing.findOne({ where: { userId: user.id } });
+        if (dosbing) {
+          additionalInfo.NIP_dosbing = dosbing.NIP_dosbing;
+        } else {
+          return res.status(404).json({ message: 'Dosbing data not found' });
+        }
+        break;
+
+      case 'admin_siap':
+        const adminSiap = await AdminSiap.findOne({ where: { userId: user.id } });
+        if (adminSiap) {
+          additionalInfo.NIP_admin_siap = adminSiap.NIP_admin_siap;
+        } else {
+          return res.status(404).json({ message: 'Admin Siap data not found' });
+        }
+        break;
+
+      default:
+        return res.status(400).json({ message: 'Unknown role' });
     }
 
+    // Generate JWT token with user info and additional data
     const token = jwt.sign(
       {
         id: user.id,
@@ -51,11 +86,13 @@ const login = async (req, res) => {
     );
 
     res.json({ token });
+
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server error, please try again later.' });
   }
 };
+
 
 module.exports = { login };
 
