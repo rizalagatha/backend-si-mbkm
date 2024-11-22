@@ -26,7 +26,7 @@ const login = async (req, res) => {
     let additionalInfo = {};
     switch (user.role) {
       case 'mahasiswa':
-        const mahasiswa = await Mahasiswa.findOne({ where: { userId: user.id } });
+        const mahasiswa = await Mahasiswa.findOne({ where: { user_id: user.id } });
         if (mahasiswa) {
           additionalInfo.NIM = mahasiswa.NIM;
         } else {
@@ -35,7 +35,7 @@ const login = async (req, res) => {
         break;
 
       case 'koor_mbkm':
-        const koor = await KoorMbkm.findOne({ where: { userId: user.id } });
+        const koor = await KoorMbkm.findOne({ where: { user_id: user.id } });
         if (koor) {
           additionalInfo.NIP_koor_mbkm = koor.NIP_koor_mbkm;
         } else {
@@ -44,7 +44,7 @@ const login = async (req, res) => {
         break;
 
       case 'dosbing':
-        const dosbing = await Dosbing.findOne({ where: { userId: user.id } });
+        const dosbing = await Dosbing.findOne({ where: { user_id: user.id } });
         if (dosbing) {
           additionalInfo.NIP_dosbing = dosbing.NIP_dosbing;
         } else {
@@ -53,7 +53,7 @@ const login = async (req, res) => {
         break;
 
       case 'admin_siap':
-        const adminSiap = await AdminSiap.findOne({ where: { userId: user.id } });
+        const adminSiap = await AdminSiap.findOne({ where: { user_id: user.id } });
         if (adminSiap) {
           additionalInfo.NIP_admin_siap = adminSiap.NIP_admin_siap;
         } else {
