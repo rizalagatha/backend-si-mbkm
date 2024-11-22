@@ -18,46 +18,42 @@ const login = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    // Mencari user berdasarkan email
     const user = await User.findOne({ where: { email } });
 
     if (!user || !(await user.isPasswordValid(password))) {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
 
-    // Menentukan informasi tambahan berdasarkan role user
     let additionalInfo = {};
     if (user.role === 'mahasiswa') {
       const mahasiswa = await Mahasiswa.findOne({ where: { userId: user.id } });
-      additionalInfo.NIM = mahasiswa.NIM;  // Menambahkan NIM untuk mahasiswa
+      additionalInfo.NIM = mahasiswa.NIM;
     } else if (user.role === 'koor_mbkm') {
       const koor = await KoorMbkm.findOne({ where: { userId: user.id } });
-      additionalInfo.NIP_koor_mbkm = koor.NIP_koor_mbkm;  // Menambahkan NIP Koordinator MBKM
+      additionalInfo.NIP_koor_mbkm = koor.NIP_koor_mbkm;
     } else if (user.role === 'dosbing') {
       const dosbing = await Dosbing.findOne({ where: { userId: user.id } });
-      additionalInfo.NIP_dosbing = dosbing.NIP_dosbing;  // Menambahkan NIP Dosbing
+      additionalInfo.NIP_dosbing = dosbing.NIP_dosbing;
     } else if (user.role === 'admin_siap') {
       const adminSiap = await AdminSiap.findOne({ where: { userId: user.id } });
-      additionalInfo.NIP_admin_siap = adminSiap.NIP_admin_siap;  // Menambahkan NIP Admin Siap
+      additionalInfo.NIP_admin_siap = adminSiap.NIP_admin_siap;
     }
 
-    // Membuat token JWT dengan menambahkan informasi tambahan
     const token = jwt.sign(
       {
         id: user.id,
         role: user.role,
         email: user.email,
-        ...additionalInfo,  // Menambahkan NIM/NIP ke dalam payload
+        ...additionalInfo,
       },
-      'secretKey', // Secret key untuk menandatangani token
+      'secretKey',
       { expiresIn: '1h' }
     );
 
-    // Mengirimkan response dengan token
     res.json({ token });
   } catch (error) {
-    console.error(error);  // Menambahkan log error untuk debugging
-    res.status(500).json({ message: 'Server error' });
+    console.error(error);
+    res.status(500).json({ message: 'Server error, please try again later.' });
   }
 };
 
