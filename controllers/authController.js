@@ -90,7 +90,18 @@ module.exports = { login };
 
 // Fungsi Register
 const register = async (req, res) => {
-  const { name, email, password, role, NIP_dosbing, NIP_admin_siap, NIP_koor_mbkm, NIM, semester, id_program_mbkm } = req.body;
+  const {
+    name,
+    email,
+    password,
+    role,
+    NIP_dosbing,
+    NIP_admin_siap,
+    NIP_koor_mbkm,
+    NIM,
+    semester,
+    id_program_mbkm,
+  } = req.body;
 
   // Daftar role yang valid
   const validRoles = ['koor_mbkm', 'admin_siap', 'dosbing', 'mahasiswa'];
@@ -109,38 +120,45 @@ const register = async (req, res) => {
     switch (role) {
       case 'admin_siap':
         await AdminSiap.create({
-          NIP_admin_siap,  // NIP untuk Admin Siap
-          nama_admin_siap: name,
+          user_id: user.id,             // Foreign key ke tabel Users
+          NIP_admin_siap,               // NIP untuk Admin Siap
+          nama_admin_siap: name,        // Nama Admin Siap
         });
         NIP_or_NIM = NIP_admin_siap;
         break;
+
       case 'dosbing':
         await Dosbing.create({
-          NIP_dosbing,  // NIP untuk Dosbing
-          nama_dosbing: name,
+          user_id: user.id,             // Foreign key ke tabel Users
+          NIP_dosbing,                  // NIP untuk Dosbing
+          nama_dosbing: name,           // Nama Dosbing
         });
         NIP_or_NIM = NIP_dosbing;
         break;
+
       case 'koor_mbkm':
         await KoorMbkm.create({
-          NIP_koor_mbkm,  // NIP untuk Koordinator MBKM
-          nama_koor_mbkm: name,
+          user_id: user.id,             // Foreign key ke tabel Users
+          NIP_koor_mbkm,                // NIP untuk Koordinator MBKM
+          nama_koor_mbkm: name,         // Nama Koordinator MBKM
         });
         NIP_or_NIM = NIP_koor_mbkm;
         break;
+
       case 'mahasiswa':
         await Mahasiswa.create({
-          NIM,                          // Primary Key di tabel mahasiswa
-          nama_mahasiswa: name,         // Nama mahasiswa dari input
-          semester,                     // Semester dari input
+          user_id: user.id,             // Foreign key ke tabel Users
+          NIM,                          // NIM untuk Mahasiswa
+          nama_mahasiswa: name,         // Nama Mahasiswa
+          semester,                     // Semester
           id_program_mbkm,              // Foreign Key ke program_mbkm
-          NIP_dosbing                   // Foreign Key ke dosbing
+          NIP_dosbing,                  // Foreign Key ke dosbing
         });
         NIP_or_NIM = NIM;
         break;
     }
 
-    // Generate JWT dengan menambahkan email dan NIP/NIM
+    // Generate JWT dengan informasi tambahan
     const token = jwt.sign(
       { id: user.id, role: user.role, email: user.email, NIP_or_NIM },
       'secretKey',
@@ -149,9 +167,11 @@ const register = async (req, res) => {
 
     res.status(201).json({ message: 'Registration successful', user, token });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 };
+
 
 
 module.exports = { login, register };
