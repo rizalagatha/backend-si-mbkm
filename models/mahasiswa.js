@@ -2,6 +2,7 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
 const ProgramMbkm = require('./programMbkm');  // FK ke tabel program_mbkm
 const Dosbing = require('./dosbing');          // FK ke tabel dosbing
+const User = require('./user');                // FK ke tabel User
 
 const Mahasiswa = sequelize.define('Mahasiswa', {
   NIM: {
@@ -18,7 +19,7 @@ const Mahasiswa = sequelize.define('Mahasiswa', {
     allowNull: false
   },
   id_program_mbkm: {
-    type: DataTypes.INTEGER ,
+    type: DataTypes.INTEGER,
     allowNull: true,
     references: {
       model: ProgramMbkm,
@@ -32,10 +33,21 @@ const Mahasiswa = sequelize.define('Mahasiswa', {
       model: Dosbing,
       key: 'NIP_dosbing'
     }
+  },
+  user_id: {
+    type: DataTypes.INTEGER,  // Foreign key untuk relasi ke User
+    allowNull: false,
+    references: {
+      model: User,
+      key: 'id'  // id dari tabel User
+    }
   }
 }, {
   tableName: 'mahasiswa',
   timestamps: false
 });
+
+// Menambahkan relasi antara Mahasiswa dan User
+Mahasiswa.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
 
 module.exports = Mahasiswa;
