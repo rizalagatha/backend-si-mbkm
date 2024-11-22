@@ -6,6 +6,14 @@ const KoorMbkm = require('../models/koorMbkm');
 const Mahasiswa = require('../models/mahasiswa');
 
 // Fungsi Login
+const jwt = require('jsonwebtoken');
+const User = require('../models/user'); // Model user
+const AdminSiap = require('../models/adminSiap');
+const Dosbing = require('../models/dosbing');
+const KoorMbkm = require('../models/koorMbkm');
+const Mahasiswa = require('../models/mahasiswa');
+
+// Fungsi Login
 const login = async (req, res) => {
   const { email, password } = req.body;
 
@@ -13,13 +21,37 @@ const login = async (req, res) => {
     // Mencari user berdasarkan email
     const user = await User.findOne({ where: { email } });
 
-    // Memeriksa apakah user ditemukan dan apakah password valid
     if (!user || !(await user.isPasswordValid(password))) {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
 
-    // Membuat token JWT
-    const token = jwt.sign({ id: user.id, role: user.role, email: user.email }, 'secretKey', { expiresIn: '1d' });
+    // Menentukan informasi tambahan berdasarkan role user
+    let additionalInfo = {};
+    if (user.role === 'mahasiswa') {
+      const mahasiswa = await Mahasiswa.findOne({ where: { userId: user.id } });
+      additionalInfo.NIM = mahasiswa.NIM;  // Menambahkan NIM untuk mahasiswa
+    } else if (user.role === 'koor_mbkm') {
+      const koor = await KoorMbkm.findOne({ where: { userId: user.id } });
+      additionalInfo.NIP_koor_mbkm = koor.NIP_koor_mbkm;  // Menambahkan NIP Koordinator MBKM
+    } else if (user.role === 'dosbing') {
+      const dosbing = await Dosbing.findOne({ where: { userId: user.id } });
+      additionalInfo.NIP_dosbing = dosbing.NIP_dosbing;  // Menambahkan NIP Dosbing
+    } else if (user.role === 'admin_siap') {
+      const adminSiap = await AdminSiap.findOne({ where: { userId: user.id } });
+      additionalInfo.NIP_admin_siap = adminSiap.NIP_admin_siap;  // Menambahkan NIP Admin Siap
+    }
+
+    // Membuat token JWT dengan menambahkan informasi tambahan
+    const token = jwt.sign(
+      {
+        id: user.id,
+        role: user.role,
+        email: user.email,
+        ...additionalInfo,  // Menambahkan NIM/NIP ke dalam payload
+      },
+      'secretKey', // Secret key untuk menandatangani token
+      { expiresIn: '1h' }
+    );
 
     // Mengirimkan response dengan token
     res.json({ token });
@@ -29,6 +61,7 @@ const login = async (req, res) => {
   }
 };
 
+module.exports = { login };
 
 // Fungsi Register
 const register = async (req, res) => {
