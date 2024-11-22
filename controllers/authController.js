@@ -6,14 +6,6 @@ const KoorMbkm = require('../models/koorMbkm');
 const Mahasiswa = require('../models/mahasiswa');
 
 // Fungsi Login
-const jwt = require('jsonwebtoken');
-const User = require('../models/user'); // Model user
-const AdminSiap = require('../models/adminSiap');
-const Dosbing = require('../models/dosbing');
-const KoorMbkm = require('../models/koorMbkm');
-const Mahasiswa = require('../models/mahasiswa');
-
-// Fungsi Login
 const login = async (req, res) => {
   const { email, password } = req.body;
 
