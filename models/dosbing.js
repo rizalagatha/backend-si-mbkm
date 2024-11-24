@@ -14,7 +14,7 @@ const Dosbing = sequelize.define('Dosbing', {
   },
   user_id: {
     type: DataTypes.INTEGER,  // Foreign key untuk relasi ke User
-    allowNull: false,
+    allowNull: true,
     references: {
       model: User,
       key: 'id'  // id dari tabel User
