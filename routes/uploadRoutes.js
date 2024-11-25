@@ -28,6 +28,7 @@ const express = require('express');
 const router = express.Router();
 const upload = require('../middlewares/upload');
 const uploadController = require('../controllers/uploadController');
+const { authenticateToken, authorize } = require('../middlewares/auth');
 
 /**
  * @swagger
@@ -71,7 +72,7 @@ const uploadController = require('../controllers/uploadController');
  */
 
 // Rute untuk unggah CV
-router.post('/upload/cv', upload.single('cv'), uploadController.uploadCV);
+router.post('/upload/cv', authenticateToken, authorize(['mahasiswa']), upload.single('cv'), uploadController.uploadCV);
 
 /**
  * @swagger
@@ -108,7 +109,7 @@ router.post('/upload/cv', upload.single('cv'), uploadController.uploadCV);
  */
 
 // Rute untuk unggah transkrip
-router.post('/upload/transkrip', upload.single('transkrip'), uploadController.uploadTranskrip);
+router.post('/upload/transkrip', authenticateToken, authorize(['mahasiswa']), upload.single('transkrip'), uploadController.uploadTranskrip);
 
 /**
  * @swagger
@@ -144,7 +145,7 @@ router.post('/upload/transkrip', upload.single('transkrip'), uploadController.up
  *         description: Terjadi kesalahan saat mengunggah KTP
  */
 
-router.post('/upload/ktp', upload.single('ktp'), uploadController.uploadKTP);
+router.post('/upload/ktp', authenticateToken, authorize(['mahasiswa']), upload.single('ktp'), uploadController.uploadKTP);
   
 /**
  * @swagger
@@ -181,7 +182,7 @@ router.post('/upload/ktp', upload.single('ktp'), uploadController.uploadKTP);
  */
 
   // Rute untuk unggah sertifikat pengalaman organisasi
-  router.post('/upload/sertifikat', upload.single('sertifikat_pengalaman'), uploadController.uploadSertifikat);
+  router.post('/upload/sertifikat', authenticateToken, authorize(['mahasiswa']), upload.single('sertifikat_pengalaman'), uploadController.uploadSertifikat);
 
 /**
  * @swagger
@@ -218,6 +219,6 @@ router.post('/upload/ktp', upload.single('ktp'), uploadController.uploadKTP);
  */
 
   // Rute untuk unggah dokumen tambahan
-  router.post('/upload/dokumen-tambahan', upload.single('dokumen_tambahan'), uploadController.uploadDokumenTambahan);
+  router.post('/upload/dokumen-tambahan', authenticateToken, authorize(['mahasiswa']), upload.single('dokumen_tambahan'), uploadController.uploadDokumenTambahan);
 
 module.exports = router;
