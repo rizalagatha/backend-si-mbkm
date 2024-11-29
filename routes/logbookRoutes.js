@@ -10,6 +10,32 @@
 
 /**
  * @swagger
+ * components:
+ *   schemas:
+ *     Logbook:
+ *       type: object
+ *       required:
+ *         - judul
+ *         - subjek
+ *         - nama_file
+ *         - NIM
+ *       properties:
+ *         judul:
+ *           type: string
+ *           description: Judul Logbook
+ *         subjek:
+ *           type: string
+ *           description: Subjek Logbook
+ *         nama_file:
+ *           type: string
+ *           description: File logbook yang akan diunggah
+ *         NIM:
+ *           type: integer
+ *           description: NIM mahasiswa yang mengunggah logbook
+ */
+
+/**
+ * @swagger
  * /api/logbook:
  *   get:
  *     summary: Mengambil semua data logbook
