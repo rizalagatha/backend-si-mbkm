@@ -5,7 +5,7 @@ const validFileTypes = ['CV', 'transkrip', 'KTP', 'sertifikat', 'dokumen_tambaha
 
 const uploadFile = async (req, res) => {
   try {
-    const { id_pendaftaran_mbkm, id_konversi_nilai, jenis_berkas } = req.body;
+    const { NIM, jenis_berkas } = req.body;
 
     // Validasi file yang diunggah
     if (!req.file) {
@@ -19,8 +19,7 @@ const uploadFile = async (req, res) => {
 
     // Simpan ke database
     const newBerkas = await BerkasPenilaian.create({
-      id_pendaftaran_mbkm,
-      id_konversi_nilai,
+      NIM,
       nama_berkas: req.file.path,
       jenis_berkas, // Simpan jenis berkas
     });

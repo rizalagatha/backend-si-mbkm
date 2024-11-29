@@ -1,8 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
-const PendaftaranMbkm = require('./pendaftaranMbkm');  // FK ke tabel pendaftaran_mbkm
-const KonversiNilai = require('./konversiNilai');      // FK ke tabel konversi_nilai
-const Dosbing = require('./dosbing')
+const Mahasiswa = require('./Mahasiswa');  // FK ke tabel pendaftaran_mbkm
 
 const BerkasPenilaian = sequelize.define('BerkasPenilaian', {
   id_berkas_penilaian: {
@@ -10,28 +8,12 @@ const BerkasPenilaian = sequelize.define('BerkasPenilaian', {
     primaryKey: true,
     autoIncrement: true
   },
-  id_pendaftaran_mbkm: {
-    type: DataTypes.INTEGER,
-    allowNull: true,
-    references: {
-      model: PendaftaranMbkm,
-      key: 'id_pendaftaran_mbkm'
-    }
-  },
-  id_konversi_nilai: {
-    type: DataTypes.INTEGER,
-    allowNull: true,
-    references: {
-      model: KonversiNilai,
-      key: 'id_konversi_nilai'
-    }
-  },
-  NIP_dosbing: {
+  NIM: {
     type: DataTypes.BIGINT,
     allowNull: true,
     references: {
-      model: Dosbing,
-      key: 'NIP_dosbing'
+      model: Mahasiswa,
+      key: 'NIM'
     }
   },
   nama_berkas: {
