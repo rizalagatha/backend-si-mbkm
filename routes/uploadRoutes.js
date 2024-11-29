@@ -92,7 +92,7 @@ router.post('/upload', authenticateToken, authorize(['mahasiswa']), upload.singl
  * /api/upload/{jenis_berkas}:
  *   get:
  *     summary: Ambil data berdasarkan jenis berkas
- *     tags: [Berkas]
+ *     tags: [Upload]
  *     parameters:
  *       - in: path
  *         name: jenis_berkas
@@ -147,8 +147,6 @@ router.post('/upload', authenticateToken, authorize(['mahasiswa']), upload.singl
  *                   type: string
  *                   example: "Terjadi kesalahan saat mengambil data untuk jenis file: CV"
  */
-
-
 
 
 router.get('/upload/:jenis_berkas', getFilesByType);
