@@ -90,7 +90,7 @@ router.post('/upload', authenticateToken, authorize(['mahasiswa']), upload.singl
 
 /**
  * @swagger
- * /api/berkas-penilaian/{jenis_berkas}:
+ * /api/upload/{jenis_berkas}:
  *   get:
  *     summary: Ambil data berdasarkan jenis berkas
  *     tags: [Berkas]
@@ -151,6 +151,6 @@ router.post('/upload', authenticateToken, authorize(['mahasiswa']), upload.singl
 
 
 
-router.get('/berkas-penilaian/:jenis_berkas', getFilesByType);
+router.get('/upload/:jenis_berkas', getFilesByType);
   
 module.exports = router;
