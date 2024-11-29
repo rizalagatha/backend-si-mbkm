@@ -28,13 +28,13 @@
  *           type: string
  *           format: date-time
  *           description: Tanggal program dimulai
+ *         waktu_pelaksanaan:
+ *           type: string
+ *           format: date-time
+ *           description: Waktu pelaksanaan program MBKM
  *         category_id:
  *           type: string
  *           description: ID kategori program
- *          waktu_pelaksanaan:
- *            type: string
- *            format:date-time
- *             description: Waktu pelaksanaan program MBKM
  *       example:
  *         id_program_mbkm: 1
  *         company: "Perusahaan A"
@@ -42,8 +42,8 @@
  *         syarat: "KTP, Surat Keterangan Vaksin, Surat Keterangan Makan Siang Gratis"
  *         status: "Aktif"
  *         date: "2024-10-12T08:00:00Z"
- *         waktu_pelaksanaan: "2024-11-30T11:23:00Z"
- *         category_id: "1"
+ *         waktu_pelaksanaan: "2024-10-13T08:00:00Z"
+ *         category_id: iisma
  */
 
 const express = require('express');
