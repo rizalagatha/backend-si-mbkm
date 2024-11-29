@@ -82,7 +82,7 @@
  *         name: NIM
  *         required: true
  *         schema:
- *           type: string
+ *           type: integer
  *         description: NIM mahasiswa
  *     responses:
  *       200:
