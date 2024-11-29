@@ -1,6 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
-const Mahasiswa = require('./Mahasiswa');  // FK ke tabel pendaftaran_mbkm
+const Mahasiswa = require('./mahasiswa');  // FK ke tabel pendaftaran_mbkm
 
 const BerkasPenilaian = sequelize.define('BerkasPenilaian', {
   id_berkas_penilaian: {
