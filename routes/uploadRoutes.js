@@ -32,7 +32,6 @@ const {
   getFilesByType
 }= require('../controllers/uploadController');
 const { authenticateToken, authorize } = require('../middlewares/auth');
-const berkasPenilaianController = require('../controllers/berkasPenilaianController');
 
 /**
  * @swagger
@@ -148,6 +147,7 @@ router.post('/upload', authenticateToken, authorize(['mahasiswa']), upload.singl
  *                   type: string
  *                   example: "Terjadi kesalahan saat mengambil data untuk jenis file: CV"
  */
+
 
 
 

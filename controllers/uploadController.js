@@ -62,5 +62,5 @@ const getFilesByType = async (req, res) => {
 
 module.exports = {
   uploadFile,
-  getFilesByType,
+  getFilesByType
 };

@@ -38,9 +38,9 @@ const BerkasPenilaian = sequelize.define('BerkasPenilaian', {
     type: DataTypes.STRING,
     allowNull: true
   },
-  jenis_berkas: { // Kolom baru untuk menyimpan jenis file
-    type: DataTypes.STRING,
-    allowNull: false, // Wajib diisi
+  jenis_berkas: { // ENUM untuk jenis dokumen
+    type: DataTypes.ENUM('CV', 'transkrip', 'KTP', 'sertifikat', 'dokumen_tambahan'),
+    allowNull: false,
   },
 }, {
   tableName: 'berkas_penilaian',
