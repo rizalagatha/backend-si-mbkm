@@ -30,7 +30,8 @@ const router = express.Router();
 const upload = require('../middlewares/upload');
 const {
   uploadFile,
-  getFilesByType
+  getFilesByType,
+  getFilesByNIM
 }= require('../controllers/uploadController');
 const { authenticateToken, authorize } = require('../middlewares/auth');
 
@@ -147,5 +148,57 @@ router.post('/upload', authenticateToken, authorize(['mahasiswa']), upload.singl
  */
 
 router.get('/upload/:jenis_berkas', getFilesByType);
-  
+ 
+/**
+ * @swagger
+ * /api/upload/NIM/{NIM}:
+ *   get:
+ *     summary: Ambil data berkas berdasarkan NIM
+ *     tags: [Upload]
+ *     parameters:
+ *       - in: path
+ *         name: NIM
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: NIM mahasiswa yang ingin diambil berkas-berkasnya
+ *     responses:
+ *       200:
+ *         description: Data berhasil diambil
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Berhasil mengambil data untuk NIM: 211201212"
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/BerkasPenilaian'
+ *       404:
+ *         description: Tidak ada data untuk NIM yang diminta
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Tidak ada data untuk NIM: 211201212"
+ *       500:
+ *         description: Terjadi kesalahan saat mengambil data
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Terjadi kesalahan saat mengambil data untuk NIM: 211201212"
+ */
+
+router.get('/upload/NIM/:NIM', getFilesByNIM);
+
 module.exports = router;
