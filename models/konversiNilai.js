@@ -25,6 +25,14 @@ const KonversiNilai = sequelize.define('KonversiNilai', {
       key: 'id_berkas_penilaian'
     }
   },
+  nama_berkas: {
+    type: DataTypes.STRING,
+    allowNull: true, 
+    references: {
+      model: BerkasPenilaian, 
+      key: 'nama_berkas'
+    }
+  },
   nilai_akhir: {
     type: DataTypes.INTEGER,
     allowNull: false

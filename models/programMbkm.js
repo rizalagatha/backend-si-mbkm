@@ -16,8 +16,8 @@ const ProgramMbkm = sequelize.define('ProgramMbkm', {
     type: DataTypes.TEXT,
     allowNull: true
   },
-  role: {
-    type: DataTypes.STRING,
+  syarat: {
+    type: DataTypes.TEXT,
     allowNull: true
   },
   status: {
@@ -25,6 +25,10 @@ const ProgramMbkm = sequelize.define('ProgramMbkm', {
     allowNull: true
   },
   date: {
+    type: DataTypes.DATE,
+    allowNull: true
+  },
+  waktu_pelaksanaan: {
     type: DataTypes.DATE,
     allowNull: true
   },

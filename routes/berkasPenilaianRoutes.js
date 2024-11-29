@@ -7,6 +7,7 @@
  *       required:
  *         - id_pendaftaran_mbkm
  *         - id_konversi_nilai
+ *         - NIP_dosbing
  *         - nama_berkas
  *       properties:
  *         id_berkas_penilaian:
@@ -18,6 +19,9 @@
  *         id_konversi_nilai:
  *           type: integer
  *           description: ID konversi nilai yang terkait dengan berkas ini
+ *         NIP_dosbing:
+ *           type: integer
+ *           description: NIP dosbing yang terkait dengan berkas ini
  *         nama_berkas:
  *           type: string
  *           description: Nama berkas penilaian

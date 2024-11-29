@@ -9,6 +9,7 @@
  *         - id_berkas_penilaian
  *         - nilai_akhir
  *         - grade
+ *         - nama_berkas
  *       properties:
  *         id_konversi_nilai:
  *           type: integer
@@ -25,6 +26,9 @@
  *         grade:
  *           type: string
  *           description: Grade dari konversi nilai
+ *         nama_berkas : 
+ *            type : string
+ *            description : Berkas yang terkait dengan konversi nilai
  */
 
 const express = require('express');

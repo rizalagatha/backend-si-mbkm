@@ -9,6 +9,7 @@
  *         - NIM
  *         - NIP_dosbing
  *         - NIP_koor_mbkm
+ *         - nama_berkas
  *         - tanggal
  *       properties:
  *         id_pendaftaran_mbkm:
@@ -23,6 +24,9 @@
  *         NIP_koor_mbkm:
  *           type: integer
  *           description: Nomor Induk Pegawai koordinator MBKM
+ *         nama_berkas:
+ *           type : string
+ *           description: Nama berkas yang terkait Pendaftaran MBKM
  *         tanggal:
  *           type: string
  *           format: date-time
@@ -32,6 +36,7 @@
  *         NIM: 123456789
  *         NIP_dosbing: 987654321
  *         NIP_koor_mbkm: 123456789
+ *         nama_berkas: doksli supersemar.pdf
  *         tanggal: "2024-10-11T10:00:00Z"
  */
 
