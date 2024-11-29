@@ -18,9 +18,9 @@
  *         deskripsi:
  *           type: string
  *           description: Deskripsi program MBKM
- *         syarat:
+ *         role:
  *           type: string
- *           description: Syarat mengikuti program MBKM
+ *           description: Posisi yang tersedia untuk program MBKM
  *         status:
  *           type: string
  *           description: Status dari program MBKM
@@ -39,7 +39,7 @@
  *         id_program_mbkm: 1
  *         company: "Perusahaan A"
  *         deskripsi: "Program magang untuk mahasiswa"
- *         syarat: "KTP, Surat Keterangan Vaksin, Surat Keterangan Makan Siang Gratis"
+ *         role: "Backend Developer"
  *         status: "Aktif"
  *         date: "2024-10-12T08:00:00Z"
  *         waktu_pelaksanaan: "2024-10-13T08:00:00Z"

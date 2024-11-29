@@ -37,7 +37,11 @@ const BerkasPenilaian = sequelize.define('BerkasPenilaian', {
   nama_berkas: {
     type: DataTypes.STRING,
     allowNull: true
-  }
+  },
+  jenis_berkas: { // Kolom baru untuk menyimpan jenis file
+    type: DataTypes.STRING,
+    allowNull: false, // Wajib diisi
+  },
 }, {
   tableName: 'berkas_penilaian',
   timestamps: false
