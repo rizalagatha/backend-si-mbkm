@@ -87,19 +87,20 @@ const berkasPenilaianController = require('../controllers/berkasPenilaianControl
  */
 
 router.post('/upload', authenticateToken, authorize(['mahasiswa']), upload.single('file'), uploadFile);
+
 /**
  * @swagger
- * /api/berkas/{jenis_berkas}:
+ * /api/berkas-penilaian/{jenis_berkas}:
  *   get:
  *     summary: Ambil data berdasarkan jenis berkas
  *     tags: [Berkas]
  *     parameters:
  *       - in: path
  *         name: jenis_berkas
+ *         required: true
  *         schema:
  *           type: string
  *           enum: [CV, transkrip, KTP, sertifikat, dokumen_tambahan]
- *         required: true
  *         description: Jenis berkas yang ingin diambil
  *     responses:
  *       200:
@@ -111,17 +112,43 @@ router.post('/upload', authenticateToken, authorize(['mahasiswa']), upload.singl
  *               properties:
  *                 message:
  *                   type: string
+ *                   example: "Berhasil mengambil data untuk jenis file: CV"
  *                 data:
  *                   type: array
  *                   items:
  *                     $ref: '#/components/schemas/BerkasPenilaian'
  *       400:
  *         description: Jenis file tidak valid
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Jenis file tidak valid. Harus salah satu dari: CV, transkrip, KTP, sertifikat, dokumen_tambahan"
  *       404:
  *         description: Tidak ada data untuk jenis file yang diminta
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Tidak ada data untuk jenis file: CV"
  *       500:
  *         description: Terjadi kesalahan saat mengambil data
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Terjadi kesalahan saat mengambil data untuk jenis file: CV"
  */
+
 
 
 router.get('/berkas-penilaian/:jenis_berkas', getFilesByType);
