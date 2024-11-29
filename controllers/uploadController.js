@@ -59,7 +59,30 @@ const getFilesByType = async (req, res) => {
   }
 };
 
+const getFilesByNIM = async (req, res) => {
+  try {
+    const { NIM } = req.params;
+
+    // Cari data berdasarkan NIM
+    const berkas = await BerkasPenilaian.findAll({
+      where: {
+        NIM: NIM,
+      },
+    });
+
+    if (berkas.length === 0) {
+      return res.status(404).json({ error: `Tidak ada data untuk NIM: ${NIM}` });
+    }
+
+    res.status(200).json({ message: `Berhasil mengambil data untuk NIM: ${NIM}`, data: berkas });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: `Terjadi kesalahan saat mengambil data untuk NIM: ${NIM}` });
+  }
+};
+
 module.exports = {
   uploadFile,
-  getFilesByType
+  getFilesByType,
+  getFilesByNIM
 };
