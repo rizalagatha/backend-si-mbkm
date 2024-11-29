@@ -47,6 +47,7 @@ const {
  * tags:
  *   name: KonversiNilai
  *   description: API untuk mengelola data konversi nilai
+ *   digunakan oleh: admin_siap, koor_mbkm
  */
 
 /**

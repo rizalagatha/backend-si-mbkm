@@ -32,6 +32,7 @@ const {
  * tags:
  *   name: KoorMbkm
  *   description: API untuk mengelola data Koor MBKM
+ *   digunakan oleh: koor_mbkm
  */
 
 /**

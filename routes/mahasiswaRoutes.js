@@ -44,6 +44,7 @@ const {
  * tags:
  *   name: Mahasiswa
  *   description: API untuk mengelola data Mahasiswa
+ *   digunakan oleh: koor_mbkm, dosbing, admin_siap
  */
 
 /**

@@ -10,6 +10,22 @@ const getAdminSiap = async (req, res) => {
   }
 };
 
+const getAdminSiapByNIP = async (req, res) => {
+  const { NIP_admin_siap } = req.params;
+  try {
+    // Cari data admin berdasarkan NIP
+    const admin = await AdminSiap.findOne({ where: { NIP_admin_siap } });
+
+    if (!admin) {
+      return res.status(404).json({ error: `Admin dengan NIP ${NIP_admin_siap} tidak ditemukan.` });
+    }
+
+    res.status(200).json({ message: `Data Admin SIAP untuk NIP ${NIP_admin_siap} berhasil diambil.`, data: admin });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 // Create Admin Siap
 const createAdminSiap = async (req, res) => {
   const { NIP_admin_siap, nama_admin_siap } = req.body;
@@ -46,6 +62,7 @@ const deleteAdminSiap = async (req, res) => {
 
 module.exports = {
   getAdminSiap,
+  getAdminSiapByNIP,
   createAdminSiap,
   updateAdminSiap,
   deleteAdminSiap

@@ -48,6 +48,14 @@ const {
 
 /**
  * @swagger
+ * tags:
+ *   name: Pengumuman
+ *   description: API untuk mengelola data pengumuman
+ *   digunakan oleh : koor_mbkm
+ */
+
+/**
+ * @swagger
  * /api/pengumuman:
  *   post:
  *     summary: Create a new pengumuman

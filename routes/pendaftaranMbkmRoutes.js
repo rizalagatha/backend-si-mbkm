@@ -56,6 +56,7 @@ const {
  * tags:
  *   name: PendaftaranMbkm
  *   description: API untuk mengelola data Pendaftaran MBKM
+ *   digunakan oleh: mahasiswa, koor_mbkm
  */
 
 /**

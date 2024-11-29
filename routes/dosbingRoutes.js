@@ -32,6 +32,7 @@ const {
  * tags:
  *   name: Dosbing
  *   description: API untuk mengelola data dosbing
+ *   digunakan oleh: koor_mbkm
  */
 
 /**

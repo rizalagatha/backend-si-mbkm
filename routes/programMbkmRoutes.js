@@ -59,6 +59,14 @@ const {
 
 /**
  * @swagger
+ * tags:
+ *   name: ProgramMBKM
+ *   description: API untuk mengelola data program MBKM
+ *   digunakan oleh : koor_mbkm, mahasiswa, dosbing
+ */
+
+/**
+ * @swagger
  * /api/program-mbkm:
  *   post:
  *     summary: Create a new Program MBKM

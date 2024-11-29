@@ -4,7 +4,8 @@
  * @swagger
  * tags:
  *   name: Logbook
- *   description: API for managing logbook entries
+ *   description: API untuk mengelola data logbook
+ *   digunakan oleh: mahasiswa, dosbing, koor_mbkm, admin_siap
  */
 
 /**
