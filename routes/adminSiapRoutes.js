@@ -59,7 +59,7 @@ router.get('/', getAdminSiap);
  * /api/admin-siap/{NIP_admin_siap}:
  *   get:
  *     summary: Ambil data Admin SIAP berdasarkan NIP
- *     tags: [Admin SIAP]
+ *     tags: [AdminSIAP]
  *     parameters:
  *       - in: path
  *         name: NIP_admin_siap
