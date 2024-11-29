@@ -28,6 +28,22 @@ exports.getLogbookById = async (req, res) => {
   }
 };
 
+exports.getLogbooksByNIM = async (req, res) => {
+  try {
+    const NIM = req.params.NIM; // Ambil NIM dari parameter URL
+    const logbooks = await Logbook.findAll({
+      where: { NIM },
+      include: [{ model: Mahasiswa, attributes: ['nama_mahasiswa'] }],
+    });
+    if (logbooks.length === 0) {
+      return res.status(404).json({ message: `No logbooks found for NIM: ${NIM}` });
+    }
+    res.status(200).json(logbooks);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 // Membuat logbook baru
 exports.createLogbook = async (req, res) => {
   try {

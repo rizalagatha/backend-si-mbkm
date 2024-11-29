@@ -12,11 +12,11 @@
  * @swagger
  * /api/logbook:
  *   get:
- *     summary: Get all logbooks
+ *     summary: Mengambil semua data logbook
  *     tags: [Logbook]
  *     responses:
  *       200:
- *         description: A list of logbooks
+ *         description: Daftar logbook
  *         content:
  *           application/json:
  *             schema:
@@ -40,18 +40,18 @@
  * @swagger
  * /api/logbook/{id}:
  *   get:
- *     summary: Get a logbook by ID
+ *     summary: Mengambil data logbook berdasarkan ID
  *     tags: [Logbook]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: The ID of the logbook
+ *         description: ID dari logbook
  *         schema:
  *           type: integer
  *     responses:
  *       200:
- *         description: A single logbook entry
+ *         description: Satu file logbook
  *         content:
  *           application/json:
  *             schema:
@@ -68,14 +68,42 @@
  *                 NIM:
  *                   type: integer
  *       404:
- *         description: Logbook not found
+ *         description: Logbook tidak ditemukan
+ */
+
+/**
+ * @swagger
+ * /api/logbook/{NIM}:
+ *   get:
+ *     summary: Mengambil data logbook berdasarkan NIM
+ *     tags: [Logbook]
+ *     parameters:
+ *       - in: path
+ *         name: NIM
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: NIM mahasiswa
+ *     responses:
+ *       200:
+ *         description: Logbook ditemukan
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Logbook'
+ *       404:
+ *         description: Tidak ada logbook untuk NIM yang diberikan
+ *       500:
+ *         description: Internal server error
  */
 
 /**
  * @swagger
  * /api/logbook:
  *   post:
- *     summary: Create a new logbook entry
+ *     summary: Membuat logbook baru
  *     tags: [Logbook]
  *     requestBody:
  *       required: true
@@ -95,7 +123,7 @@
  *                 type: integer
  *     responses:
  *       201:
- *         description: Logbook created successfully
+ *         description: Logbook berhasil dibuat
  *       400:
  *         description: Invalid input
  */
@@ -104,13 +132,13 @@
  * @swagger
  * /api/logbook/{id}:
  *   put:
- *     summary: Update a logbook entry
+ *     summary: Memperbarui data logbook
  *     tags: [Logbook]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: The ID of the logbook to update
+ *         description: ID logbook yang akan diperbarui
  *         schema:
  *           type: integer
  *     requestBody:
@@ -126,29 +154,29 @@
  *                 type: string
  *     responses:
  *       200:
- *         description: Logbook updated successfully
+ *         description: Logbook berhasil diperbarui
  *       404:
- *         description: Logbook not found
+ *         description: Logbook tidak ditemukan
  */
 
 /**
  * @swagger
  * /api/logbook/{id}:
  *   delete:
- *     summary: Delete a logbook entry
+ *     summary: Menghapus logbook
  *     tags: [Logbook]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: The ID of the logbook to delete
+ *         description: ID dari logbook yang akan dihapus
  *         schema:
  *           type: integer
  *     responses:
  *       204:
- *         description: Logbook deleted successfully
+ *         description: Logbook berhasil dihapus
  *       404:
- *         description: Logbook not found
+ *         description: Logbook tidak ditemukan
  */
 
 const express = require('express');
@@ -162,6 +190,8 @@ router.get('/', logbookController.getAllLogbooks);
 
 // Mendapatkan logbook berdasarkan ID
 router.get('/:id', logbookController.getLogbookById);
+
+router.get('/:NIM', logbookController.getLogbooksByNIM);
 
 // Membuat logbook baru
 router.post('/', authenticateToken, authorize(['mahasiswa']), upload.single('file'), logbookController.createLogbook);
