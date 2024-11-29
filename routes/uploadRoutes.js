@@ -5,23 +5,24 @@
  *     BerkasPenilaian:
  *       type: object
  *       required:
- *         - id_pendaftaran_mbkm
- *         - id_konversi_nilai
+ *         - NIM
  *         - nama_berkas
  *       properties:
- *         id_pendaftaran_mbkm:
+ *         NIM:
  *           type: integer
- *           description: ID dari pendaftaran MBKM
- *         id_konversi_nilai:
- *           type: integer
- *           description: ID dari konversi nilai
+ *           description: NIM Mahasiswa
  *         nama_berkas:
  *           type: string
  *           description: Nama file yang diunggah
+ *         jenis_berkas:
+ *           type: string
+ *           enum: [CV, transkrip, KTP, sertifikat, dokumen_tambahan]
+ *         description: Jenis berkas yang ingin diambil
  *       example:
  *         id_pendaftaran_mbkm: 1
  *         id_konversi_nilai: 1
  *         nama_berkas: "cv_mahasiswa.pdf"
+ *         jenis_berkas : "CV"
  */
 
 const express = require('express');
@@ -57,12 +58,9 @@ const { authenticateToken, authorize } = require('../middlewares/auth');
  *                 type: string
  *                 format: binary
  *                 description: File yang akan diunggah
- *               id_pendaftaran_mbkm:
+ *               NIM:
  *                 type: integer
- *                 description: ID pendaftaran MBKM
- *               id_konversi_nilai:
- *                 type: integer
- *                 description: ID konversi nilai (opsional)
+ *                 description: NIM Mahasiswa
  *               jenis_berkas:
  *                 type: string
  *                 enum: [CV, transkrip, KTP, sertifikat, dokumen_tambahan]
@@ -147,7 +145,6 @@ router.post('/upload', authenticateToken, authorize(['mahasiswa']), upload.singl
  *                   type: string
  *                   example: "Terjadi kesalahan saat mengambil data untuk jenis file: CV"
  */
-
 
 router.get('/upload/:jenis_berkas', getFilesByType);
   
