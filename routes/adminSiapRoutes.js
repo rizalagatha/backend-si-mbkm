@@ -65,7 +65,7 @@ router.get('/', getAdminSiap);
  *         name: NIP_admin_siap
  *         required: true
  *         schema:
- *           type: string
+ *           type: integer
  *         description: NIP admin siap yang ingin diambil datanya
  *     responses:
  *       200:
@@ -76,7 +76,7 @@ router.get('/', getAdminSiap);
  *               type: object
  *               properties:
  *                 message:
- *                   type: string
+ *                   type: integer
  *                   example: "Data Admin SIAP untuk NIP 12345 berhasil diambil."
  *                 data:
  *                   $ref: '#/components/schemas/AdminSiap'
@@ -88,7 +88,7 @@ router.get('/', getAdminSiap);
  *               type: object
  *               properties:
  *                 error:
- *                   type: string
+ *                   type: integer
  *                   example: "Admin dengan NIP 12345 tidak ditemukan."
  *       500:
  *         description: Terjadi kesalahan saat mengambil data
@@ -98,7 +98,7 @@ router.get('/', getAdminSiap);
  *               type: object
  *               properties:
  *                 error:
- *                   type: string
+ *                   type: integer
  *                   example: "Terjadi kesalahan saat mengambil data Admin SIAP."
  */
 
