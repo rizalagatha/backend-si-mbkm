@@ -2,7 +2,7 @@
  * @swagger
  * components:
  *   schemas:
- *     ProgramMbkm:
+ *     ProgramMBKM:
  *       type: object
  *       required:
  *         - id_program_mbkm
@@ -72,7 +72,7 @@ const {
  *     summary: Create a new Program MBKM
  *     security:
  *       - bearerAuth: []
- *     tags: [ProgramMbkm]
+ *     tags: [ProgramMBKM]
  *     requestBody:
  *       required: true
  *       content:
@@ -92,7 +92,7 @@ router.post('/', authenticateToken, authorize(['koor_mbkm']), createProgramMbkm)
  * /api/program-mbkm:
  *   get:
  *     summary: Get all Program MBKM
- *     tags: [ProgramMbkm]
+ *     tags: [ProgramMBKM]
  *     responses:
  *       200:
  *         description: A list of Program MBKM
@@ -110,7 +110,7 @@ router.get('/', getAllProgramMbkm);
  * /api/program-mbkm/{id}:
  *   get:
  *     summary: Get a Program MBKM by ID
- *     tags: [ProgramMbkm]
+ *     tags: [ProgramMBKM]
  *     parameters:
  *       - in: path
  *         name: id
@@ -137,7 +137,7 @@ router.get('/:id', getProgramMbkmById);
  *     summary: Update a Program MBKM
  *     security:
  *       - bearerAuth: []
- *     tags: [ProgramMbkm]
+ *     tags: [ProgramMBKM]
  *     parameters:
  *       - in: path
  *         name: id
@@ -168,7 +168,7 @@ router.put('/:id', authenticateToken, authorize(['koor_mbkm']), updateProgramMbk
  *     summary: Delete a Program MBKM
  *     security:
  *       - bearerAuth: []
- *     tags: [ProgramMbkm]
+ *     tags: [ProgramMBKM]
  *     parameters:
  *       - in: path
  *         name: id

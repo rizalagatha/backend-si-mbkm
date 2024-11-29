@@ -2,7 +2,7 @@
  * @swagger
  * components:
  *   schemas:
- *     AdminSiap:
+ *     AdminSIAP:
  *       type: object
  *       required:
  *         - NIP_admin_siap
@@ -10,10 +10,10 @@
  *       properties:
  *         NIP_admin_siap:
  *           type: integer
- *           description: Nomor Induk Pegawai dari Admin Siap
+ *           description: Nomor Induk Pegawai dari Admin SIAP
  *         nama_admin_siap:
  *           type: string
- *           description: Nama lengkap Admin Siap
+ *           description: Nama lengkap Admin SIAP
  */
 
 const express = require('express');
@@ -40,7 +40,7 @@ const {
  * /api/admin-siap:
  *   get:
  *     summary: Retrieve a list of Admin Siap
- *     tags: [AdminSiap]
+ *     tags: [AdminSIAP]
  *     responses:
  *       200:
  *         description: A list of Admin Siap.
@@ -109,7 +109,7 @@ router.get('/:NIP_admin_siap', getAdminSiapByNIP);
  * /api/admin-siap:
  *   post:
  *     summary: Create a new Admin Siap
- *     tags: [AdminSiap]
+ *     tags: [AdminSIAP]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -129,7 +129,7 @@ router.post('/', authenticateToken, authorize(['koor_mbkm']), createAdminSiap);
  * /api/admin-siap/{NIP_admin_siap}:
  *   put:
  *     summary: Update an Admin Siap
- *     tags: [AdminSiap]
+ *     tags: [AdminSIAP]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -156,7 +156,7 @@ router.put('/:NIP_admin_siap', authenticateToken, authorize(['koor_mbkm']), upda
  * /api/admin-siap/{NIP_admin_siap}:
  *   delete:
  *     summary: Delete an Admin Siap
- *     tags: [AdminSiap]
+ *     tags: [AdminSIAP]
  *     security:
  *       - bearerAuth: []
  *     parameters:

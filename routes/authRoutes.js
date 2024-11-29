@@ -4,10 +4,18 @@ const router = express.Router();
 
 /**
  * @swagger
+ * tags:
+ *   name: Authentication
+ *   description: API untuk mengelola autentikasi pengguna
+ *   digunakan oleh : semua role
+ */
+
+/**
+ * @swagger
  * /auth/login:
  *   post:
  *     summary: User login
- *     tags: [Auth]
+ *     tags: [Authentication]
  *     requestBody:
  *       required: true
  *       content:
@@ -42,7 +50,7 @@ router.post('/login', login);
  * /auth/register:
  *   post:
  *     summary: User registration
- *     tags: [Auth]
+ *     tags: [Authentication]
  *     requestBody:
  *       required: true
  *       content:
