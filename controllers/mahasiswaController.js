@@ -43,6 +43,22 @@ const getMahasiswaByNIM = async (req, res) => {
   }
 };
 
+const getMahasiswaByNIPDosbing = async (req, res) => {
+  const { NIP_dosbing } = req.params;
+  try {
+    const mahasiswa = await Mahasiswa.findAll({
+      where: { NIP_dosbing },
+    });
+    if (mahasiswa.length > 0) {
+      res.status(200).json(mahasiswa);
+    } else {
+      res.status(404).json({ message: 'No mahasiswa found for the given NIP dosbing' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 // Update a Mahasiswa
 const updateMahasiswa = async (req, res) => {
   const { NIM } = req.params;
