@@ -51,7 +51,6 @@ exports.getLogbooksByNIM = async (req, res) => {
   }
 };
 
-
 // Membuat logbook baru
 exports.createLogbook = async (req, res) => {
   try {

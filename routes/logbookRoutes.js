@@ -217,7 +217,7 @@ router.get('/', logbookController.getAllLogbooks);
 // Mendapatkan logbook berdasarkan ID
 router.get('/:id', logbookController.getLogbookById);
 
-router.get('/:NIM', logbookController.getLogbooksByNIM);
+router.get('/nim/:NIM', logbookController.getLogbooksByNIM);
 
 // Membuat logbook baru
 router.post('/', authenticateToken, authorize(['mahasiswa']), upload.single('file'), logbookController.createLogbook);
