@@ -99,7 +99,7 @@
 
 /**
  * @swagger
- * /api/logbook/{NIM}:
+ * /api/logbook/nim/{NIM}:
  *   get:
  *     summary: Mengambil data logbook berdasarkan NIM
  *     tags: [Logbook]
