@@ -35,9 +35,9 @@ const {
   createMahasiswa,
   getAllMahasiswa,
   getMahasiswaByNIM,
-  updateMahasiswa,
-  deleteMahasiswa,
   getMahasiswaByNIPDosbing,
+  updateMahasiswa,
+  deleteMahasiswa
 } = require('../controllers/mahasiswaController');
 
 /**

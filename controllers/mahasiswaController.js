@@ -98,6 +98,7 @@ module.exports = {
   createMahasiswa,
   getAllMahasiswa,
   getMahasiswaByNIM,
+  getMahasiswaByNIPDosbing,
   updateMahasiswa,
-  deleteMahasiswa
+  deleteMahasiswa,
 };
