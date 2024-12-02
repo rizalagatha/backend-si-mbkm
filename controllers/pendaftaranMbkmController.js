@@ -54,6 +54,24 @@ const getPendaftaranMbkmById = async (req, res) => {
   }
 };
 
+// Get PendaftaranMbkm by NIM
+const getPendaftaranMbkmByNIM = async (req, res) => {
+  const { NIM } = req.params;
+  try {
+    const pendaftaranMbkm = await PendaftaranMbkm.findAll({
+      where: { NIM }, // Find PendaftaranMbkm records where NIM matches
+    });
+
+    if (pendaftaranMbkm.length > 0) {
+      res.status(200).json(pendaftaranMbkm);
+    } else {
+      res.status(404).json({ message: 'No Pendaftaran MBKM found for this NIM' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 // Update a PendaftaranMbkm
 const updatePendaftaranMbkm = async (req, res) => {
   const { id } = req.params;
@@ -93,6 +111,7 @@ module.exports = {
   createPendaftaranMbkm,
   getAllPendaftaranMbkm,
   getPendaftaranMbkmById,
+  getPendaftaranMbkmByNIM, 
   updatePendaftaranMbkm,
   deletePendaftaranMbkm
 };

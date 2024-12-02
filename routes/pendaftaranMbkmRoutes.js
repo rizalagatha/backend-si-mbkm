@@ -57,6 +57,7 @@ const {
   createPendaftaranMbkm,
   getAllPendaftaranMbkm,
   getPendaftaranMbkmById,
+  getPendaftaranMbkmByNIM,
   updatePendaftaranMbkm,
   deletePendaftaranMbkm
 } = require('../controllers/pendaftaranMbkmController');
@@ -129,6 +130,36 @@ router.get('/', getAllPendaftaranMbkm);
  *               $ref: '#/components/schemas/PendaftaranMbkm'
  */
 router.get('/:id', getPendaftaranMbkmById);
+
+/**
+ * @swagger
+ * /api/pendaftaran-mbkm/nim/{NIM}:
+ *   get:
+ *     summary: Mengambil data Pendaftaran MBKM berdasarkan NIM
+ *     tags: [PendaftaranMbkm]
+ *     parameters:
+ *       - in: path
+ *         name: NIM
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: NIM Mahasiswa yang akan diambil
+ *     responses:
+ *       200:
+ *         description: Berhasil mengambil data Pendaftaran MBKM berdasarkan NIM
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/PendaftaranMbkm'
+ *       404:
+ *         description: Tidak ada data Pendaftaran MBKM ditemukan untuk NIM ini
+ *       500:
+ *         description: Terjadi kesalahan pada server
+ */
+
+router.get('/pendaftaran-mbkm/nim/:NIM', getPendaftaranMbkmByNIM);
 
 /**
  * @swagger
