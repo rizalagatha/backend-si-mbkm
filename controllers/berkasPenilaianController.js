@@ -2,12 +2,12 @@ const BerkasPenilaian = require('../models/berkasPenilaian');
 
 // Create a new BerkasPenilaian
 const createBerkasPenilaian = async (req, res) => {
-  const { id_pendaftaran_mbkm, id_konversi_nilai, nama_berkas } = req.body;
+  const { nama_berkas, jenis_berkas, NIM } = req.body;
   try {
     const berkasPenilaian = await BerkasPenilaian.create({
-      id_pendaftaran_mbkm,
-      id_konversi_nilai,
-      nama_berkas
+      nama_berkas,
+      jenis_berkas,
+      NIM
     });
     res.status(201).json({ message: 'Berhasil membuat Berkas Penilaian', berkasPenilaian });
   } catch (error) {
@@ -43,10 +43,10 @@ const getBerkasPenilaianById = async (req, res) => {
 // Update a BerkasPenilaian
 const updateBerkasPenilaian = async (req, res) => {
   const { id } = req.params;
-  const { id_pendaftaran_mbkm, id_konversi_nilai, nama_berkas } = req.body;
+  const { nama_berkas, jenis_berkas, NIM } = req.body;
   try {
     const [updated] = await BerkasPenilaian.update(
-      { id_pendaftaran_mbkm, id_konversi_nilai, nama_berkas },
+      { nama_berkas, jenis_berkas, NIM },
       { where: { id_berkas_penilaian: id } }
     );
     if (updated) {
