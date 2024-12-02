@@ -1,9 +1,12 @@
-const { DataTypes } = require('sequelize');
+// programMbkm.js
+const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../config/db');
 const Categories = require('./categories');
+const Mahasiswa = require('./mahasiswa'); // Import the Mahasiswa model correctly
 
-// Define ProgramMbkm first
-const ProgramMbkm = sequelize.define('ProgramMbkm', {
+class ProgramMbkm extends Model {}
+
+ProgramMbkm.init({
   id_program_mbkm: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -37,19 +40,18 @@ const ProgramMbkm = sequelize.define('ProgramMbkm', {
     type: DataTypes.STRING,
     allowNull: false,
     references: {
-      model: 'Categories', // Refers to Categories table
-      key: 'id',
-    },
-  },
+      model: 'Categories',
+      key: 'id'
+    }
+  }
 }, {
+  sequelize,
+  modelName: 'ProgramMbkm',
   tableName: 'program_mbkm',
   timestamps: false
 });
 
-// Import Mahasiswa inside the file to prevent circular dependency
-const Mahasiswa = require('./mahasiswa'); // Import after ProgramMbkm is defined
-
-// Add association
+// Now, define the association correctly
 ProgramMbkm.hasMany(Mahasiswa, { foreignKey: 'id_program_mbkm', as: 'mahasiswa' });
 
 module.exports = ProgramMbkm;

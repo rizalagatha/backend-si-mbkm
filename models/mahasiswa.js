@@ -1,10 +1,10 @@
-const { DataTypes } = require('sequelize');
+// mahasiswa.js
+const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../config/db');
-const ProgramMbkm = require('./programMbkm');  // FK ke tabel program_mbkm
-const Dosbing = require('./dosbing');          // FK ke tabel dosbing
-const User = require('./user');                // FK ke tabel User
 
-const Mahasiswa = sequelize.define('Mahasiswa', {
+class Mahasiswa extends Model {}
+
+Mahasiswa.init({
   NIM: {
     type: DataTypes.BIGINT,
     primaryKey: true,
@@ -22,7 +22,7 @@ const Mahasiswa = sequelize.define('Mahasiswa', {
     type: DataTypes.INTEGER,
     allowNull: true,
     references: {
-      model: ProgramMbkm,
+      model: 'program_mbkm',
       key: 'id_program_mbkm'
     }
   },
@@ -30,24 +30,23 @@ const Mahasiswa = sequelize.define('Mahasiswa', {
     type: DataTypes.BIGINT,
     allowNull: true,
     references: {
-      model: Dosbing,
+      model: 'dosbing',
       key: 'NIP_dosbing'
     }
   },
   user_id: {
-    type: DataTypes.INTEGER,  // Foreign key untuk relasi ke User
+    type: DataTypes.INTEGER,
     allowNull: true,
     references: {
-      model: User,
-      key: 'id'  // id dari tabel User
+      model: 'user',
+      key: 'id'
     }
   }
 }, {
+  sequelize,
+  modelName: 'Mahasiswa',
   tableName: 'mahasiswa',
   timestamps: false
 });
 
-// Menambahkan relasi antara Mahasiswa dan User
-Mahasiswa.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
-
-module.exports = Mahasiswa;  // Ensure the model is exported correctly
+module.exports = Mahasiswa;
