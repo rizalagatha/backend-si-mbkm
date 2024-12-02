@@ -25,7 +25,7 @@ const Categories = require('./models/categories');
 const ProgramMbkm = require('./models/programMbkm');
 const Mahasiswa = require('./models/mahasiswa');
 const Dosbing = require('./models/dosbing');
-const Users = require('./models/users');
+const User = require('./models/user');
 
 dotenv.config();
 
@@ -36,7 +36,7 @@ app.use(express.json());
 swaggerSetup(app);
 
 // Define models in an object
-const models = { Categories, ProgramMbkm, Mahasiswa, Dosbing, Users };
+const models = { Categories, ProgramMbkm, Mahasiswa, Dosbing, User };
 
 // Call the associate method for each model
 Object.values(models).forEach((model) => {
