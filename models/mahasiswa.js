@@ -8,8 +8,12 @@ Mahasiswa.init({
     type: DataTypes.STRING,
     primaryKey: true,
   },
-  name: {
+  nama_mahasiswa: {
     type: DataTypes.STRING,
+    allowNull: false,
+  },
+  semester: {
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
   id_program_mbkm: {
