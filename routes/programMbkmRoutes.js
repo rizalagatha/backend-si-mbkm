@@ -136,7 +136,7 @@ router.get('/:id', getProgramMbkmById);
  * /api/program-mbkm/nim/{NIM}:
  *   get:
  *     summary: Get Program MBKM by Mahasiswa's NIM
- *     tags: [Program MBKM]
+ *     tags: [ProgramMBKM]
  *     parameters:
  *       - in: path
  *         name: NIM
