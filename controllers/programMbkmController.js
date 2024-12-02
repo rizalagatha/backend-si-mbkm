@@ -1,6 +1,5 @@
-const ProgramMbkm = require('../models/programMbkm');
 const Categories = require('../models/categories');
-const Mahasiswa = require('../models/mahasiswa');
+const { ProgramMbkm, Mahasiswa } = require('../models');
 
 // Create a new Program MBKM
 const createProgramMbkm = async (req, res) => {
@@ -68,18 +67,16 @@ const getProgramMbkmByNim = async (req, res) => {
   const { NIM } = req.params;
   try {
     const programs = await ProgramMbkm.findAll({
-      include: {
-        model: Mahasiswa,
-        as: 'mahasiswa', // Pastikan nama alias sesuai dengan asosiasi
-        where: { NIM },
-      },
+      where: { NIM },
+      include: [
+        {
+          model: Mahasiswa,
+          as: 'mahasiswa',
+          attributes: ['nama_mahasiswa'],
+        },
+      ],
     });
-
-    if (programs.length > 0) {
-      res.status(200).json(programs);
-    } else {
-      res.status(404).json({ message: 'Program tidak ditemukan untuk NIM tersebut' });
-    }
+    res.status(200).json(programs);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
