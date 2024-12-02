@@ -53,6 +53,7 @@ const {
   createProgramMbkm,
   getAllProgramMbkm,
   getProgramMbkmById,
+  getProgramMbkmByNim,
   updateProgramMbkm,
   deleteProgramMbkm
 } = require('../controllers/programMbkmController');
@@ -129,6 +130,60 @@ router.get('/', getAllProgramMbkm);
  *         description: Program MBKM not found
  */
 router.get('/:id', getProgramMbkmById);
+
+/**
+ * @swagger
+ * /api/program-mbkm/nim/{NIM}:
+ *   get:
+ *     summary: Get Program MBKM by Mahasiswa's NIM
+ *     tags: [Program MBKM]
+ *     parameters:
+ *       - in: path
+ *         name: NIM
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: NIM of the Mahasiswa
+ *     responses:
+ *       200:
+ *         description: List of Program MBKM
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id_program_mbkm:
+ *                     type: integer
+ *                     description: ID of the Program MBKM
+ *                   company:
+ *                     type: string
+ *                     description: Name of the company
+ *                   deskripsi:
+ *                     type: string
+ *                     description: Description of the program
+ *                   category:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: integer
+ *                       name:
+ *                         type: string
+ *                   mahasiswa:
+ *                     type: object
+ *                     properties:
+ *                       NIM:
+ *                         type: integer
+ *                       nama_mahasiswa:
+ *                         type: string
+ *       404:
+ *         description: No Program MBKM found for the given NIM
+ *       500:
+ *         description: Server error
+ */
+
+router.get('/nim/:NIM', getProgramMbkmByNim);
 
 /**
  * @swagger
