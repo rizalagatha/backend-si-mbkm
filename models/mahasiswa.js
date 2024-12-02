@@ -50,4 +50,7 @@ const Mahasiswa = sequelize.define('Mahasiswa', {
 // Menambahkan relasi antara Mahasiswa dan User
 Mahasiswa.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
 
+// Menambahkan asosiasi antara Mahasiswa dan ProgramMbkm
+Mahasiswa.belongsTo(ProgramMbkm, { foreignKey: 'id_program_mbkm', as: 'programMbkm' });
+
 module.exports = Mahasiswa;

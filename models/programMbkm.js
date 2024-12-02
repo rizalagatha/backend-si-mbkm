@@ -45,7 +45,10 @@ const ProgramMbkm = sequelize.define('ProgramMbkm', {
   timestamps: false
 });
 
-// Add association here
+// Add association to Categories
 ProgramMbkm.belongsTo(Categories, { foreignKey: 'category_id' });
+
+// Menambahkan asosiasi hasMany di ProgramMbkm
+ProgramMbkm.hasMany(Mahasiswa, { foreignKey: 'id_program_mbkm', as: 'mahasiswa' });
 
 module.exports = ProgramMbkm;
