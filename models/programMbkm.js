@@ -1,8 +1,8 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
 const Categories = require('./categories');
-const Mahasiswa = require('./mahasiswa');
 
+// Define ProgramMbkm first
 const ProgramMbkm = sequelize.define('ProgramMbkm', {
   id_program_mbkm: {
     type: DataTypes.INTEGER,
@@ -46,10 +46,10 @@ const ProgramMbkm = sequelize.define('ProgramMbkm', {
   timestamps: false
 });
 
-// Add association to Categories
-ProgramMbkm.belongsTo(Categories, { foreignKey: 'category_id' });
+// Import Mahasiswa inside the file to prevent circular dependency
+const Mahasiswa = require('./mahasiswa'); // Import after ProgramMbkm is defined
 
-// Menambahkan asosiasi hasMany di ProgramMbkm
+// Add association
 ProgramMbkm.hasMany(Mahasiswa, { foreignKey: 'id_program_mbkm', as: 'mahasiswa' });
 
 module.exports = ProgramMbkm;
