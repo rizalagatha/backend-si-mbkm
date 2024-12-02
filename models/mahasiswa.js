@@ -51,11 +51,11 @@ Mahasiswa.init({
 Mahasiswa.associate = () => {
   const ProgramMbkm = require('./programMbkm'); // Lazy loading
   const Dosbing = require('./dosbing');  // Lazy loading
-  const Users = require('./users');  // Lazy loading
+  const User = require('./user');  // Lazy loading
 
   Mahasiswa.belongsTo(ProgramMbkm, { foreignKey: 'id_program_mbkm', as: 'programMbkm' });
   Mahasiswa.belongsTo(Dosbing, { foreignKey: 'NIP_dosbing', as: 'dosbing' });
-  Mahasiswa.belongsTo(Users, { foreignKey: 'user_id', as: 'user' });
+  Mahasiswa.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
 };
 
 module.exports = Mahasiswa;
