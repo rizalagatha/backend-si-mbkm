@@ -159,7 +159,7 @@ router.get('/:id', getPendaftaranMbkmById);
  *         description: Terjadi kesalahan pada server
  */
 
-router.get('/pendaftaran-mbkm/nim/:NIM', getPendaftaranMbkmByNIM);
+router.get('/nim/:NIM', getPendaftaranMbkmByNIM);
 
 /**
  * @swagger
