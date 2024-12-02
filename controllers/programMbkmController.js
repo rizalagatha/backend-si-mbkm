@@ -54,18 +54,27 @@ const getAllProgramMbkm = async (req, res) => {
 // Get a Program MBKM by ID
 const getProgramMbkmById = async (req, res) => {
   const { id } = req.params;
+
   try {
-    const programMbkm = await ProgramMbkm.findByPk(id, {
-      include: {
-        model: Categories, // Sertakan kategori pada hasil query
-        attributes: ['id', 'name'],
-      },
+    const program = await ProgramMbkm.findByPk(id, {
+      include: [
+        {
+          model: Categories,
+          as: 'category', // Sesuai dengan alias yang digunakan dalam asosiasi
+        },
+        {
+          model: Mahasiswa,
+          as: 'mahasiswa', // Sesuai dengan alias yang digunakan dalam asosiasi
+          attributes: ['id_mahasiswa', 'nama_mahasiswa', 'nim'], // Pilih atribut yang dibutuhkan
+        },
+      ],
     });
-    if (programMbkm) {
-      res.status(200).json(programMbkm);
-    } else {
-      res.status(404).json({ message: 'Program MBKM not found' });
+
+    if (!program) {
+      return res.status(404).json({ message: 'Program MBKM not found' });
     }
+
+    res.status(200).json(program);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
