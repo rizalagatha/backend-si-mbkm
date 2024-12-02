@@ -32,18 +32,24 @@ const createProgramMbkm = async (req, res) => {
 // Get all Programs MBKM
 const getAllProgramMbkm = async (req, res) => {
   try {
-    // Sertakan relasi kategori saat mengambil data Program MBKM
     const programs = await ProgramMbkm.findAll({
-      include: {
-        model: Categories, // Include category data
-        attributes: ['id', 'name'], // Ambil id dan name dari Category
-      },
+      include: [
+        {
+          model: Categories,
+          as: 'category', // Alias harus sesuai dengan yang didefinisikan dalam model
+        },
+        {
+          model: Mahasiswa,
+          as: 'mahasiswa', // Alias harus sesuai dengan yang didefinisikan dalam model
+        },
+      ],
     });
     res.status(200).json(programs);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 // Get a Program MBKM by ID
 const getProgramMbkmById = async (req, res) => {
