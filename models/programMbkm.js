@@ -1,6 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
 const Categories = require('./categories');
+const Mahasiswa = require('./mahasiswa');
 
 const ProgramMbkm = sequelize.define('ProgramMbkm', {
   id_program_mbkm: {
