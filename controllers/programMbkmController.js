@@ -65,7 +65,6 @@ const getProgramMbkmById = async (req, res) => {
         {
           model: Mahasiswa,
           as: 'mahasiswa', // Sesuai dengan alias yang digunakan dalam asosiasi
-          attributes: ['id_mahasiswa', 'nama_mahasiswa', 'nim'], // Pilih atribut yang dibutuhkan
         },
       ],
     });
