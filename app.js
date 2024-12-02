@@ -21,6 +21,9 @@ const authRoutes = require('./routes/authRoutes');
 const categoriesRoutes = require('./routes/categoriesRoutes');
 const uploadRoutes = require('./routes/uploadRoutes');
 const logbookRoutes = require('./routes/logbookRoutes');
+const Categories = require('./models/categories');
+const ProgramMbkm = require('./models/programMbkm');
+const Mahasiswa = require('./models/mahasiswa');
 
 dotenv.config();
 
