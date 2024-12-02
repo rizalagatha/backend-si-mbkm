@@ -49,5 +49,6 @@ const Mahasiswa = sequelize.define('Mahasiswa', {
 
 // Menambahkan relasi antara Mahasiswa dan User
 Mahasiswa.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
+Mahasiswa.hasMany(ProgramMbkm, { foreignKey: 'NIM', as: 'programMbkm' }); 
 
 module.exports = Mahasiswa;

@@ -65,32 +65,26 @@ const getProgramMbkmById = async (req, res) => {
 };
 
 const getProgramMbkmByNim = async (req, res) => {
-  const { NIM } = req.params; // NIM dari parameter URL
+  const { NIM } = req.params;
   try {
-    // Cari program MBKM berdasarkan NIM Mahasiswa
     const programs = await ProgramMbkm.findAll({
-      include: [
-        {
-          model: Mahasiswa,
-          where: { NIM }, // Filter berdasarkan NIM
-          attributes: ['NIM', 'nama_mahasiswa'], // Ambil data mahasiswa tertentu
-        },
-        {
-          model: Categories, // Sertakan kategori program
-          attributes: ['id', 'name'], // Ambil atribut id dan name kategori
-        },
-      ],
+      include: {
+        model: Mahasiswa,
+        as: 'mahasiswa', // Pastikan nama alias sesuai dengan asosiasi
+        where: { NIM },
+      },
     });
 
     if (programs.length > 0) {
-      res.status(200).json(programs); // Kirim data program MBKM
+      res.status(200).json(programs);
     } else {
-      res.status(404).json({ message: 'No Program MBKM found for the given NIM' });
+      res.status(404).json({ message: 'Program tidak ditemukan untuk NIM tersebut' });
     }
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 // Update a Program MBKM
 const updateProgramMbkm = async (req, res) => {

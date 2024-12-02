@@ -47,5 +47,6 @@ const ProgramMbkm = sequelize.define('ProgramMbkm', {
 
 // Add association here
 ProgramMbkm.belongsTo(Categories, { foreignKey: 'category_id' });
+ProgramMbkm.belongsTo(Mahasiswa, { foreignKey: 'NIM', as: 'mahasiswa' });
 
 module.exports = ProgramMbkm;
