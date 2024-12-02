@@ -79,13 +79,66 @@ const {
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/ProgramMbkm'
+ *             type: object
+ *             properties:
+ *               company:
+ *                 type: string
+ *                 description: The name of the company offering the program.
+ *                 example: PT. Teknologi Masa Depan
+ *               deskripsi:
+ *                 type: string
+ *                 description: Description of the program.
+ *                 example: Program MBKM untuk mahasiswa semester akhir.
+ *               role:
+ *                 type: string
+ *                 description: Role or position in the program.
+ *                 example: Software Engineer Intern
+ *               status:
+ *                 type: string
+ *                 description: Status of the program (e.g., "ongoing", "completed").
+ *                 example: ongoing
+ *               date:
+ *                 type: string
+ *                 format: date
+ *                 description: Start date of the program.
+ *                 example: 2024-01-01
+ *               waktu_pelaksanaan:
+ *                 type: string
+ *                 description: Duration of the program.
+ *                 example: 6 bulan
+ *               category_id:
+ *                 type: integer
+ *                 description: ID of the category this program belongs to.
+ *                 example: 3
  *     responses:
  *       201:
  *         description: Program MBKM created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Program MBKM created successfully
+ *                 programMbkm:
+ *                   $ref: '#/components/schemas/ProgramMbkm'
+ *       400:
+ *         description: Validation error or invalid input
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Category not found
  *       401:
  *         description: Unauthorized
+ *       500:
+ *         description: Server error
  */
+
 router.post('/', authenticateToken, authorize(['koor_mbkm']), createProgramMbkm);
 
 /**

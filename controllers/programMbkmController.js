@@ -19,6 +19,7 @@ const createProgramMbkm = async (req, res) => {
       role,
       status,
       date,
+      waktu_pelaksanaan,
       category_id, // Pastikan ini
     });
 
