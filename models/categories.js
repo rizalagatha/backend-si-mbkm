@@ -1,6 +1,5 @@
 const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../config/db');
-const ProgramMbkm = require('./programMbkm');
 
 class Categories extends Model {}
 
@@ -21,7 +20,10 @@ Categories.init({
   timestamps: false
 });
 
-// Associations
-Categories.hasMany(ProgramMbkm, { foreignKey: 'category_id', as: 'programs' });
+// Define association lazily
+Categories.associate = () => {
+  const ProgramMbkm = require('./programMbkm'); // Lazy loading
+  Categories.hasMany(ProgramMbkm, { foreignKey: 'category_id', as: 'programs' });
+};
 
 module.exports = Categories;
