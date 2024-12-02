@@ -107,33 +107,36 @@ const updateProgramMbkm = async (req, res) => {
   const { company, deskripsi, role, status, date, category_id } = req.body;
 
   try {
-    // Cek apakah category_id valid sebelum update
-    const categories = await Categories.findByPk(category_id);
-    if (!categories) {
+    // Validasi apakah category_id ada
+    const category = await Categories.findByPk(category_id);
+    if (!category) {
       return res.status(404).json({ message: 'Category not found' });
     }
 
-    // Update Program MBKM
+    // Update data Program MBKM
     const [updated] = await ProgramMbkm.update(
-      { company, deskripsi, role, status, date, categoryId: category_id }, // Sertakan categoryId
+      { company, deskripsi, role, status, date, categoryId: category_id },
       { where: { id_program_mbkm: id } }
     );
 
     if (updated) {
+      // Ambil data yang baru diperbarui dengan include alias yang benar
       const updatedProgramMbkm = await ProgramMbkm.findByPk(id, {
         include: {
           model: Categories,
-          attributes: ['id', 'name'],
+          as: 'category', // Alias yang digunakan pada asosiasi
+          attributes: ['id', 'name'], // Atribut yang ingin ditampilkan
         },
       });
-      res.status(200).json({ message: 'Program MBKM updated successfully', updatedProgramMbkm });
-    } else {
-      res.status(404).json({ message: 'Program MBKM not found' });
+      return res.status(200).json({ message: 'Program MBKM updated successfully', updatedProgramMbkm });
     }
+
+    res.status(404).json({ message: 'Program MBKM not found' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 // Delete a Program MBKM
 const deleteProgramMbkm = async (req, res) => {
