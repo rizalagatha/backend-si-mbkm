@@ -1,31 +1,26 @@
-const { AdminSiap } = require('../models'); // Import the AdminSiap model
+const AdminSiap = require('../models/adminSiap');
 
 // Get All Admin Siap
 const getAdminSiap = async (req, res) => {
   try {
-    const admins = await AdminSiap.findAll({
-      include: [{ model: User, as: 'user' }] // Including associated 'user' model
-    });
+    const admins = await AdminSiap.findAll();
     res.status(200).json(admins);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-// Get Admin Siap by NIP
 const getAdminSiapByNIP = async (req, res) => {
   const { NIP_admin_siap } = req.params;
   try {
-    const admin = await AdminSiap.findOne({
-      where: { NIP_admin_siap },
-      include: [{ model: User, as: 'user' }] // Include associated user
-    });
+    // Cari data admin berdasarkan NIP
+    const admin = await AdminSiap.findOne({ where: { NIP_admin_siap } });
 
     if (!admin) {
-      return res.status(404).json({ error: `Admin with NIP ${NIP_admin_siap} not found.` });
+      return res.status(404).json({ error: `Admin dengan NIP ${NIP_admin_siap} tidak ditemukan.` });
     }
 
-    res.status(200).json({ message: `Admin SIAP data for NIP ${NIP_admin_siap} retrieved successfully.`, data: admin });
+    res.status(200).json({ message: `Data Admin SIAP untuk NIP ${NIP_admin_siap} berhasil diambil.`, data: admin });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -33,14 +28,10 @@ const getAdminSiapByNIP = async (req, res) => {
 
 // Create Admin Siap
 const createAdminSiap = async (req, res) => {
-  const { NIP_admin_siap, nama_admin_siap, user_id } = req.body;
+  const { NIP_admin_siap, nama_admin_siap } = req.body;
   try {
-    const admin = await AdminSiap.create({ 
-      NIP_admin_siap, 
-      nama_admin_siap, 
-      user_id 
-    });
-    res.status(201).json({ message: 'Admin SIAP data successfully created', data: admin });
+    const admin = await AdminSiap.create({ NIP_admin_siap, nama_admin_siap });
+    res.status(201).json({ message: 'Berhasil membuat data Admin SIAP', data: admin });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -49,20 +40,10 @@ const createAdminSiap = async (req, res) => {
 // Update Admin Siap
 const updateAdminSiap = async (req, res) => {
   const { NIP_admin_siap } = req.params;
-  const { nama_admin_siap, user_id } = req.body;
+  const { nama_admin_siap } = req.body;
   try {
-    const [updated] = await AdminSiap.update({ 
-      nama_admin_siap, 
-      user_id 
-    }, { 
-      where: { NIP_admin_siap } 
-    });
-
-    if (updated) {
-      const updatedAdmin = await AdminSiap.findOne({ where: { NIP_admin_siap } });
-      return res.status(200).json({ message: 'Admin SIAP data updated successfully.', data: updatedAdmin });
-    }
-    throw new Error('Admin SIAP not found.');
+    await AdminSiap.update({ nama_admin_siap }, { where: { NIP_admin_siap } });
+    res.status(200).json({ message: 'Data Admin SIAP berhasil diperbarui' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -72,12 +53,8 @@ const updateAdminSiap = async (req, res) => {
 const deleteAdminSiap = async (req, res) => {
   const { NIP_admin_siap } = req.params;
   try {
-    const deleted = await AdminSiap.destroy({ where: { NIP_admin_siap } });
-
-    if (deleted) {
-      return res.status(200).json({ message: 'Admin SIAP data deleted successfully.' });
-    }
-    throw new Error('Admin SIAP not found.');
+    await AdminSiap.destroy({ where: { NIP_admin_siap } });
+    res.status(200).json({ message: 'Data Admin SIAP berhasil dihapus' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

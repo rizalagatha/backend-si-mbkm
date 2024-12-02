@@ -1,58 +1,171 @@
-const bcrypt = require('bcrypt');
-const { Model } = require('sequelize');
+const jwt = require('jsonwebtoken');
+const User = require('../models/user'); // Model untuk user
+const AdminSiap = require('../models/adminSiap');
+const Dosbing = require('../models/dosbing');
+const KoorMbkm = require('../models/koorMbkm');
+const Mahasiswa = require('../models/mahasiswa');
 
-module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
-    // Add password validation method
-    async isPasswordValid(password) {
-      return await bcrypt.compare(password, this.password); // Compare hashed password
+// Fungsi Login
+const login = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    // Find the user by email
+    const user = await User.findOne({ where: { email } });
+
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid credentials: User not found' });
     }
+
+    // Validate the password
+    if (!(await user.isPasswordValid(password))) {
+      return res.status(401).json({ message: 'Invalid credentials: Wrong password' });
+    }
+
+    // Fetch additional data based on role
+    let additionalInfo = {};
+    switch (user.role) {
+      case 'mahasiswa':
+        const mahasiswa = await Mahasiswa.findOne({ where: { user_id: user.id } });
+        if (mahasiswa) {
+          additionalInfo.NIM = mahasiswa.NIM;
+        } else {
+          return res.status(404).json({ message: 'Mahasiswa data not found' });
+        }
+        break;
+
+      case 'koor_mbkm':
+        const koor = await KoorMbkm.findOne({ where: { user_id: user.id } });
+        if (koor) {
+          additionalInfo.NIP_koor_mbkm = koor.NIP_koor_mbkm;
+        } else {
+          return res.status(404).json({ message: 'Koordinator MBKM data not found' });
+        }
+        break;
+
+      case 'dosbing':
+        const dosbing = await Dosbing.findOne({ where: { user_id: user.id } });
+        if (dosbing) {
+          additionalInfo.NIP_dosbing = dosbing.NIP_dosbing;
+        } else {
+          return res.status(404).json({ message: 'Dosbing data not found' });
+        }
+        break;
+
+      case 'admin_siap':
+        const adminSiap = await AdminSiap.findOne({ where: { user_id: user.id } });
+        if (adminSiap) {
+          additionalInfo.NIP_admin_siap = adminSiap.NIP_admin_siap;
+        } else {
+          return res.status(404).json({ message: 'Admin Siap data not found' });
+        }
+        break;
+
+      default:
+        return res.status(400).json({ message: 'Unknown role' });
+    }
+
+    // Generate JWT token with user info and additional data
+    const token = jwt.sign(
+      {
+        id: user.id,
+        role: user.role,
+        email: user.email,
+        ...additionalInfo,
+      },
+      'secretKey',
+      { expiresIn: '1h' }
+    );
+
+    res.json({ token });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error, please try again later.' });
+  }
+};
+
+
+module.exports = { login };
+
+// Fungsi Register
+const register = async (req, res) => {
+  const {
+    name,
+    email,
+    password,
+    role,
+    NIP_dosbing,
+    NIP_admin_siap,
+    NIP_koor_mbkm,
+    NIM,
+    semester,
+    id_program_mbkm,
+  } = req.body;
+
+  const validRoles = ['koor_mbkm', 'admin_siap', 'dosbing', 'mahasiswa'];
+
+  if (!validRoles.includes(role)) {
+    return res.status(400).json({ message: 'Invalid role' });
   }
 
-  User.init({
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true, // Ensure the email is unique
-    },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    role: {
-      type: DataTypes.ENUM('koor_mbkm', 'admin_siap', 'dosbing', 'mahasiswa'),
-      allowNull: false,
-    },
-  }, {
-    sequelize,
-    modelName: 'User',
-    hooks: {
-      // Hook untuk meng-hash password sebelum disimpan
-      beforeCreate: async (user) => {
-        if (user.password) {
-          user.password = await bcrypt.hash(user.password, 10); // Hash the password
-        }
-      },
-      beforeUpdate: async (user) => {
-        if (user.password) {
-          user.password = await bcrypt.hash(user.password, 10); // Re-hash password if it's updated
-        }
-      },
-    },
-  });
+  try {
+    // Simpan user ke tabel Users
+    const user = await User.create({ name, email, password, role });
 
-  // Defining associations (if applicable)
-  User.associate = (models) => {
-    // Example of associations if necessary (e.g., hasMany, belongsTo, etc.)
-    // User.hasOne(models.Dosbing, { foreignKey: 'user_id' });
-    // User.hasOne(models.Mahasiswa, { foreignKey: 'user_id' });
-    // User.hasOne(models.KoorMbkm, { foreignKey: 'user_id' });
-    // User.hasOne(models.AdminSiap, { foreignKey: 'user_id' });
-  };
+    // Simpan data ke tabel terkait berdasarkan role
+    switch (role) {
+      case 'admin_siap':
+        await AdminSiap.create({
+          user_id: user.id,             // user_id otomatis dari user.id
+          NIP_admin_siap,
+          nama_admin_siap: name,
+        });
+        break;
 
-  return User;
+      case 'dosbing':
+        await Dosbing.create({
+          user_id: user.id,             // user_id otomatis dari user.id
+          NIP_dosbing,
+          nama_dosbing: name,
+        });
+        break;
+
+      case 'koor_mbkm':
+        await KoorMbkm.create({
+          user_id: user.id,             // user_id otomatis dari user.id
+          NIP_koor_mbkm,
+          nama_koor_mbkm: name,
+        });
+        break;
+
+      case 'mahasiswa':
+        await Mahasiswa.create({
+          user_id: user.id,             // user_id otomatis dari user.id
+          NIM,
+          nama_mahasiswa: name,
+          semester,
+          id_program_mbkm,
+          NIP_dosbing,
+        });
+        break;
+    }
+
+    // Buat token JWT
+    const token = jwt.sign(
+      { id: user.id, role: user.role, email: user.email },
+      'secretKey',
+      { expiresIn: '1h' }
+    );
+
+    res.status(201).json({ message: 'Registration successful', user, token });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: error.message });
+  }
 };
+
+
+
+
+module.exports = { login, register };

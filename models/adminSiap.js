@@ -1,31 +1,31 @@
-module.exports = (sequelize, DataTypes) => {
-  const AdminSiap = sequelize.define('AdminSiap', {
-    NIP_admin_siap: {
-      type: DataTypes.BIGINT,
-      primaryKey: true,
-      allowNull: false,
-    },
-    nama_admin_siap: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    user_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'Users', // Nama tabel di database (plural sesuai konvensi)
-        key: 'id',
-      },
-    },
-  }, {
-    tableName: 'admin_siap',
-    timestamps: false,
-  });
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/db');
+const User = require('./user');  // Mengacu pada model User
 
-  // Relasi
-  AdminSiap.associate = (models) => {
-    AdminSiap.belongsTo(models.User, { foreignKey: 'user_id', as: 'user' });
-  };
+const AdminSiap = sequelize.define('AdminSiap', {
+  NIP_admin_siap: {
+    type: DataTypes.BIGINT,
+    primaryKey: true,
+    allowNull: false,
+  },
+  nama_admin_siap: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  user_id: {
+    type: DataTypes.INTEGER,  // Foreign key untuk relasi ke User
+    allowNull: true,
+    references: {
+      model: User,
+      key: 'id'  // id dari tabel User
+    }
+  }
+}, {
+  tableName: 'admin_siap',
+  timestamps: false
+});
 
-  return AdminSiap;
-};
+// Menambahkan relasi antara AdminSiap dan User
+AdminSiap.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
+
+module.exports = AdminSiap;
