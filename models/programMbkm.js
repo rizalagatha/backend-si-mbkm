@@ -41,6 +41,14 @@ const ProgramMbkm = sequelize.define('ProgramMbkm', {
       key: 'id',
     },
   },
+  NIM: {
+    type: DataTypes.BIGINT,
+    allowNull: true,
+    references: {
+      model: 'Mahasiswa', // Refers to Categories table
+      key: 'NIM',
+    },
+  },
 }, {
   tableName: 'program_mbkm',
   timestamps: false
