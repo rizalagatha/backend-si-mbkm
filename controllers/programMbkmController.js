@@ -82,7 +82,6 @@ const getProgramMbkmByNim = async (req, res) => {
   }
 };
 
-
 // Update a Program MBKM
 const updateProgramMbkm = async (req, res) => {
   const { id } = req.params;

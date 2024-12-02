@@ -1,20 +1,23 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config/db');
-const ProgramMbkm = require('./programMbkm');
-
-const Categories = sequelize.define('Categories', {
-  id: {
-    type: DataTypes.STRING,
-    primaryKey: true,
-    autoIncrement: false,
-  },
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-}, {
+module.exports = (sequelize, DataTypes) => {
+  const Categories = sequelize.define('Categories', {
+    id: {
+      type: DataTypes.STRING,
+      primaryKey: true,
+      autoIncrement: false,
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+  }, {
     tableName: 'categories',
     timestamps: false,
-});
+  });
 
-module.exports = Categories;
+  // Relasi dengan ProgramMbkm
+  Categories.associate = (models) => {
+    Categories.hasMany(models.ProgramMbkm, { foreignKey: 'category_id', as: 'programs' });
+  };
+
+  return Categories;
+};

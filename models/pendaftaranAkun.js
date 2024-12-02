@@ -1,37 +1,40 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config/db');
-const Mahasiswa = require('./mahasiswa');  // FK ke tabel mahasiswa
-const KoorMbkm = require('./koorMbkm');    // FK ke tabel koor_mbkm
-
-const PendaftaranAkun = sequelize.define('PendaftaranAkun', {
-  id_pendaftaran_akun: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true
-  },
-  NIM: {
-    type: DataTypes.BIGINT,
-    allowNull: false,
-    references: {
-      model: Mahasiswa,
-      key: 'NIM'
+module.exports = (sequelize, DataTypes) => {
+  const PendaftaranAkun = sequelize.define('PendaftaranAkun', {
+    id_pendaftaran_akun: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    NIM: {
+      type: DataTypes.BIGINT,
+      allowNull: false,
+      references: {
+        model: 'Mahasiswa', // Nama tabel Mahasiswa di database
+        key: 'NIM'          // Foreign key untuk NIM
+      }
+    },
+    NIP_koor_mbkm: {
+      type: DataTypes.BIGINT,
+      allowNull: false,
+      references: {
+        model: 'KoorMbkm',  // Nama tabel KoorMbkm di database
+        key: 'NIP_koor_mbkm' // Foreign key untuk NIP_koor_mbkm
+      }
+    },
+    tanggal: {
+      type: DataTypes.DATE,
+      allowNull: false
     }
-  },
-  NIP_koor_mbkm: {
-    type: DataTypes.BIGINT,
-    allowNull: false,
-    references: {
-      model: KoorMbkm,
-      key: 'NIP_koor_mbkm'
-    }
-  },
-  tanggal: {
-    type: DataTypes.DATE,
-    allowNull: false
-  }
-}, {
-  tableName: 'pendaftaran_akun',
-  timestamps: false
-});
+  }, {
+    tableName: 'pendaftaran_akun',
+    timestamps: false
+  });
 
-module.exports = PendaftaranAkun;
+  // Mendefinisikan relasi antara PendaftaranAkun dengan Mahasiswa dan KoorMbkm
+  PendaftaranAkun.associate = (models) => {
+    PendaftaranAkun.belongsTo(models.Mahasiswa, { foreignKey: 'NIM' });
+    PendaftaranAkun.belongsTo(models.KoorMbkm, { foreignKey: 'NIP_koor_mbkm' });
+  };
+
+  return PendaftaranAkun;
+};
