@@ -1,4 +1,6 @@
 const { Op } = require('sequelize');
+const fs = require('fs');
+const path = require('path');
 const BerkasPenilaian = require('../models/berkasPenilaian');
 
 const validFileTypes = ['CV', 'transkrip', 'KTP', 'sertifikat', 'dokumen_tambahan'];
@@ -81,8 +83,36 @@ const getFilesByNIM = async (req, res) => {
   }
 };
 
+const deleteFile = async (req, res) => {
+  try {
+    const { id } = req.params; // ID berkas yang ingin dihapus
+
+    // Cari data berdasarkan ID
+    const berkas = await BerkasPenilaian.findByPk(id);
+
+    if (!berkas) {
+      return res.status(404).json({ error: `File dengan ID ${id} tidak ditemukan.` });
+    }
+
+    // Hapus file dari server
+    const filePath = berkas.nama_berkas; // Ambil path file dari database
+    if (fs.existsSync(filePath)) {
+      fs.unlinkSync(filePath); // Hapus file dari server
+    }
+
+    // Hapus entri dari database
+    await berkas.destroy();
+
+    res.status(200).json({ message: `File dengan ID ${id} berhasil dihapus.` });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Terjadi kesalahan saat menghapus file.' });
+  }
+};
+
 module.exports = {
   uploadFile,
   getFilesByType,
-  getFilesByNIM
+  getFilesByNIM,
+  deleteFile,
 };

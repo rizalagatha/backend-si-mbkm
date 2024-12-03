@@ -201,4 +201,52 @@ router.get('/upload/:jenis_berkas', getFilesByType);
 
 router.get('/upload/NIM/:NIM', getFilesByNIM);
 
+/**
+ * @swagger
+ * /api/upload/{id}:
+ *   delete:
+ *     summary: Hapus file berdasarkan ID
+ *     tags: [Upload]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID berkas yang ingin dihapus
+ *     responses:
+ *       200:
+ *         description: File berhasil dihapus
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "File dengan ID 1 berhasil dihapus."
+ *       404:
+ *         description: File dengan ID yang diminta tidak ditemukan
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "File dengan ID 1 tidak ditemukan."
+ *       500:
+ *         description: Terjadi kesalahan saat menghapus file
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Terjadi kesalahan saat menghapus file dengan ID 1."
+ */
+
+router.delete('/upload/:id', deleteFile);
+
 module.exports = router;
