@@ -31,7 +31,8 @@ const upload = require('../middlewares/upload');
 const {
   uploadFile,
   getFilesByType,
-  getFilesByNIM
+  getFilesByNIM,
+  deleteFile,
 }= require('../controllers/uploadController');
 const { authenticateToken, authorize } = require('../middlewares/auth');
 
