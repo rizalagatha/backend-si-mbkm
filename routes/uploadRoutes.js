@@ -248,6 +248,6 @@ router.get('/upload/NIM/:NIM', getFilesByNIM);
  *                   example: "Terjadi kesalahan saat menghapus file dengan ID 1."
  */
 
-router.delete('/upload/:id', deleteFile);
+router.delete('/upload/:id',authenticateToken, authorize(['mahasiswa']), deleteFile);
 
 module.exports = router;
