@@ -29,18 +29,11 @@ const User = require('./models/user');
 
 dotenv.config();
 
-const allowedOrigins = ['http://localhost:3000', 'https://your-frontend-domain.com'];
-
 const app = express();
 app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true, // Jika menggunakan cookie
+  origin: 'http://localhost:3000',  // Ganti dengan domain frontend Anda
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Tambahkan metode yang diperlukan
+  allowedHeaders: ['Content-Type', 'Authorization'], // Tambahkan header yang dibutuhkan
 }));
 app.use(express.json());
 
