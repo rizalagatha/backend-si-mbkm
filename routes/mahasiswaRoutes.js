@@ -64,7 +64,7 @@ const {
  *       201:
  *         description: Data Mahasiswa berhasil ditambahkan
  */
-router.post('/', authenticateToken, authorize(['koor_mbkm']), createMahasiswa);
+router.post('/', authenticateToken, authorize(['dosbing','koor_mbkm']), createMahasiswa);
 
 /**
  * @swagger
@@ -178,7 +178,7 @@ router.get('/dosbing/:NIP_dosbing', getMahasiswaByNIPDosbing);
  *         description: Data Mahasiswa berhasil diperbarui
  */
 
-router.put('/:NIM', authenticateToken, authorize(['koor_mbkm']), updateMahasiswa);
+router.put('/:NIM', authenticateToken, authorize(['dosbing','koor_mbkm']), updateMahasiswa);
 
 /**
  * @swagger
@@ -197,6 +197,6 @@ router.put('/:NIM', authenticateToken, authorize(['koor_mbkm']), updateMahasiswa
  *       204:
  *         description: Data Mahasiswa berhasil dihapus
  */
-router.delete('/:NIM', authenticateToken, authorize(['koor_mbkm']), deleteMahasiswa);
+router.delete('/:NIM', authenticateToken, authorize(['dosbing','koor_mbkm']), deleteMahasiswa);
 
 module.exports = router;
