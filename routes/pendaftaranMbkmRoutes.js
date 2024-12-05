@@ -23,9 +23,6 @@
  *         NIP_dosbing:
  *           type: integer
  *           description: Nomor Induk Pegawai dosen pembimbing
- *         NIP_koor_mbkm:
- *           type: integer
- *           description: Nomor Induk Pegawai koordinator MBKM
  *         id_program_mbkm:
  *           type: integer
  *           description: ID program MBKM
@@ -43,10 +40,9 @@
  *         id_pendaftaran_mbkm: 1
  *         NIM: 123456789
  *         NIP_dosbing: 987654321
- *         NIP_koor_mbkm: 123456789
  *         id_program_mbkm: 1
- *         nama_berkas: doksli supersemar.pdf
- *         status:pending
+ *         nama_berkas: "doksli supersemar.pdf"
+ *         status: "pending"
  *         tanggal: "2024-10-11T10:00:00Z"
  */
 
