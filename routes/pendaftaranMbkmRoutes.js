@@ -87,6 +87,50 @@ const {
  *     responses:
  *       201:
  *         description: Data Pendaftaran MBKM berhasil ditambahkan
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Pesan berhasil
+ *                   example: Data Pendaftaran MBKM berhasil ditambahkan
+ *                 data:
+ *                   $ref: '#/components/schemas/PendaftaranMbkm'
+ *       400:
+ *         description: Permintaan tidak valid (misalnya, data tidak lengkap)
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Pesan kesalahan
+ *                   example: Data tidak lengkap
+ *       401:
+ *         description: Akses tidak sah (token tidak valid atau tidak ada)
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Pesan kesalahan
+ *                   example: Token tidak valid
+ *       500:
+ *         description: Kesalahan pada server
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Pesan kesalahan
+ *                   example: Terjadi kesalahan pada server
  */
 router.post('/', authenticateToken, authorize(['mahasiswa', 'koor_mbkm']), createPendaftaranMbkm);
 
