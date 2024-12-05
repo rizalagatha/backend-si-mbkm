@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
-const AdminSiap = require('./adminSiap');  // FK ke tabel admin_siap
 const BerkasPenilaian = require('./berkasPenilaian');  // FK ke tabel berkas_penilaian
+const Mahasiswa = require('./mahasiswa');
 
 const KonversiNilai = sequelize.define('KonversiNilai', {
   id_konversi_nilai: {
@@ -9,12 +9,12 @@ const KonversiNilai = sequelize.define('KonversiNilai', {
     primaryKey: true,
     autoIncrement: true
   },
-  NIP_admin_siap: {
+  NIM: {
     type: DataTypes.BIGINT,
-    allowNull: false,
+    allowNull: true,
     references: {
-      model: AdminSiap,
-      key: 'NIP_admin_siap'
+      model: Mahasiswa,
+      key: 'NIM'
     }
   },
   id_berkas_penilaian: {
