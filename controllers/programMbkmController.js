@@ -4,7 +4,7 @@ const Mahasiswa = require('../models/mahasiswa');
 
 // Create a new Program MBKM
 const createProgramMbkm = async (req, res) => {
-  const { company, deskripsi, role, status, date, category_id } = req.body;
+  const { company, deskripsi, role, status, date, waktu_pelaksanaan, syarat, category_id } = req.body;
   try {
     console.log(`Received category_id: ${category_id}`); // Debugging
 
@@ -20,6 +20,7 @@ const createProgramMbkm = async (req, res) => {
       status,
       date,
       waktu_pelaksanaan,
+      syarat,
       category_id, // Pastikan ini
     });
 
