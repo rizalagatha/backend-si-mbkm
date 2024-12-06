@@ -18,14 +18,6 @@ PendaftaranMbkm.init(
         key: 'NIM',
       },
     },
-    NIP_dosbing: {
-      type: DataTypes.BIGINT,
-      allowNull: true,
-      references: {
-        model: 'dosbing', // Nama tabel atau model
-        key: 'NIP_dosbing',
-      },
-    },
     tanggal: {
       type: DataTypes.DATE,
       allowNull: false,
@@ -54,11 +46,9 @@ PendaftaranMbkm.init(
 // Define associations
 PendaftaranMbkm.associate = () => {
   const Mahasiswa = require('./mahasiswa'); // Lazy loading
-  const Dosbing = require('./dosbing'); // Lazy loading
   const ProgramMbkm = require('./programMbkm'); // Lazy loading
 
   PendaftaranMbkm.belongsTo(Mahasiswa, { foreignKey: 'NIM', as: 'mahasiswa' });
-  PendaftaranMbkm.belongsTo(Dosbing, { foreignKey: 'NIP_dosbing', as: 'dosbing' });
   PendaftaranMbkm.belongsTo(ProgramMbkm, { foreignKey: 'id_program_mbkm', as: 'program_mbkm' });
 };
 

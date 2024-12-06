@@ -1,15 +1,13 @@
 const PendaftaranMbkm = require('../models/pendaftaranMbkm');
 const Mahasiswa = require('../models/mahasiswa');  // FK ke tabel mahasiswa
-const DosenPembimbing = require('../models/dosbing');  // FK ke tabel dosbing
 const ProgramMbkm = require('../models/programMbkm'); // FK ke tabel program_mbkm
 
 // Create a new PendaftaranMbkm
 const createPendaftaranMbkm = async (req, res) => {
-  const { id_pendaftaran_mbkm, NIM, NIP_dosbing, tanggal, id_program_mbkm, status } = req.body;
+  const { id_pendaftaran_mbkm, NIM, tanggal, id_program_mbkm, status } = req.body;
   try {
     // Check if related records exist
     const mahasiswa = await Mahasiswa.findByPk(NIM);
-    const dosbing = await DosenPembimbing.findByPk(NIP_dosbing);
     const programMbkm = await ProgramMbkm.findByPk(id_program_mbkm);
 
     if (!mahasiswa || !dosbing || !programMbkm) {
@@ -21,7 +19,6 @@ const createPendaftaranMbkm = async (req, res) => {
     const pendaftaranMbkm = await PendaftaranMbkm.create({
       id_pendaftaran_mbkm,
       NIM,
-      NIP_dosbing,
       tanggal,
       id_program_mbkm,
       status,
