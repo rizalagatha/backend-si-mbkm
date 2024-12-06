@@ -20,9 +20,6 @@
  *         NIM:
  *           type: integer
  *           description: Nomor Induk Mahasiswa yang mendaftar MBKM
- *         NIP_dosbing:
- *           type: integer
- *           description: Nomor Induk Pegawai dosen pembimbing
  *         id_program_mbkm:
  *           type: integer
  *           description: ID program MBKM
@@ -36,7 +33,6 @@
  *       example:
  *         id_pendaftaran_mbkm: 1
  *         NIM: 123456789
- *         NIP_dosbing: 987654321
  *         id_program_mbkm: 1
  *         status: "pending"
  *         tanggal: "2024-10-11T10:00:00Z"

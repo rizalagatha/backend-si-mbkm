@@ -10,7 +10,7 @@ const createPendaftaranMbkm = async (req, res) => {
     const mahasiswa = await Mahasiswa.findByPk(NIM);
     const programMbkm = await ProgramMbkm.findByPk(id_program_mbkm);
 
-    if (!mahasiswa || !dosbing || !programMbkm) {
+    if (!mahasiswa || !programMbkm) {
       return res.status(400).json({
         message: 'Related Mahasiswa, Dosen Pembimbing, or Program MBKM not found',
       });
