@@ -66,7 +66,7 @@ const {
  *       201:
  *         description: Konversi nilai berhasil ditambahkan
  */
-router.post('/', authenticateToken, authorize(['dosbing', 'koor_mbkm']), createKonversiNilai);
+router.post('/', authenticateToken, authorize(['admin_siap', 'dosbing', 'koor_mbkm']), createKonversiNilai);
 
 /**
  * @swagger
@@ -84,7 +84,7 @@ router.post('/', authenticateToken, authorize(['dosbing', 'koor_mbkm']), createK
  *               items:
  *                 $ref: '#/components/schemas/KonversiNilai'
  */
-router.get('/', authenticateToken, authorize(['dosbing', 'koor_mbkm']), getAllKonversiNilai);
+router.get('/', authenticateToken, authorize(['admin_siap', 'dosbing', 'koor_mbkm']), getAllKonversiNilai);
 
 /**
  * @swagger
@@ -107,7 +107,7 @@ router.get('/', authenticateToken, authorize(['dosbing', 'koor_mbkm']), getAllKo
  *             schema:
  *               $ref: '#/components/schemas/KonversiNilai'
  */
-router.get('/:id', authenticateToken, authorize(['dosbing', 'koor_mbkm']), getKonversiNilaiById);
+router.get('/:id', authenticateToken, authorize(['admin_siap', 'dosbing', 'koor_mbkm']), getKonversiNilaiById);
 
 /**
  * @swagger
@@ -132,7 +132,7 @@ router.get('/:id', authenticateToken, authorize(['dosbing', 'koor_mbkm']), getKo
  *       200:
  *         description: Data konversi nilai berhasil diperbarui
  */
-router.put('/:id', authenticateToken, authorize(['dosbing', 'koor_mbkm']), updateKonversiNilai);
+router.put('/:id', authenticateToken, authorize(['admin_siap', 'dosbing', 'koor_mbkm']), updateKonversiNilai);
 
 /**
  * @swagger
@@ -151,6 +151,6 @@ router.put('/:id', authenticateToken, authorize(['dosbing', 'koor_mbkm']), updat
  *       204:
  *         description: Konversi nilai berhasil dihapus
  */
-router.delete('/:id', authenticateToken, authorize(['dosbing', 'koor_mbkm']), deleteKonversiNilai);
+router.delete('/:id', authenticateToken, authorize(['admin_siap', 'dosbing', 'koor_mbkm']), deleteKonversiNilai);
 
 module.exports = router;
