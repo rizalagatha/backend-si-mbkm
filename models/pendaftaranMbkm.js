@@ -2,7 +2,6 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
 const Mahasiswa = require('./mahasiswa');  // FK ke tabel mahasiswa
 const Dosbing = require('./dosbing');      // FK ke tabel dosbing
-const BerkasPenilaian = require('./berkasPenilaian');
 const ProgramMbkm = require('./programMbkm'); 
 
 const PendaftaranMbkm = sequelize.define('PendaftaranMbkm', {
@@ -25,14 +24,6 @@ const PendaftaranMbkm = sequelize.define('PendaftaranMbkm', {
     references: {
       model: Dosbing,
       key: 'NIP_dosbing'
-    }
-  },
-  nama_berkas: {
-    type: DataTypes.STRING,
-    allowNull: true, 
-    references: {
-      model: BerkasPenilaian, 
-      key: 'nama_berkas'
     }
   },
   tanggal: {
