@@ -79,10 +79,10 @@ const getPendaftaranMbkmByNIM = async (req, res) => {
 // Update a PendaftaranMbkm
 const updatePendaftaranMbkm = async (req, res) => {
   const { id } = req.params;
-  const { NIM, NIP_dosbing, tanggal, id_program_mbkm, status } = req.body;
+  const { NIM, tanggal, id_program_mbkm, status } = req.body;
   try {
     const [updated] = await PendaftaranMbkm.update(
-      { NIM, NIP_dosbing, tanggal, id_program_mbkm, status },
+      { NIM, tanggal, id_program_mbkm, status },
       { where: { id_pendaftaran_mbkm: id } }
     );
     if (updated) {
