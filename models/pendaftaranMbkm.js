@@ -20,7 +20,7 @@ PendaftaranMbkm.init(
     },
     NIP_dosbing: {
       type: DataTypes.BIGINT,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'dosbing', // Nama tabel atau model
         key: 'NIP_dosbing',

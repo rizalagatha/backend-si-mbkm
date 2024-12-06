@@ -124,7 +124,7 @@ const {
  *                   description: Pesan kesalahan
  *                   example: Terjadi kesalahan pada server
  */
-router.post('/', authenticateToken, authorize(['admin_siap','mahasiswa', 'koor_mbkm']), createPendaftaranMbkm);
+router.post('/', authenticateToken, authorize(['admin_siap', 'mahasiswa', 'koor_mbkm']), createPendaftaranMbkm);
 
 /**
  * @swagger
@@ -222,7 +222,7 @@ router.get('/nim/:NIM', getPendaftaranMbkmByNIM);
  *       200:
  *         description: Data Pendaftaran MBKM berhasil diperbarui
  */
-router.put('/:id', authenticateToken, authorize(['admin_siap','mahasiswa', 'koor_mbkm']), updatePendaftaranMbkm);
+router.put('/:id', authenticateToken, authorize(['admin_siap', 'mahasiswa', 'koor_mbkm']), updatePendaftaranMbkm);
 
 /**
  * @swagger
@@ -243,6 +243,6 @@ router.put('/:id', authenticateToken, authorize(['admin_siap','mahasiswa', 'koor
  *       204:
  *         description: Data Pendaftaran MBKM berhasil dihapus
  */
-router.delete('/:id', authenticateToken, authorize(['admin_siap','mahasiswa', 'koor_mbkm']), deletePendaftaranMbkm);
+router.delete('/:id', authenticateToken, authorize(['admin_siap', 'mahasiswa', 'koor_mbkm']), deletePendaftaranMbkm);
 
 module.exports = router;
