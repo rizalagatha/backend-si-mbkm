@@ -1,8 +1,7 @@
 const PendaftaranMbkm = require('../models/pendaftaranMbkm');
 const Mahasiswa = require('../models/mahasiswa');  // FK ke tabel mahasiswa
 const DosenPembimbing = require('../models/dosbing');  // FK ke tabel dosbing
-const KoorMbkm = require('../models/koorMbkm');  // FK ke tabel koor_mbkm
-const ProgramMBKM = require('../models/programMbkm');
+const ProgramMbkm = require('../models/programMbkm'); // FK ke tabel program_mbkm
 
 // Create a new PendaftaranMbkm
 const createPendaftaranMbkm = async (req, res) => {
@@ -11,10 +10,12 @@ const createPendaftaranMbkm = async (req, res) => {
     // Check if related records exist
     const mahasiswa = await Mahasiswa.findByPk(NIM);
     const dosbing = await DosenPembimbing.findByPk(NIP_dosbing);
-    const ProgramMbkm = await ProgramMbkm.findByPk(id_program_mbkm);
+    const programMbkm = await ProgramMbkm.findByPk(id_program_mbkm);
 
-    if (!mahasiswa || !dosbing || !koorMbkm) {
-      return res.status(400).json({ message: 'Related Mahasiswa, Dosen Pembimbing, or Koor MBKM not found' });
+    if (!mahasiswa || !dosbing || !programMbkm) {
+      return res.status(400).json({
+        message: 'Related Mahasiswa, Dosen Pembimbing, or Program MBKM not found',
+      });
     }
 
     const pendaftaranMbkm = await PendaftaranMbkm.create({
@@ -23,11 +24,15 @@ const createPendaftaranMbkm = async (req, res) => {
       NIP_dosbing,
       tanggal,
       id_program_mbkm,
-      status
+      status,
     });
-    res.status(201).json({ message: 'Pendaftaran MBKM created successfully', pendaftaranMbkm });
+
+    res.status(201).json({
+      message: 'Pendaftaran MBKM created successfully',
+      data: pendaftaranMbkm,
+    });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: 'Error creating Pendaftaran MBKM', error: error.message });
   }
 };
 
@@ -37,7 +42,7 @@ const getAllPendaftaranMbkm = async (req, res) => {
     const pendaftaranMbkm = await PendaftaranMbkm.findAll();
     res.status(200).json(pendaftaranMbkm);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: 'Error fetching Pendaftaran MBKM', error: error.message });
   }
 };
 
@@ -52,7 +57,7 @@ const getPendaftaranMbkmById = async (req, res) => {
       res.status(404).json({ message: 'Pendaftaran MBKM not found' });
     }
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: 'Error fetching Pendaftaran MBKM', error: error.message });
   }
 };
 
@@ -61,7 +66,7 @@ const getPendaftaranMbkmByNIM = async (req, res) => {
   const { NIM } = req.params;
   try {
     const pendaftaranMbkm = await PendaftaranMbkm.findAll({
-      where: { NIM }, // Find PendaftaranMbkm records where NIM matches
+      where: { NIM },
     });
 
     if (pendaftaranMbkm.length > 0) {
@@ -70,7 +75,7 @@ const getPendaftaranMbkmByNIM = async (req, res) => {
       res.status(404).json({ message: 'No Pendaftaran MBKM found for this NIM' });
     }
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: 'Error fetching Pendaftaran MBKM by NIM', error: error.message });
   }
 };
 
@@ -85,12 +90,12 @@ const updatePendaftaranMbkm = async (req, res) => {
     );
     if (updated) {
       const updatedPendaftaranMbkm = await PendaftaranMbkm.findByPk(id);
-      res.status(200).json({ message: 'Pendaftaran MBKM updated successfully', updatedPendaftaranMbkm });
+      res.status(200).json({ message: 'Pendaftaran MBKM updated successfully', data: updatedPendaftaranMbkm });
     } else {
       res.status(404).json({ message: 'Pendaftaran MBKM not found' });
     }
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: 'Error updating Pendaftaran MBKM', error: error.message });
   }
 };
 
@@ -100,12 +105,12 @@ const deletePendaftaranMbkm = async (req, res) => {
   try {
     const deleted = await PendaftaranMbkm.destroy({ where: { id_pendaftaran_mbkm: id } });
     if (deleted) {
-      res.status(204).json({ message: 'Pendaftaran MBKM deleted successfully' });
+      res.status(200).json({ message: 'Pendaftaran MBKM deleted successfully' });
     } else {
       res.status(404).json({ message: 'Pendaftaran MBKM not found' });
     }
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: 'Error deleting Pendaftaran MBKM', error: error.message });
   }
 };
 
@@ -113,7 +118,7 @@ module.exports = {
   createPendaftaranMbkm,
   getAllPendaftaranMbkm,
   getPendaftaranMbkmById,
-  getPendaftaranMbkmByNIM, 
+  getPendaftaranMbkmByNIM,
   updatePendaftaranMbkm,
-  deletePendaftaranMbkm
+  deletePendaftaranMbkm,
 };
