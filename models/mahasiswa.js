@@ -25,7 +25,7 @@ Mahasiswa.init({
     },
   },
   NIP_dosbing: {
-    type: DataTypes.BIGINT,  // Asumsikan NIP_dosbing adalah STRING
+    type: DataTypes.STRING,  // Asumsikan NIP_dosbing adalah STRING
     allowNull: true,
     references: {
       model: 'Dosbing',

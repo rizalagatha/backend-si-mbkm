@@ -4,7 +4,7 @@ const User = require('./user');  // Mengacu pada tabel User
 
 const Dosbing = sequelize.define('Dosbing', {
   NIP_dosbing: {
-    type: DataTypes.BIGINT,
+    type: DataTypes.STRING,
     primaryKey: true,
     allowNull: false
   },
