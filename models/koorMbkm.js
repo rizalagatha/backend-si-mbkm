@@ -4,7 +4,7 @@ const User = require('./user');  // Mengacu pada model User
 
 const KoorMbkm = sequelize.define('KoorMbkm', {
   NIP_koor_mbkm: {
-    type: DataTypes.BIGINT,
+    type: DataTypes.STRING,
     primaryKey: true,
     allowNull: false
   },

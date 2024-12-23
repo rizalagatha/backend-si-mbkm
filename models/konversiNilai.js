@@ -40,7 +40,11 @@ const KonversiNilai = sequelize.define('KonversiNilai', {
   grade: {
     type: DataTypes.STRING,
     allowNull: false
-  }
+  },
+  status: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
 }, {
   tableName: 'konversi_nilai',
   timestamps: false

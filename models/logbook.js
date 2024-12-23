@@ -21,6 +21,10 @@ const Logbook = sequelize.define('Logbook', {
     type: DataTypes.STRING,
     allowNull: true,
   },
+  status: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
   NIM: {
     type: DataTypes.BIGINT,
     allowNull: false,
