@@ -53,7 +53,7 @@ exports.getLogbooksByNIM = async (req, res) => {
 // Membuat logbook baru
 exports.createLogbook = async (req, res) => {
   try {
-    const { judul, subjek } = req.body;
+    const { judul, subjek, status, jenis } = req.body;
     const NIM = req.user?.NIM || req.body.NIM; // Ambil dari token atau body
 
     if (!NIM) {
@@ -65,6 +65,8 @@ exports.createLogbook = async (req, res) => {
       subjek,
       nama_file: req.file?.path || null,
       NIM,
+      status,
+      jenis,
     });
 
     return res.status(201).json({ message: 'Logbook created successfully', data: newLogbook });
@@ -78,7 +80,7 @@ exports.createLogbook = async (req, res) => {
 // Mengupdate logbook berdasarkan ID
 exports.updateLogbook = async (req, res) => {
   const { id } = req.params;
-  const { judul, subjek, nama_file, NIM } = req.body;
+  const { judul, subjek, nama_file, NIM, status, jenis } = req.body;
   try {
     const logbook = await Logbook.findByPk(id);
     if (!logbook) {
@@ -89,6 +91,8 @@ exports.updateLogbook = async (req, res) => {
       subjek,
       nama_file,
       NIM,
+      status,
+      jenis
     });
     res.status(200).json(logbook);
   } catch (error) {
