@@ -12,11 +12,11 @@ const createPendaftaranMbkm = async (req, res) => {
     const programMbkm = await ProgramMbkm.findByPk(id_program_mbkm);
     const dosbing = await Dosbing.findByPk(NIP_dosbing);
 
-    if (!mahasiswa || !programMbkm || !dosbing) {
+    if (!mahasiswa || !programMbkm || (NIP_dosbing && !dosbing)) {
       return res.status(400).json({
         message: 'Related Mahasiswa, Dosen Pembimbing, or Program MBKM not found',
       });
-    }
+    }    
 
     const pendaftaranMbkm = await PendaftaranMbkm.create({
       id_pendaftaran_mbkm,
