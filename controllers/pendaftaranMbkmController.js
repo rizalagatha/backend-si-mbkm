@@ -1,16 +1,18 @@
 const PendaftaranMbkm = require('../models/pendaftaranMbkm');
 const Mahasiswa = require('../models/mahasiswa');  // FK ke tabel mahasiswa
 const ProgramMbkm = require('../models/programMbkm'); // FK ke tabel program_mbkm
+const Dosbing = require('../models/dosbing');
 
 // Create a new PendaftaranMbkm
 const createPendaftaranMbkm = async (req, res) => {
-  const { id_pendaftaran_mbkm, NIM, tanggal, id_program_mbkm, status } = req.body;
+  const { id_pendaftaran_mbkm, NIM, tanggal, id_program_mbkm, NIP_dosbing, status } = req.body;
   try {
     // Check if related records exist
     const mahasiswa = await Mahasiswa.findByPk(NIM);
     const programMbkm = await ProgramMbkm.findByPk(id_program_mbkm);
+    const dosbing = await Dosbing.findByPk(NIP_dosbing);
 
-    if (!mahasiswa || !programMbkm) {
+    if (!mahasiswa || !programMbkm || !dosbing) {
       return res.status(400).json({
         message: 'Related Mahasiswa, Dosen Pembimbing, or Program MBKM not found',
       });
@@ -22,6 +24,7 @@ const createPendaftaranMbkm = async (req, res) => {
       tanggal,
       id_program_mbkm,
       status,
+      NIP_dosbing,
     });
 
     res.status(201).json({
@@ -79,10 +82,10 @@ const getPendaftaranMbkmByNIM = async (req, res) => {
 // Update a PendaftaranMbkm
 const updatePendaftaranMbkm = async (req, res) => {
   const { id } = req.params;
-  const { NIM, tanggal, id_program_mbkm, status } = req.body;
+  const { NIM, tanggal, id_program_mbkm, NIP_dosbing, status } = req.body;
   try {
     const [updated] = await PendaftaranMbkm.update(
-      { NIM, tanggal, id_program_mbkm, status },
+      { NIM, tanggal, id_program_mbkm, NIP_dosbing, status },
       { where: { id_pendaftaran_mbkm: id } }
     );
     if (updated) {

@@ -36,7 +36,7 @@ PendaftaranMbkm.init(
     },
     NIP_dosbing: {
       type: DataTypes.STRING, // Tipe data harus sesuai dengan kolom di tabel dosbing
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'dosbing', // Nama tabel atau model
         key: 'NIP_dosbing',
