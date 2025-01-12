@@ -19,6 +19,8 @@
  *         - subjek
  *         - nama_file
  *         - NIM
+ *         - jenis
+ *         - status
  *       properties:
  *         judul:
  *           type: string
@@ -29,6 +31,12 @@
  *         nama_file:
  *           type: string
  *           description: File logbook yang akan diunggah
+ *         jenis:
+ *           type: string
+ *           description: Jenis Logbook
+ *         status:
+ *           type: string
+ *           description: Status Verifikasi Logbook
  *         NIM:
  *           type: integer
  *           description: NIM mahasiswa yang mengunggah logbook
@@ -57,6 +65,10 @@
  *                   subjek:
  *                     type: string
  *                   nama_file:
+ *                     type: string
+ *                   jenis:
+ *                     type: string
+ *                   status:
  *                     type: string
  *                   NIM:
  *                     type: integer
@@ -90,6 +102,10 @@
  *                 subjek:
  *                   type: string
  *                 nama_file:
+ *                   type: string
+ *                 jenis:
+ *                   type: string
+ *                 status:
  *                   type: string
  *                 NIM:
  *                   type: integer
@@ -145,6 +161,10 @@
  *                 type: string
  *               subjek:
  *                 type: string
+ *               jenis:
+ *                 type: string
+ *               status:
+ *                 type: string
  *               NIM:
  *                 type: integer
  *     responses:
@@ -177,6 +197,10 @@
  *               judul:
  *                 type: string
  *               subjek:
+ *                 type: string
+ *               jenis:
+ *                 type: string
+ *               status:
  *                 type: string
  *     responses:
  *       200:
