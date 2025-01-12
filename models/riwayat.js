@@ -44,7 +44,7 @@ Riwayat.init(
 );
 
 // Define associations
-PendaftaranMbkm.associate = () => {
+Riwayat.associate = () => {
   const Mahasiswa = require('./mahasiswa'); // Lazy loading
   const ProgramMbkm = require('./programMbkm'); // Lazy loading
 
