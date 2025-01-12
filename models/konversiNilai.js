@@ -2,6 +2,7 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
 const BerkasPenilaian = require('./berkasPenilaian');  // FK ke tabel berkas_penilaian
 const Mahasiswa = require('./mahasiswa');
+const Dosbing = require('./dosbing');
 
 const KonversiNilai = sequelize.define('KonversiNilai', {
   id_konversi_nilai: {
@@ -31,6 +32,14 @@ const KonversiNilai = sequelize.define('KonversiNilai', {
     references: {
       model: BerkasPenilaian, 
       key: 'nama_berkas'
+    }
+  },
+  NIP_dosbing: {
+    type: DataTypes.STRING,
+    allowNull: true,
+    references: {
+      model: Dosbing,
+      key: 'NIP_dosbing'
     }
   },
   nilai_akhir: {
