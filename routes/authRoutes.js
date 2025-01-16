@@ -1,5 +1,6 @@
 const express = require('express');
-const { login, register } = require('../controllers/authController');
+const { login, register, updatePassword } = require('../controllers/authController');
+const { authenticateToken } = require('../middlewares/authMiddleware');
 const router = express.Router();
 
 /**
@@ -78,5 +79,36 @@ router.post('/login', login);
  *         description: Bad request.
  */
 router.post('/register', register);
+
+/**
+ * @swagger
+ * /auth/update-password:
+ *   put:
+ *     summary: Update user password
+ *     tags: [Authentication]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               currentPassword:
+ *                 type: string
+ *                 example: oldPassword123
+ *               newPassword:
+ *                 type: string
+ *                 example: newPassword456
+ *     responses:
+ *       200:
+ *         description: Password updated successfully.
+ *       400:
+ *         description: Bad request (e.g., wrong current password).
+ *       401:
+ *         description: Unauthorized.
+ */
+router.put('/update-password', authenticateToken, updatePassword);
 
 module.exports = router;
