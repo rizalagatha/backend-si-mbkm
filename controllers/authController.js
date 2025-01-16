@@ -168,45 +168,30 @@
 
   // Fungsi untuk memperbarui password
   const updatePassword = async (req, res) => {
-    const { oldPassword, newPassword } = req.body;
-
+    const { currentPassword, newPassword } = req.body;
+  
     try {
-      // Pastikan req.user tersedia dan memiliki ID
-      if (!req.user || !req.user.id) {
-        return res.status(401).json({ message: 'Unauthorized: Invalid user token' });
-      }
-
       const userId = req.user.id;
-
-      // Cari pengguna berdasarkan ID
       const user = await User.findByPk(userId);
       if (!user) {
         return res.status(404).json({ message: 'User not found' });
       }
-
-      // Verifikasi password lama
-      const isMatch = await bcrypt.compare(oldPassword, user.password);
+  
+      const isMatch = await bcrypt.compare(currentPassword, user.password);
       if (!isMatch) {
-        return res.status(401).json({ message: 'Incorrect old password' });
+        return res.status(401).json({ message: 'Incorrect current password' });
       }
-
-      // Validasi password baru (opsional, jika ingin aturan khusus)
-      if (newPassword.length < 8) {
-        return res.status(400).json({ message: 'New password must be at least 8 characters long' });
-      }
-
-      // Hash password baru
+  
       const hashedPassword = await bcrypt.hash(newPassword, 10);
-
-      // Perbarui password di database
       user.password = hashedPassword;
       await user.save();
-
+  
       res.json({ message: 'Password updated successfully' });
     } catch (error) {
       console.error('Error updating password:', error);
-      res.status(500).json({ message: 'Server error' });
+      res.status(500).json({ message: 'Server error, please try again later.' });
     }
-  };
+  };  
+  
 
   module.exports = { login, register, updatePassword };
