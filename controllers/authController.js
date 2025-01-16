@@ -209,7 +209,4 @@
     }
   };
 
-  module.exports = { updatePassword };
-
-
   module.exports = { login, register, updatePassword };
