@@ -95,7 +95,7 @@ router.post('/register', register);
  *           schema:
  *             type: object
  *             properties:
- *               currentPassword:
+ *               oldPassword:
  *                 type: string
  *                 example: oldPassword123
  *               newPassword:
