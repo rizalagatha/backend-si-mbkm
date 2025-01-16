@@ -1,4 +1,5 @@
 const express = require('express');
+const { authenticateToken } = require('../middlewares/auth');
 const { login, register, updatePassword } = require('../controllers/authController');
 const router = express.Router();
 
@@ -108,6 +109,6 @@ router.post('/register', register);
  *       401:
  *         description: Unauthorized.
  */
-router.put('/update-password', updatePassword);
+router.put('/auth/update-password', authenticateToken, updatePassword);
 
 module.exports = router;
