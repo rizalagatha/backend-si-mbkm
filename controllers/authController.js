@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
 const User = require('../models/user'); // Model untuk user
 const AdminSiap = require('../models/adminSiap');
 const Dosbing = require('../models/dosbing');
