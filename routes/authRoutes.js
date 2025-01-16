@@ -109,6 +109,6 @@ router.post('/register', register);
  *       401:
  *         description: Unauthorized.
  */
-router.put('/auth/update-password', authenticateToken, updatePassword);
+router.put('/update-password', authenticateToken, updatePassword);
 
 module.exports = router;

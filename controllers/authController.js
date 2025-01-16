@@ -168,18 +168,26 @@
 
   // Fungsi untuk memperbarui password
   const updatePassword = async (req, res) => {
-    const { currentPassword, newPassword } = req.body;
+    const { oldPassword, newPassword } = req.body;
   
     try {
+      if (!req.user || !req.user.id) {
+        return res.status(401).json({ message: 'Unauthorized: Invalid user token' });
+      }
+  
       const userId = req.user.id;
       const user = await User.findByPk(userId);
       if (!user) {
         return res.status(404).json({ message: 'User not found' });
       }
   
-      const isMatch = await bcrypt.compare(currentPassword, user.password);
+      const isMatch = await bcrypt.compare(oldPassword, user.password);
       if (!isMatch) {
-        return res.status(401).json({ message: 'Incorrect current password' });
+        return res.status(401).json({ message: 'Incorrect old password' });
+      }
+  
+      if (newPassword.length < 8) {
+        return res.status(400).json({ message: 'New password must be at least 8 characters long' });
       }
   
       const hashedPassword = await bcrypt.hash(newPassword, 10);
@@ -189,9 +197,9 @@
       res.json({ message: 'Password updated successfully' });
     } catch (error) {
       console.error('Error updating password:', error);
-      res.status(500).json({ message: 'Server error, please try again later.' });
+      res.status(500).json({ message: 'Server error' });
     }
-  };  
+  };
   
 
   module.exports = { login, register, updatePassword };
