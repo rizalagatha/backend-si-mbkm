@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 const User = require('../models/user'); // Model untuk user
 const AdminSiap = require('../models/adminSiap');
 const Dosbing = require('../models/dosbing');
@@ -165,7 +166,39 @@ const register = async (req, res) => {
   }
 };
 
+// Fungsi untuk memperbarui password
+const updatePassword = async (req, res) => {
+  const { oldPassword, newPassword } = req.body;
+
+  try {
+    // Ambil ID pengguna dari token (asumsikan middleware authenticateToken sudah memvalidasi token)
+    const userId = req.user.id;
+
+    // Cari pengguna berdasarkan ID
+    const user = await User.findByPk(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Verifikasi password lama
+    const isMatch = await bcrypt.compare(oldPassword, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: 'Incorrect old password' });
+    }
+
+    // Hash password baru
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    // Perbarui password di database
+    user.password = hashedPassword;
+    await user.save();
+
+    res.json({ message: 'Password updated successfully' });
+  } catch (error) {
+    console.error('Error updating password:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
 
 
-
-module.exports = { login, register };
+module.exports = { login, register, updatePassword };
