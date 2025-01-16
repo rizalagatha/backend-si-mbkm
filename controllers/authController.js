@@ -167,11 +167,18 @@ const register = async (req, res) => {
 };
 
 // Fungsi untuk memperbarui password
+const bcrypt = require('bcrypt');
+const User = require('../models/user'); // Pastikan model sudah diimport
+
 const updatePassword = async (req, res) => {
   const { oldPassword, newPassword } = req.body;
 
   try {
-    // Ambil ID pengguna dari token (asumsikan middleware authenticateToken sudah memvalidasi token)
+    // Pastikan req.user tersedia dan memiliki ID
+    if (!req.user || !req.user.id) {
+      return res.status(401).json({ message: 'Unauthorized: Invalid user token' });
+    }
+
     const userId = req.user.id;
 
     // Cari pengguna berdasarkan ID
@@ -184,6 +191,11 @@ const updatePassword = async (req, res) => {
     const isMatch = await bcrypt.compare(oldPassword, user.password);
     if (!isMatch) {
       return res.status(401).json({ message: 'Incorrect old password' });
+    }
+
+    // Validasi password baru (opsional, jika ingin aturan khusus)
+    if (newPassword.length < 8) {
+      return res.status(400).json({ message: 'New password must be at least 8 characters long' });
     }
 
     // Hash password baru
@@ -199,6 +211,8 @@ const updatePassword = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
+
+module.exports = { updatePassword };
 
 
 module.exports = { login, register, updatePassword };
