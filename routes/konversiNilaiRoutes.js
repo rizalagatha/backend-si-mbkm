@@ -5,30 +5,34 @@
  *     KonversiNilai:
  *       type: object
  *       required:
- *         - NIP_admin_siap
  *         - id_berkas_penilaian
  *         - nilai_akhir
  *         - grade
- *         - nama_berkas
  *       properties:
  *         id_konversi_nilai:
  *           type: integer
  *           description: ID dari konversi nilai
- *         NIP_admin_siap:
+ *         NIM:
  *           type: integer
- *           description: NIP dari admin siap yang menambahkan konversi nilai
+ *           description: NIM mahasiswa yang terkait dengan konversi nilai
  *         id_berkas_penilaian:
  *           type: integer
  *           description: ID dari berkas penilaian yang terkait
+ *         nama_berkas:
+ *           type: string
+ *           description: Nama berkas yang terkait dengan konversi nilai
+ *         NIP_dosbing:
+ *           type: string
+ *           description: NIP dosen pembimbing yang terkait
  *         nilai_akhir:
  *           type: integer
  *           description: Nilai akhir dari konversi nilai
  *         grade:
  *           type: string
  *           description: Grade dari konversi nilai
- *         nama_berkas : 
- *            type : string
- *            description : Berkas yang terkait dengan konversi nilai
+ *         status:
+ *           type: string
+ *           description: Status konversi nilai (misalnya, "Valid" atau "Pending")
  */
 
 const express = require('express');
@@ -47,7 +51,6 @@ const {
  * tags:
  *   name: KonversiNilai
  *   description: API untuk mengelola data konversi nilai
- *   digunakan oleh: admin_siap, koor_mbkm
  */
 
 /**
@@ -66,6 +69,7 @@ const {
  *       201:
  *         description: Konversi nilai berhasil ditambahkan
  */
+
 router.post('/', authenticateToken, authorize(['admin_siap', 'dosbing', 'koor_mbkm']), createKonversiNilai);
 
 /**
@@ -84,6 +88,7 @@ router.post('/', authenticateToken, authorize(['admin_siap', 'dosbing', 'koor_mb
  *               items:
  *                 $ref: '#/components/schemas/KonversiNilai'
  */
+
 router.get('/', authenticateToken, authorize(['admin_siap', 'dosbing', 'koor_mbkm']), getAllKonversiNilai);
 
 /**
@@ -107,6 +112,7 @@ router.get('/', authenticateToken, authorize(['admin_siap', 'dosbing', 'koor_mbk
  *             schema:
  *               $ref: '#/components/schemas/KonversiNilai'
  */
+
 router.get('/:id', authenticateToken, authorize(['admin_siap', 'dosbing', 'koor_mbkm']), getKonversiNilaiById);
 
 /**
@@ -132,6 +138,7 @@ router.get('/:id', authenticateToken, authorize(['admin_siap', 'dosbing', 'koor_
  *       200:
  *         description: Data konversi nilai berhasil diperbarui
  */
+
 router.put('/:id', authenticateToken, authorize(['admin_siap', 'dosbing', 'koor_mbkm']), updateKonversiNilai);
 
 /**
@@ -151,6 +158,7 @@ router.put('/:id', authenticateToken, authorize(['admin_siap', 'dosbing', 'koor_
  *       204:
  *         description: Konversi nilai berhasil dihapus
  */
+
 router.delete('/:id', authenticateToken, authorize(['admin_siap', 'dosbing', 'koor_mbkm']), deleteKonversiNilai);
 
 module.exports = router;
