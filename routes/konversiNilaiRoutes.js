@@ -70,7 +70,7 @@ const {
  *         description: Konversi nilai berhasil ditambahkan
  */
 
-router.post('/', authenticateToken, authorize(['admin_siap', 'dosbing', 'koor_mbkm']), createKonversiNilai);
+router.post('/', authenticateToken, authorize(['dosbing', 'koor_mbkm']), createKonversiNilai);
 
 /**
  * @swagger
@@ -159,6 +159,6 @@ router.put('/:id', authenticateToken, authorize(['admin_siap', 'dosbing', 'koor_
  *         description: Konversi nilai berhasil dihapus
  */
 
-router.delete('/:id', authenticateToken, authorize(['admin_siap', 'dosbing', 'koor_mbkm']), deleteKonversiNilai);
+router.delete('/:id', authenticateToken, authorize(['dosbing', 'koor_mbkm']), deleteKonversiNilai);
 
 module.exports = router;
