@@ -1,16 +1,15 @@
 const KonversiNilai = require('../models/konversiNilai');
-const AdminSiap = require('../models/adminSiap');  // FK ke tabel admin_siap
+const Dosbing = require('../models/dosbing');  // FK ke tabel admin_siap
 const BerkasPenilaian = require('../models/berkasPenilaian');  // FK ke tabel berkas_penilaian
 
 // Create a new KonversiNilai
 const createKonversiNilai = async (req, res) => {
-  const { NIP_admin_siap, id_berkas_penilaian, nilai_akhir, grade, status } = req.body;
+  const { NIP_dosbing, nama_berkas, nilai_akhir, status } = req.body;
   try {
     const konversiNilai = await KonversiNilai.create({
-      NIP_admin_siap,
-      id_berkas_penilaian,
+      NIP_dosbing,
       nilai_akhir,
-      grade,
+      nama_berkas,
       status
     });
     res.status(201).json({ message: 'Konversi Nilai created successfully', konversiNilai });
@@ -47,10 +46,10 @@ const getKonversiNilaiById = async (req, res) => {
 // Update a KonversiNilai
 const updateKonversiNilai = async (req, res) => {
   const { id } = req.params;
-  const { NIP_admin_siap, id_berkas_penilaian, nilai_akhir, grade,status } = req.body;
+  const { NIP_dosbing, nama_berkas, nilai_akhir, status } = req.body;
   try {
     const [updated] = await KonversiNilai.update(
-      { NIP_admin_siap, id_berkas_penilaian, nilai_akhir, grade, status },
+      { NIP_dosbing, nama_berkas, nilai_akhir, status },
       { where: { id_konversi_nilai: id } }
     );
     if (updated) {

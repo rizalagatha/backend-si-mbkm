@@ -18,14 +18,6 @@ const KonversiNilai = sequelize.define('KonversiNilai', {
       key: 'NIM'
     }
   },
-  id_berkas_penilaian: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: BerkasPenilaian,
-      key: 'id_berkas_penilaian'
-    }
-  },
   nama_berkas: {
     type: DataTypes.STRING,
     allowNull: true, 
@@ -44,11 +36,7 @@ const KonversiNilai = sequelize.define('KonversiNilai', {
   },
   nilai_akhir: {
     type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  grade: {
-    type: DataTypes.STRING,
-    allowNull: false
+    allowNull: true,
   },
   status: {
     type: DataTypes.STRING,
