@@ -25,11 +25,11 @@ Mahasiswa.init({
     },
   },
   NIP_dosbing: {
-    type: DataTypes.STRING,  // Asumsikan NIP_dosbing adalah STRING
+    type: DataTypes.STRING,
     allowNull: true,
     references: {
       model: 'Dosbing',
-      key: 'NIP_dosbing',  // Asumsikan kolom NIP di tabel dosbing adalah 'NIP'
+      key: 'NIP_dosbing',
     },
   },
   user_id: {
@@ -37,9 +37,17 @@ Mahasiswa.init({
     allowNull: true,
     references: {
       model: 'User',
-      key: 'id',  // Asumsikan kolom ID di tabel Users adalah 'id'
+      key: 'id',
     },
-  }
+  },
+  id_matkul_knvrs: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    references: {
+      model: 'MatkulKnvrs',
+      key: 'id_matkul_knvrs',
+    },
+  },
 }, {
   sequelize,
   modelName: 'Mahasiswa',
@@ -49,13 +57,15 @@ Mahasiswa.init({
 
 // Define association
 Mahasiswa.associate = () => {
-  const ProgramMbkm = require('./programMbkm'); // Lazy loading
-  const Dosbing = require('./dosbing');  // Lazy loading
-  const User = require('./user');  // Lazy loading
+  const ProgramMbkm = require('./programMbkm');
+  const Dosbing = require('./dosbing');
+  const User = require('./user');
+  const MatkulKnvrs = require('./matkulKnvrs');
 
   Mahasiswa.belongsTo(ProgramMbkm, { foreignKey: 'id_program_mbkm', as: 'programMbkm' });
   Mahasiswa.belongsTo(Dosbing, { foreignKey: 'NIP_dosbing', as: 'dosbing' });
   Mahasiswa.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
+  Mahasiswa.belongsTo(MatkulKnvrs, { foreignKey: 'id_matkul_knvrs', as: 'matkulKnvrs' });
 };
 
 module.exports = Mahasiswa;
