@@ -16,7 +16,7 @@ const mahasiswaRoutes = require('./routes/mahasiswaRoutes');
 const pendaftaranMbkmRoutes = require('./routes/pendaftaranMbkmRoutes');
 const pengumumanRoutes = require('./routes/pengumumanRoutes');
 const programMbkmRoutes = require('./routes/programMbkmRoutes');
-const riwayatRoutes = require ('./routes/riwayatRoutes');
+const matkulKnvrsRoutes = require ('./routes/matkulKnvrsRoutes');
 const authRoutes = require('./routes/authRoutes');
 const categoriesRoutes = require('./routes/categoriesRoutes');
 const uploadRoutes = require('./routes/uploadRoutes');
@@ -27,7 +27,7 @@ const Mahasiswa = require('./models/mahasiswa');
 const Dosbing = require('./models/dosbing');
 const User = require('./models/user');
 const PendaftaranMbkm = require('./models/pendaftaranMbkm');
-const Riwayat = require('./models/riwayat');
+const MatkulKnvrs = require('./models/matkulKnvrs');
 
 dotenv.config();
 
@@ -42,7 +42,7 @@ app.use(express.json());
 swaggerSetup(app);
 
 // Define models in an object
-const models = { Categories, ProgramMbkm, Mahasiswa, Dosbing, User, PendaftaranMbkm, Riwayat };
+const models = { Categories, ProgramMbkm, Mahasiswa, Dosbing, User, PendaftaranMbkm, MatkulKnvrs };
 
 // Call the associate method for each model
 Object.values(models).forEach((model) => {
@@ -73,7 +73,7 @@ app.use('/auth', authRoutes);
 app.use('/api', categoriesRoutes);
 app.use('/api/', uploadRoutes);
 app.use('/api/logbook', logbookRoutes);
-app.use('/api/riwayat', riwayatRoutes);
+app.use('/api/matkul-knvrs', matkulKnvrsRoutes);
 
 app.use('/swagger-ui', express.static(path.join(__dirname, 'node_modules', 'swagger-ui-dist')));
 
