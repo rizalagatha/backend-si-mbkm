@@ -41,7 +41,76 @@ const {
  *   description: API untuk mengelola data Mata Kuliah Konversi
  */
 
+/**
+ * @swagger
+ * /api/matkul-knvrs:
+ *   get:
+ *     summary: Ambil semua data Matkul Konversi
+ *     tags: [MatkulKnvrs]
+ *     responses:
+ *       200:
+ *         description: Daftar Matkul Konversi berhasil diambil.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/MatkulKnvrs'
+ *       500:
+ *         description: Terjadi kesalahan saat mengambil data.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Terjadi kesalahan saat mengambil data Matkul Konversi."
+ */
+
 router.get('/', getAllMatkulKnvrs);
+
+/**
+ * @swagger
+ * /api/matkul-knvrs/{id_matkul_knvrs}:
+ *   get:
+ *     summary: Ambil data Matkul Konversi berdasarkan ID
+ *     tags: [MatkulKnvrs]
+ *     parameters:
+ *       - in: path
+ *         name: id_matkul_knvrs
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID Matkul Konversi yang ingin diambil datanya
+ *     responses:
+ *       200:
+ *         description: Data Matkul Konversi berhasil diambil.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/MatkulKnvrs'
+ *       404:
+ *         description: Data tidak ditemukan.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Matkul Konversi dengan ID 1 tidak ditemukan."
+ *       500:
+ *         description: Terjadi kesalahan saat mengambil data.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Terjadi kesalahan saat mengambil data Matkul Konversi."
+ */
 
 router.get('/:id_matkul_knvrs', getMatkulKnvrsById);
 
