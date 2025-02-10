@@ -28,9 +28,16 @@ const getMatkulKnvrsById = async (req, res) => {
 
 // Create Matkul Konversi
 const createMatkulKnvrs = async (req, res) => {
-  const { nama_matkul, kode_matkul, sks } = req.body;
+  const { nama_matkul, kode_matkul, sks, jenis_matkul } = req.body;
+
+  // Validasi jenis_matkul
+  const allowedTypes = ['pilihan_ganjil', 'pilihan_genap', 'wajib'];
+  if (!allowedTypes.includes(jenis_matkul)) {
+    return res.status(400).json({ error: `Jenis matkul harus salah satu dari: ${allowedTypes.join(', ')}` });
+  }
+
   try {
-    const matkul = await MatkulKnvrs.create({ nama_matkul, kode_matkul, sks });
+    const matkul = await MatkulKnvrs.create({ nama_matkul, kode_matkul, sks, jenis_matkul });
     res.status(201).json({ message: 'Matkul Konversi berhasil dibuat', data: matkul });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -40,10 +47,16 @@ const createMatkulKnvrs = async (req, res) => {
 // Update Matkul Konversi
 const updateMatkulKnvrs = async (req, res) => {
   const { id_matkul_knvrs } = req.params;
-  const { nama_matkul, kode_matkul, sks } = req.body;
+  const { nama_matkul, kode_matkul, sks, jenis_matkul } = req.body;
+
+  const allowedTypes = ['pilihan_ganjil', 'pilihan_genap', 'wajib'];
+  if (jenis_matkul && !allowedTypes.includes(jenis_matkul)) {
+    return res.status(400).json({ error: `Jenis matkul harus salah satu dari: ${allowedTypes.join(', ')}` });
+  }
+
   try {
     const [updated] = await MatkulKnvrs.update(
-      { nama_matkul, kode_matkul, sks },
+      { nama_matkul, kode_matkul, sks, jenis_matkul },
       { where: { id_matkul_knvrs } }
     );
 

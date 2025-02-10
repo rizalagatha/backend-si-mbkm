@@ -18,6 +18,10 @@ const MatkulKnvrs = sequelize.define('MatkulKnvrs', {
   sks: {
     type: DataTypes.INTEGER,
     allowNull: false
+  },
+  jenis_matkul: {
+    type: DataTypes.ENUM('pilihan_ganjil', 'pilihan_genap', 'wajib'),
+    allowNull: false
   }
 }, {
   tableName: 'matkul_knvrs',
