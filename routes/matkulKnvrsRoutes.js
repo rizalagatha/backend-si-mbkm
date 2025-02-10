@@ -8,6 +8,7 @@
  *         - nama_matkul
  *         - kode_matkul
  *         - sks
+ *         - jenis_matkul
  *       properties:
  *         id_matkul_knvrs:
  *           type: integer
@@ -21,7 +22,12 @@
  *         sks:
  *           type: integer
  *           description: Jumlah SKS mata kuliah
+ *         jenis_matkul:
+ *           type: string
+ *           enum: [pilihan_ganjil, pilihan_genap, wajib]
+ *           description: Jenis mata kuliah (pilihan ganjil, pilihan genap, atau wajib)
  */
+
 
 const express = require('express');
 const router = express.Router();
@@ -127,11 +133,27 @@ router.get('/:id_matkul_knvrs', getMatkulKnvrsById);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/MatkulKnvrs'
+ *             type: object
+ *             properties:
+ *               nama_matkul:
+ *                 type: string
+ *               kode_matkul:
+ *                 type: string
+ *               sks:
+ *                 type: integer
+ *               jenis_matkul:
+ *                 type: string
+ *                 enum: [pilihan_ganjil, pilihan_genap, wajib]
+ *             required:
+ *               - nama_matkul
+ *               - kode_matkul
+ *               - sks
+ *               - jenis_matkul
  *     responses:
  *       201:
  *         description: Matkul Konversi berhasil dibuat.
  */
+
 router.post('/', authenticateToken, authorize(['koor_mbkm']), createMatkulKnvrs);
 
 /**
@@ -154,11 +176,27 @@ router.post('/', authenticateToken, authorize(['koor_mbkm']), createMatkulKnvrs)
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/MatkulKnvrs'
+ *             type: object
+ *             properties:
+ *               nama_matkul:
+ *                 type: string
+ *               kode_matkul:
+ *                 type: string
+ *               sks:
+ *                 type: integer
+ *               jenis_matkul:
+ *                 type: string
+ *                 enum: [pilihan_ganjil, pilihan_genap, wajib]
+ *             required:
+ *               - nama_matkul
+ *               - kode_matkul
+ *               - sks
+ *               - jenis_matkul
  *     responses:
  *       200:
  *         description: Data berhasil diperbarui.
  */
+
 router.put('/:id_matkul_knvrs', authenticateToken, authorize(['koor_mbkm']), updateMatkulKnvrs);
 
 /**
