@@ -10,7 +10,6 @@
  *         - tanggal
  *         - id_program_mbkm
  *         - status
- *         - id_matkul_knvrs
  *       properties:
  *         id_pendaftaran_mbkm:
  *           type: integer
@@ -31,9 +30,18 @@
  *         NIP_dosbing:
  *           type: string
  *           description: Nomor Induk Pegawai (NIP) dosen pembimbing, opsional
- *         id_matkul_knvrs:
- *           type: integer
- *           description: ID mata kuliah yang dikonversi dalam program MBKM
+ *         matkul_knvrs:
+ *           type: array
+ *           description: List mata kuliah konversi yang terdaftar dalam program MBKM
+ *           items:
+ *             type: object
+ *             properties:
+ *               id_matkul_knvrs:
+ *                 type: integer
+ *                 description: ID mata kuliah konversi
+ *               nama_matkul_knvrs:
+ *                 type: string
+ *                 description: Nama mata kuliah konversi
  *       example:
  *         id_pendaftaran_mbkm: 1
  *         NIM: 123456789
@@ -41,7 +49,11 @@
  *         id_program_mbkm: 1
  *         status: "pending"
  *         NIP_dosbing: "1987654321"
- *         id_matkul_knvrs: 5
+ *         matkul_knvrs:
+ *           - id_matkul_knvrs: 5
+ *             nama_matkul_knvrs: "Matematika Diskrit"
+ *           - id_matkul_knvrs: 7
+ *             nama_matkul_knvrs: "Algoritma dan Struktur Data"
  */
 
 const express = require('express');
