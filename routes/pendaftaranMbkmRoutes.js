@@ -138,8 +138,8 @@ router.post('/', authenticateToken, authorize(['admin_siap', 'mahasiswa', 'koor_
  *               items:
  *                 $ref: '#/components/schemas/PendaftaranMbkm'
  */
-router.get('/', getAllPendaftaranMbkm);
-
+router.get('/', authenticateToken, authorize(['koor_mbkm', 'adminSiap', 'dosbing', 'mahasiswa']), getAllPendaftaranMbkm);
+ 
 /**
  * @swagger
  * /api/pendaftaran-mbkm/{id}:
@@ -161,7 +161,7 @@ router.get('/', getAllPendaftaranMbkm);
  *             schema:
  *               $ref: '#/components/schemas/PendaftaranMbkm'
  */
-router.get('/:id', getPendaftaranMbkmById);
+router.get('/:id', authenticateToken, authorize(['koor_mbkm', 'adminSiap', 'dosbing', 'mahasiswa']), getPendaftaranMbkmById);
 
 /**
  * @swagger
@@ -191,7 +191,7 @@ router.get('/:id', getPendaftaranMbkmById);
  *         description: Terjadi kesalahan pada server
  */
 
-router.get('/nim/:NIM', getPendaftaranMbkmByNIM);
+router.get('/nim/:NIM', authenticateToken, authorize(['koor_mbkm', 'adminSiap', 'dosbing', 'mahasiswa']), getPendaftaranMbkmByNIM);
 
 /**
  * @swagger

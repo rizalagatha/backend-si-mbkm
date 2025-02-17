@@ -74,7 +74,7 @@ const {
  *                   example: "Terjadi kesalahan saat mengambil data Matkul Konversi."
  */
 
-router.get('/', getAllMatkulKnvrs);
+router.get('/', authenticateToken, authorize(['koor_mbkm', 'adminSiap', 'dosbing', 'mahasiswa']), getAllMatkulKnvrs);
 
 /**
  * @swagger
@@ -118,7 +118,7 @@ router.get('/', getAllMatkulKnvrs);
  *                   example: "Terjadi kesalahan saat mengambil data Matkul Konversi."
  */
 
-router.get('/:id_matkul_knvrs', getMatkulKnvrsById);
+router.get('/:id_matkul_knvrs', authenticateToken, authorize(['koor_mbkm', 'adminSiap', 'dosbing', 'mahasiswa']), getMatkulKnvrsById);
 
 /**
  * @swagger

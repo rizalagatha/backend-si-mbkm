@@ -69,7 +69,7 @@ router.post('/', authenticateToken, authorize(['koor_mbkm']), createKoorMbkm);
  *               items:
  *                 $ref: '#/components/schemas/KoorMbkm'
  */
-router.get('/', getAllKoorMbkm);
+router.get('/', authenticateToken, authorize(['koor_mbkm', 'adminSiap', 'dosbing', 'mahasiswa']), getAllKoorMbkm);
 
 /**
  * @swagger
@@ -92,7 +92,7 @@ router.get('/', getAllKoorMbkm);
  *             schema:
  *               $ref: '#/components/schemas/KoorMbkm'
  */
-router.get('/:NIP_koor_mbkm', getKoorMbkmByNIP);
+router.get('/:NIP_koor_mbkm', authenticateToken, authorize(['koor_mbkm', 'adminSiap', 'dosbing', 'mahasiswa']), getKoorMbkmByNIP);
 
 /**
  * @swagger

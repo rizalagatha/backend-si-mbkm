@@ -52,7 +52,7 @@ const {
  *                 $ref: '#/components/schemas/AdminSiap'
  */
 
-router.get('/', getAdminSiap);
+router.get('/', authenticateToken, authorize(['koor_mbkm', 'adminSiap', 'dosbing', 'mahasiswa']), getAdminSiap);
 
 /**
  * @swagger
@@ -102,7 +102,7 @@ router.get('/', getAdminSiap);
  *                   example: "Terjadi kesalahan saat mengambil data Admin SIAP."
  */
 
-router.get('/:NIP_admin_siap', getAdminSiapByNIP);
+router.get('/:NIP_admin_siap', authenticateToken, authorize(['koor_mbkm', 'adminSiap', 'dosbing', 'mahasiswa']), getAdminSiapByNIP);
 
 /**
  * @swagger

@@ -69,7 +69,7 @@ router.post('/', authenticateToken, authorize(['koor_mbkm']), createDosbing);
  *               items:
  *                 $ref: '#/components/schemas/Dosbing'
  */
-router.get('/', getAllDosbing);
+router.get('/', authenticateToken, authorize(['koor_mbkm', 'adminSiap', 'dosbing', 'mahasiswa']), getAllDosbing);
 
 /**
  * @swagger
@@ -92,7 +92,7 @@ router.get('/', getAllDosbing);
  *             schema:
  *               $ref: '#/components/schemas/Dosbing'
  */
-router.get('/:NIP_dosbing', getDosbingByNIP);
+router.get('/:NIP_dosbing', authenticateToken, authorize(['koor_mbkm', 'adminSiap', 'dosbing', 'mahasiswa']), getDosbingByNIP);
 
 /**
  * @swagger

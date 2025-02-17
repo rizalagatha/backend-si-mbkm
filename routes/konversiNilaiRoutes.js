@@ -89,7 +89,7 @@ router.post('/', authenticateToken, authorize(['mahasiswa', 'koor_mbkm']), creat
  *                 $ref: '#/components/schemas/KonversiNilai'
  */
 
-router.get('/', getAllKonversiNilai);
+router.get('/', authenticateToken, authorize(['koor_mbkm', 'adminSiap', 'dosbing', 'mahasiswa']), getAllKonversiNilai);
 
 /**
  * @swagger
@@ -113,7 +113,7 @@ router.get('/', getAllKonversiNilai);
  *               $ref: '#/components/schemas/KonversiNilai'
  */
 
-router.get('/:id', getKonversiNilaiById);
+router.get('/:id', authenticateToken, authorize(['koor_mbkm', 'adminSiap', 'dosbing', 'mahasiswa']), getKonversiNilaiById);
 
 /**
  * @swagger

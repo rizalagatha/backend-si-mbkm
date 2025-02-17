@@ -236,12 +236,12 @@ const logbookController = require('../controllers/logbookController');
 const upload = require('../middlewares/upload');
 
 // Mendapatkan semua logbooks
-router.get('/', logbookController.getAllLogbooks);
+router.get('/', authenticateToken, authorize(['koor_mbkm', 'adminSiap', 'dosbing', 'mahasiswa']), logbookController.getAllLogbooks);
 
 // Mendapatkan logbook berdasarkan ID
-router.get('/:id', logbookController.getLogbookById);
+router.get('/:id', authenticateToken, authorize(['koor_mbkm', 'adminSiap', 'dosbing', 'mahasiswa']), logbookController.getLogbookById);
 
-router.get('/nim/:NIM', logbookController.getLogbooksByNIM);
+router.get('/nim/:NIM', authenticateToken, authorize(['koor_mbkm', 'adminSiap', 'dosbing', 'mahasiswa']), logbookController.getLogbooksByNIM);
 
 // Membuat logbook baru
 router.post('/', authenticateToken, authorize(['mahasiswa']), upload.single('file'), logbookController.createLogbook);
