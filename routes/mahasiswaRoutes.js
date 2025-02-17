@@ -82,7 +82,7 @@ router.post('/', authenticateToken, authorize(['dosbing','koor_mbkm']), createMa
  *               items:
  *                 $ref: '#/components/schemas/Mahasiswa'
  */
-router.get('/', authenticateToken, authorize(['koor_mbkm', 'adminSiap', 'dosbing', 'mahasiswa']), getAllMahasiswa);
+router.get('/', getAllMahasiswa);
 
 /**
  * @swagger
@@ -105,7 +105,7 @@ router.get('/', authenticateToken, authorize(['koor_mbkm', 'adminSiap', 'dosbing
  *             schema:
  *               $ref: '#/components/schemas/Mahasiswa'
  */
-router.get('/:NIM', authenticateToken, authorize(['koor_mbkm', 'adminSiap', 'dosbing', 'mahasiswa']), getMahasiswaByNIM);
+router.get('/:NIM', getMahasiswaByNIM);
 
 /**
  * @swagger
@@ -152,7 +152,7 @@ router.get('/:NIM', authenticateToken, authorize(['koor_mbkm', 'adminSiap', 'dos
  */
 
 
-router.get('/dosbing/:NIP_dosbing', authenticateToken, authorize(['koor_mbkm', 'adminSiap', 'dosbing', 'mahasiswa']), getMahasiswaByNIPDosbing);
+router.get('/dosbing/:NIP_dosbing', getMahasiswaByNIPDosbing);
 
 /**
  * @swagger

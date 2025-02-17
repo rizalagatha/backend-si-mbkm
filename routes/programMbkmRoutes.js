@@ -157,7 +157,7 @@ router.post('/', authenticateToken, authorize(['koor_mbkm']), createProgramMbkm)
  *               items:
  *                 $ref: '#/components/schemas/ProgramMbkm'
  */
-router.get('/', authenticateToken, authorize(['koor_mbkm', 'adminSiap', 'dosbing', 'mahasiswa']), getAllProgramMbkm);
+router.get('/', getAllProgramMbkm);
 
 /**
  * @swagger
@@ -182,7 +182,7 @@ router.get('/', authenticateToken, authorize(['koor_mbkm', 'adminSiap', 'dosbing
  *       404:
  *         description: Program MBKM not found
  */
-router.get('/:id', authenticateToken, authorize(['koor_mbkm', 'adminSiap', 'dosbing', 'mahasiswa']), getProgramMbkmById);
+router.get('/:id', getProgramMbkmById);
 
 /**
  * @swagger
@@ -236,7 +236,7 @@ router.get('/:id', authenticateToken, authorize(['koor_mbkm', 'adminSiap', 'dosb
  *         description: Server error
  */
 
-router.get('/nim/:NIM', authenticateToken, authorize(['koor_mbkm', 'adminSiap', 'dosbing', 'mahasiswa']), getProgramMbkmByNim);
+router.get('/nim/:NIM', getProgramMbkmByNim);
 
 /**
  * @swagger

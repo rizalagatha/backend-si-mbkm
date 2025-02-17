@@ -92,7 +92,7 @@ router.post('/', authenticateToken, authorize(['koor_mbkm']), createPengumuman);
  *               items:
  *                 $ref: '#/components/schemas/Pengumuman'
  */
-router.get('/', authenticateToken, authorize(['koor_mbkm', 'adminSiap', 'dosbing', 'mahasiswa']), getAllPengumuman);
+router.get('/', getAllPengumuman);
 
 /**
  * @swagger
@@ -117,7 +117,7 @@ router.get('/', authenticateToken, authorize(['koor_mbkm', 'adminSiap', 'dosbing
  *       404:
  *         description: Pengumuman not found
  */
-router.get('/:id', authenticateToken, authorize(['koor_mbkm', 'adminSiap', 'dosbing', 'mahasiswa']), getPengumumanById);
+router.get('/:id', getPengumumanById);
 
 /**
  * @swagger
