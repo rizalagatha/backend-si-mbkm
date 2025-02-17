@@ -6,7 +6,7 @@ const MatkulKnvrs = require('../models/matkulKnvrs');
 const PendaftaranMatkulKnvrs = require('../models/pendaftaranmatkulknvrs'); // Model Pivot
 
 const createPendaftaranMbkm = async (req, res) => {
-  const { NIM, tanggal, id_program_mbkm, NIP_dosbing, status } = req.body;
+  const { NIM, tanggal, id_program_mbkm, NIP_dosbing, status, matkul_knvrs } = req.body;
 
   try {
     // Validasi apakah mahasiswa dan program MBKM ada
@@ -27,6 +27,7 @@ const createPendaftaranMbkm = async (req, res) => {
       tanggal,
       id_program_mbkm,
       status,
+      matkul_knvrs,
       NIP_dosbing: NIP_dosbing || null,
     });
 
@@ -118,7 +119,7 @@ const getPendaftaranMbkmByNIM = async (req, res) => {
 
 const updatePendaftaranMbkm = async (req, res) => {
   const { id } = req.params;
-  const { NIM, tanggal, id_program_mbkm, NIP_dosbing, id_matkul_knvrs, status } = req.body;
+  const { NIM, tanggal, id_program_mbkm, NIP_dosbing, matkul_knvrs, status } = req.body;
 
   try {
     const pendaftaranMbkm = await PendaftaranMbkm.findByPk(id);
@@ -128,7 +129,7 @@ const updatePendaftaranMbkm = async (req, res) => {
 
     // Perbarui data utama
     await PendaftaranMbkm.update(
-      { NIM, tanggal, id_program_mbkm, NIP_dosbing, status },
+      { NIM, tanggal, id_program_mbkm, NIP_dosbing, status, matkul_knvrs },
       { where: { id_pendaftaran_mbkm: id } }
     );
 
