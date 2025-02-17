@@ -7,12 +7,10 @@
  *       required:
  *         - id_pendaftaran_mbkm
  *         - NIM
- *         - NIP_dosbing
- *         - NIP_koor_mbkm
- *         - id_program_mbkm
- *         - nama_berkas
- *         - status
  *         - tanggal
+ *         - id_program_mbkm
+ *         - status
+ *         - id_matkul_knvrs
  *       properties:
  *         id_pendaftaran_mbkm:
  *           type: integer
@@ -20,22 +18,30 @@
  *         NIM:
  *           type: integer
  *           description: Nomor Induk Mahasiswa yang mendaftar MBKM
- *         id_program_mbkm:
- *           type: integer
- *           description: ID program MBKM
- *         status:
- *           type: string
- *           description: Status pendaftaran program
  *         tanggal:
  *           type: string
  *           format: date-time
  *           description: Tanggal pendaftaran MBKM
+ *         id_program_mbkm:
+ *           type: integer
+ *           description: ID program MBKM yang dipilih mahasiswa
+ *         status:
+ *           type: string
+ *           description: Status pendaftaran program (misalnya "pending", "diterima", "ditolak")
+ *         NIP_dosbing:
+ *           type: string
+ *           description: Nomor Induk Pegawai (NIP) dosen pembimbing, opsional
+ *         id_matkul_knvrs:
+ *           type: integer
+ *           description: ID mata kuliah yang dikonversi dalam program MBKM
  *       example:
  *         id_pendaftaran_mbkm: 1
  *         NIM: 123456789
+ *         tanggal: "2024-10-11T10:00:00Z"
  *         id_program_mbkm: 1
  *         status: "pending"
- *         tanggal: "2024-10-11T10:00:00Z"
+ *         NIP_dosbing: "1987654321"
+ *         id_matkul_knvrs: 5
  */
 
 const express = require('express');
@@ -88,38 +94,12 @@ const {
  *                   $ref: '#/components/schemas/PendaftaranMbkm'
  *       400:
  *         description: Permintaan tidak valid (misalnya, data tidak lengkap)
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   description: Pesan kesalahan
- *                   example: Data tidak lengkap
  *       401:
  *         description: Akses tidak sah (token tidak valid atau tidak ada)
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   description: Pesan kesalahan
- *                   example: Token tidak valid
  *       500:
  *         description: Kesalahan pada server
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   description: Pesan kesalahan
- *                   example: Terjadi kesalahan pada server
  */
+
 router.post('/', authenticateToken, authorize(['admin_siap', 'mahasiswa', 'koor_mbkm']), createPendaftaranMbkm);
 
 /**
@@ -138,6 +118,7 @@ router.post('/', authenticateToken, authorize(['admin_siap', 'mahasiswa', 'koor_
  *               items:
  *                 $ref: '#/components/schemas/PendaftaranMbkm'
  */
+
 router.get('/', getAllPendaftaranMbkm);
  
 /**
@@ -160,22 +141,27 @@ router.get('/', getAllPendaftaranMbkm);
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/PendaftaranMbkm'
+ *       404:
+ *         description: Data tidak ditemukan
+ *       500:
+ *         description: Terjadi kesalahan pada server
  */
+
 router.get('/:id', getPendaftaranMbkmById);
 
 /**
  * @swagger
  * /api/pendaftaran-mbkm/nim/{NIM}:
  *   get:
- *     summary: Mengambil data Pendaftaran MBKM berdasarkan NIM
+ *     summary: Mengambil data Pendaftaran MBKM berdasarkan NIM mahasiswa
  *     tags: [PendaftaranMbkm]
  *     parameters:
  *       - in: path
  *         name: NIM
  *         required: true
  *         schema:
- *           type: string
- *         description: NIM Mahasiswa yang akan diambil
+ *           type: integer
+ *         description: NIM Mahasiswa yang akan dicari
  *     responses:
  *       200:
  *         description: Berhasil mengambil data Pendaftaran MBKM berdasarkan NIM
@@ -217,7 +203,16 @@ router.get('/nim/:NIM', getPendaftaranMbkmByNIM);
  *     responses:
  *       200:
  *         description: Data Pendaftaran MBKM berhasil diperbarui
+ *       400:
+ *         description: Permintaan tidak valid
+ *       401:
+ *         description: Akses tidak sah
+ *       404:
+ *         description: Data tidak ditemukan
+ *       500:
+ *         description: Terjadi kesalahan pada server
  */
+
 router.put('/:id', authenticateToken, authorize(['admin_siap', 'mahasiswa', 'koor_mbkm']), updatePendaftaranMbkm);
 
 /**
@@ -238,7 +233,14 @@ router.put('/:id', authenticateToken, authorize(['admin_siap', 'mahasiswa', 'koo
  *     responses:
  *       204:
  *         description: Data Pendaftaran MBKM berhasil dihapus
+ *       401:
+ *         description: Akses tidak sah
+ *       404:
+ *         description: Data tidak ditemukan
+ *       500:
+ *         description: Terjadi kesalahan pada server
  */
+
 router.delete('/:id', authenticateToken, authorize(['admin_siap', 'mahasiswa', 'koor_mbkm']), deletePendaftaranMbkm);
 
 module.exports = router;
