@@ -5,7 +5,7 @@ class PendaftaranMatkulKnvrs extends Model {}
 
 PendaftaranMatkulKnvrs.init(
   {
-    id_pendaftaran_matkul_knvrs: {
+    id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
