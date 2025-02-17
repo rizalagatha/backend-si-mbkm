@@ -6,7 +6,7 @@ const MatkulKnvrs = require('../models/matkulKnvrs');
 const PendaftaranMatkulKnvrs = require('../models/pendaftaranmatkulknvrs'); // Model Pivot
 
 const createPendaftaranMbkm = async (req, res) => {
-  const { NIM, tanggal, id_program_mbkm, NIP_dosbing, id_matkul_knvrs, status } = req.body;
+  const { NIM, tanggal, id_program_mbkm, NIP_dosbing, status } = req.body;
 
   try {
     // Validasi apakah mahasiswa dan program MBKM ada
@@ -31,12 +31,13 @@ const createPendaftaranMbkm = async (req, res) => {
     });
 
     // Jika mahasiswa memilih mata kuliah konversi, simpan di tabel pivot
-    if (id_matkul_knvrs && id_matkul_knvrs.length > 0) {
-      const matkulEntries = id_matkul_knvrs.map((matkulId) => ({
+    if (matkul_knvrs && matkul_knvrs.length > 0) {
+      const matkulEntries = matkul_knvrs.map((matkul) => ({
         id_pendaftaran_mbkm: pendaftaranMbkm.id_pendaftaran_mbkm,
-        id_matkul_knvrs: matkulId,
+        id_matkul_knvrs: matkul.id_matkul_knvrs,  // Ambil id_matkul_knvrs dari objek
       }));
-
+    
+      // Simpan data di tabel pivot
       await PendaftaranMatkulKnvrs.bulkCreate(matkulEntries);
     }
 
