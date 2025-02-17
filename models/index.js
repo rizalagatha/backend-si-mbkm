@@ -1,3 +1,4 @@
+// models/index.js
 'use strict';
 
 const fs = require('fs');
@@ -31,6 +32,7 @@ fs
     db[model.name] = model;
   });
 
+// Define associations after all models are loaded
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
     db[modelName].associate(db);

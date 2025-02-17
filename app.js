@@ -28,6 +28,7 @@ const Dosbing = require('./models/dosbing');
 const User = require('./models/user');
 const PendaftaranMbkm = require('./models/pendaftaranMbkm');
 const MatkulKnvrs = require('./models/matkulKnvrs');
+const PendaftaranMatkulKnvrs = require('./models/pendaftaranmatkulknvrs');
 
 dotenv.config();
 
@@ -42,12 +43,21 @@ app.use(express.json());
 swaggerSetup(app);
 
 // Define models in an object
-const models = { Categories, ProgramMbkm, Mahasiswa, Dosbing, User, PendaftaranMbkm, MatkulKnvrs };
+const models = { 
+  Categories, 
+  ProgramMbkm, 
+  Mahasiswa, 
+  Dosbing, 
+  User, 
+  PendaftaranMbkm, 
+  MatkulKnvrs, 
+  PendaftaranMatkulKnvrs 
+};
 
 // Call the associate method for each model
 Object.values(models).forEach((model) => {
   if (typeof model.associate === 'function') {
-    model.associate();
+    model.associate(models); // Pastikan passing models ke associate
   }
 });
 
@@ -81,6 +91,7 @@ sequelize.authenticate()
   .then(() => console.log('Database connected...'))
   .catch(err => console.log('Error: ' + err));
 
+// Define associations after all models are loaded and associate called
 sequelize.sync({ alter: true })
   .then(() => {
     console.log('All models were synchronized successfully.');

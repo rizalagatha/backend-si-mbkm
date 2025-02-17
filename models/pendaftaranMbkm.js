@@ -42,14 +42,6 @@ PendaftaranMbkm.init(
         key: 'NIP_dosbing',
       },
     },
-    id_matkul_knvrs: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'matkul_knvrs', // Tabel konversi_nilai
-        key: 'id_matkul_knvrs',
-      },
-    },
   },
   {
     sequelize,
@@ -60,16 +52,22 @@ PendaftaranMbkm.init(
 );
 
 // Define associations
-PendaftaranMbkm.associate = () => {
-  const Mahasiswa = require('./mahasiswa');
-  const ProgramMbkm = require('./programMbkm');
-  const Dosbing = require('./dosbing');
-  const MatkulKnvrs = require('./matkulKnvrs'); // Lazy loading
+PendaftaranMbkm.associate = (models) => {
+  const Mahasiswa = models.Mahasiswa;
+  const ProgramMbkm = models.ProgramMbkm;
+  const Dosbing = models.Dosbing;
+  const MatkulKnvrs = models.MatkulKnvrs;
+  const PendaftaranMatkulKnvrs = models.PendaftaranMatkulKnvrs;
 
   PendaftaranMbkm.belongsTo(Mahasiswa, { foreignKey: 'NIM', as: 'mahasiswa' });
   PendaftaranMbkm.belongsTo(ProgramMbkm, { foreignKey: 'id_program_mbkm', as: 'program_mbkm' });
   PendaftaranMbkm.belongsTo(Dosbing, { foreignKey: 'NIP_dosbing', as: 'dosbing' });
-  PendaftaranMbkm.belongsTo(MatkulKnvrs, { foreignKey: 'id_matkul_knvrs', as: 'matkul_knvrs' });
+
+  PendaftaranMbkm.belongsToMany(MatkulKnvrs, {
+    through: PendaftaranMatkulKnvrs,
+    foreignKey: 'id_pendaftaran_mbkm',
+    as: 'pendaftaranMbkmMatkulKnvrs',  // Alias yang unik
+  });
 };
 
 module.exports = PendaftaranMbkm;
