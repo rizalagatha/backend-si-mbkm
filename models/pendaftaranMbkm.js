@@ -14,7 +14,7 @@ PendaftaranMbkm.init(
       type: DataTypes.BIGINT,
       allowNull: false,
       references: {
-        model: 'mahasiswa', // Nama tabel atau model
+        model: 'mahasiswa',
         key: 'NIM',
       },
     },
@@ -30,16 +30,24 @@ PendaftaranMbkm.init(
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'program_mbkm', // Nama tabel atau model
+        model: 'program_mbkm',
         key: 'id_program_mbkm',
       },
     },
     NIP_dosbing: {
-      type: DataTypes.STRING, // Tipe data harus sesuai dengan kolom di tabel dosbing
+      type: DataTypes.STRING,
       allowNull: true,
       references: {
-        model: 'dosbing', // Nama tabel atau model
+        model: 'dosbing',
         key: 'NIP_dosbing',
+      },
+    },
+    id_matkul_knvrs: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'matkul_knvrs', // Tabel konversi_nilai
+        key: 'id_matkul_knvrs',
       },
     },
   },
@@ -53,13 +61,15 @@ PendaftaranMbkm.init(
 
 // Define associations
 PendaftaranMbkm.associate = () => {
-  const Mahasiswa = require('./mahasiswa'); // Lazy loading
-  const ProgramMbkm = require('./programMbkm'); // Lazy loading
-  const Dosbing = require('./dosbing'); // Lazy loading
+  const Mahasiswa = require('./mahasiswa');
+  const ProgramMbkm = require('./programMbkm');
+  const Dosbing = require('./dosbing');
+  const MatkulKnvrs = require('./matkulKnvrs'); // Lazy loading
 
   PendaftaranMbkm.belongsTo(Mahasiswa, { foreignKey: 'NIM', as: 'mahasiswa' });
   PendaftaranMbkm.belongsTo(ProgramMbkm, { foreignKey: 'id_program_mbkm', as: 'program_mbkm' });
   PendaftaranMbkm.belongsTo(Dosbing, { foreignKey: 'NIP_dosbing', as: 'dosbing' });
+  PendaftaranMbkm.belongsTo(MatkulKnvrs, { foreignKey: 'id_matkul_knvrs', as: 'matkul_knvrs' });
 };
 
 module.exports = PendaftaranMbkm;
