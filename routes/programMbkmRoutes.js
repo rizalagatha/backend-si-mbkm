@@ -130,7 +130,7 @@ const {
  *                   type: string
  *                   example: Program MBKM created successfully
  *                 programMbkm:
- *                   $ref: '#/components/schemas/ProgramMbkm'
+ *                   $ref: '#/components/schemas/ProgramMBKM'
  *       400:
  *         description: Validation error or invalid input
  *         content:
@@ -163,7 +163,7 @@ router.post('/', authenticateToken, authorize(['koor_mbkm']), createProgramMbkm)
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/ProgramMbkm'
+ *                 $ref: '#/components/schemas/ProgramMBKM'
  */
 router.get('/', getAllProgramMbkm);
 
