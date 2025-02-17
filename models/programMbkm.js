@@ -41,6 +41,10 @@ ProgramMbkm.init({
       key: 'id',
     },
   },
+  syarat: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
 }, {
   sequelize,
   modelName: 'ProgramMbkm',

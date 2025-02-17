@@ -105,7 +105,7 @@ const getProgramMbkmByNim = async (req, res) => {
 // Update a Program MBKM
 const updateProgramMbkm = async (req, res) => {
   const { id } = req.params;
-  const { company, deskripsi, role, status, date, category_id } = req.body;
+  const { company, deskripsi, role, status, date, syarat, category_id } = req.body;
 
   try {
     // Validasi apakah category_id ada
@@ -116,7 +116,7 @@ const updateProgramMbkm = async (req, res) => {
 
     // Update data Program MBKM
     const [updated] = await ProgramMbkm.update(
-      { company, deskripsi, role, status, date, categoryId: category_id },
+      { company, deskripsi, role, status, date, syarat, categoryId: category_id },
       { where: { id_program_mbkm: id } }
     );
 
