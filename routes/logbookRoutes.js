@@ -250,6 +250,6 @@ router.post('/', authenticateToken, authorize(['mahasiswa']), upload.single('fil
 router.put('/:id', authenticateToken, authorize(['mahasiswa','dosbing']), logbookController.updateLogbook);
 
 // Menghapus logbook berdasarkan ID
-router.delete('/:id', logbookController.deleteLogbook);
+router.delete('/:id', authenticateToken, authorize(['mahasiswa']), logbookController.deleteLogbook);
 
 module.exports = router;
