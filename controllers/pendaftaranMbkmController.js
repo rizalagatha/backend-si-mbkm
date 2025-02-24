@@ -33,15 +33,18 @@ const createPendaftaranMbkm = async (req, res) => {
 
     // Jika mahasiswa memilih mata kuliah konversi, simpan di tabel pivot
     if (matkul_knvrs && matkul_knvrs.length > 0) {
-      const matkulEntries = matkul_knvrs.map((matkul) => ({
+      const matkulEntries = matkul_knvrs.map(matkul => ({
         id_pendaftaran_mbkm: pendaftaranMbkm.id_pendaftaran_mbkm,
-        id_matkul_knvrs: matkul.id_matkul_knvrs,  // Ambil id_matkul_knvrs dari objek
+        id_matkul_knvrs: matkul.id_matkul_knvrs,
       }));
     
-      // Simpan data di tabel pivot
-      console.log("Data yang akan disimpan ke tabel pivot:", matkulEntries);
-      await PendaftaranMatkulKnvrs.bulkCreate(matkulEntries);      
+      console.log("Data sebelum disimpan ke tabel pivot:", matkulEntries);
+    
+      await PendaftaranMatkulKnvrs.bulkCreate(matkulEntries)
+        .then(() => console.log("Data berhasil masuk ke tabel pivot"))
+        .catch(err => console.error("Gagal menyimpan ke tabel pivot:", err));
     }
+    
 
     res.status(201).json({
       message: 'Pendaftaran MBKM berhasil dibuat',

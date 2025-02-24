@@ -86,6 +86,7 @@ app.use('/api/logbook', logbookRoutes);
 app.use('/api/matkul-knvrs', matkulKnvrsRoutes);
 
 app.use('/swagger-ui', express.static(path.join(__dirname, 'node_modules', 'swagger-ui-dist')));
+app.use(express.urlencoded({ extended: true })); // Untuk menangani form-urlencoded
 
 sequelize.authenticate()
   .then(() => console.log('Database connected...'))
