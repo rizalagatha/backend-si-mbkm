@@ -64,7 +64,7 @@ const getAllPendaftaranMbkm = async (req, res) => {
         { model: Dosbing, as: 'dosbing', required: false },
         { 
           model: MatkulKnvrs, 
-          as: 'matkul_knvrs', 
+          as: 'pendaftaranMbkmMatkulKnvrs', 
           through: { attributes: [] } // Hilangkan atribut dari tabel pivot
         },
       ],
@@ -87,7 +87,7 @@ const getPendaftaranMbkmById = async (req, res) => {
         { model: Dosbing, as: 'dosbing', required: false },
         { 
           model: MatkulKnvrs, 
-          as: 'matkul_knvrs', 
+          as: 'pendaftaranMbkmMatkulKnvrs', 
           through: { attributes: [] } 
         },
       ],
