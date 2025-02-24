@@ -1,18 +1,28 @@
 const KonversiNilai = require('../models/konversiNilai');
-const Dosbing = require('../models/dosbing');  // FK ke tabel admin_siap
-const BerkasPenilaian = require('../models/berkasPenilaian');  // FK ke tabel berkas_penilaian
+const Dosbing = require('../models/dosbing');
+const BerkasPenilaian = require('../models/berkasPenilaian');
+const PendaftaranMatkulKnvrs = require('../models/pendaftaranmatkulknvrs'); // Model baru yang ditambahkan
 
 // Create a new KonversiNilai
 const createKonversiNilai = async (req, res) => {
-  const { NIP_dosbing, nama_berkas, nilai_akhir, status } = req.body;
+  const { id_pendaftaran_matkul_knvrs, NIP_dosbing, nama_berkas, nilai_akhir, status } = req.body;
+
   try {
+    // Pastikan pendaftaran mata kuliah yang dikonversi ada
+    const pendaftaran = await PendaftaranMatkulKnvrs.findByPk(id_pendaftaran_matkul_knvrs);
+    if (!pendaftaran) {
+      return res.status(404).json({ message: 'Pendaftaran mata kuliah tidak ditemukan' });
+    }
+
     const konversiNilai = await KonversiNilai.create({
+      id_pendaftaran_matkul_knvrs,
       NIP_dosbing,
       nilai_akhir,
       nama_berkas,
       status
     });
-    res.status(201).json({ message: 'Konversi Nilai created successfully', konversiNilai });
+
+    res.status(201).json({ message: 'Konversi Nilai berhasil dibuat', konversiNilai });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -21,7 +31,9 @@ const createKonversiNilai = async (req, res) => {
 // Get all KonversiNilai
 const getAllKonversiNilai = async (req, res) => {
   try {
-    const konversiNilai = await KonversiNilai.findAll();
+    const konversiNilai = await KonversiNilai.findAll({
+      include: [{ model: PendaftaranMatkulKnvrs }] // Tambahkan informasi pendaftaran matkul
+    });
     res.status(200).json(konversiNilai);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -32,11 +44,13 @@ const getAllKonversiNilai = async (req, res) => {
 const getKonversiNilaiById = async (req, res) => {
   const { id } = req.params;
   try {
-    const konversiNilai = await KonversiNilai.findByPk(id);
+    const konversiNilai = await KonversiNilai.findByPk(id, {
+      include: [{ model: PendaftaranMatkulKnvrs }] // Tambahkan informasi pendaftaran matkul
+    });
     if (konversiNilai) {
       res.status(200).json(konversiNilai);
     } else {
-      res.status(404).json({ message: 'Konversi Nilai not found' });
+      res.status(404).json({ message: 'Konversi Nilai tidak ditemukan' });
     }
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -46,17 +60,27 @@ const getKonversiNilaiById = async (req, res) => {
 // Update a KonversiNilai
 const updateKonversiNilai = async (req, res) => {
   const { id } = req.params;
-  const { NIP_dosbing, nama_berkas, nilai_akhir, status } = req.body;
+  const { id_pendaftaran_matkul_knvrs, NIP_dosbing, nama_berkas, nilai_akhir, status } = req.body;
+
   try {
+    // Pastikan pendaftaran mata kuliah yang dikonversi ada
+    const pendaftaran = await PendaftaranMatkulKnvrs.findByPk(id_pendaftaran_matkul_knvrs);
+    if (!pendaftaran) {
+      return res.status(404).json({ message: 'Pendaftaran mata kuliah tidak ditemukan' });
+    }
+
     const [updated] = await KonversiNilai.update(
-      { NIP_dosbing, nama_berkas, nilai_akhir, status },
+      { id_pendaftaran_matkul_knvrs, NIP_dosbing, nama_berkas, nilai_akhir, status },
       { where: { id_konversi_nilai: id } }
     );
+
     if (updated) {
-      const updatedKonversiNilai = await KonversiNilai.findByPk(id);
-      res.status(200).json({ message: 'Konversi Nilai updated successfully', updatedKonversiNilai });
+      const updatedKonversiNilai = await KonversiNilai.findByPk(id, {
+        include: [{ model: PendaftaranMatkulKnvrs }] // Tambahkan informasi pendaftaran matkul
+      });
+      res.status(200).json({ message: 'Konversi Nilai berhasil diperbarui', updatedKonversiNilai });
     } else {
-      res.status(404).json({ message: 'Konversi Nilai not found' });
+      res.status(404).json({ message: 'Konversi Nilai tidak ditemukan' });
     }
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -69,9 +93,9 @@ const deleteKonversiNilai = async (req, res) => {
   try {
     const deleted = await KonversiNilai.destroy({ where: { id_konversi_nilai: id } });
     if (deleted) {
-      res.status(204).json({ message: 'Konversi Nilai deleted successfully' });
+      res.status(204).json({ message: 'Konversi Nilai berhasil dihapus' });
     } else {
-      res.status(404).json({ message: 'Konversi Nilai not found' });
+      res.status(404).json({ message: 'Konversi Nilai tidak ditemukan' });
     }
   } catch (error) {
     res.status(500).json({ message: error.message });

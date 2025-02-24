@@ -5,13 +5,16 @@
  *     KonversiNilai:
  *       type: object
  *       required:
- *         - id_berkas_penilaian
+ *         - id_pendaftaran_matkul_knvrs
  *         - nilai_akhir
  *         - grade
  *       properties:
  *         id_konversi_nilai:
  *           type: integer
  *           description: ID dari konversi nilai
+ *         id_pendaftaran_matkul_knvrs:
+ *           type: integer
+ *           description: ID dari pendaftaran mata kuliah konversi yang terkait
  *         NIM:
  *           type: integer
  *           description: NIM mahasiswa yang terkait dengan konversi nilai
@@ -59,12 +62,43 @@ const {
  *   post:
  *     summary: Menambahkan konversi nilai baru
  *     tags: [KonversiNilai]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/KonversiNilai'
+ *             type: object
+ *             required:
+ *               - id_pendaftaran_matkul_knvrs
+ *               - nilai_akhir
+ *               - grade
+ *             properties:
+ *               id_pendaftaran_matkul_knvrs:
+ *                 type: integer
+ *                 description: ID dari pendaftaran mata kuliah konversi yang terkait
+ *               NIM:
+ *                 type: integer
+ *                 description: NIM mahasiswa yang terkait dengan konversi nilai
+ *               id_berkas_penilaian:
+ *                 type: integer
+ *                 description: ID dari berkas penilaian yang terkait
+ *               nama_berkas:
+ *                 type: string
+ *                 description: Nama berkas yang terkait dengan konversi nilai
+ *               NIP_dosbing:
+ *                 type: string
+ *                 description: NIP dosen pembimbing yang terkait
+ *               nilai_akhir:
+ *                 type: integer
+ *                 description: Nilai akhir dari konversi nilai
+ *               grade:
+ *                 type: string
+ *                 description: Grade dari konversi nilai
+ *               status:
+ *                 type: string
+ *                 description: Status konversi nilai (misalnya, "Valid" atau "Pending")
  *     responses:
  *       201:
  *         description: Konversi nilai berhasil ditambahkan
@@ -110,8 +144,28 @@ router.get('/', getAllKonversiNilai);
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/KonversiNilai'
+ *               type: object
+ *               properties:
+ *                 id_konversi_nilai:
+ *                   type: integer
+ *                 id_pendaftaran_matkul_knvrs:
+ *                   type: integer
+ *                 NIM:
+ *                   type: integer
+ *                 id_berkas_penilaian:
+ *                   type: integer
+ *                 nama_berkas:
+ *                   type: string
+ *                 NIP_dosbing:
+ *                   type: string
+ *                 nilai_akhir:
+ *                   type: integer
+ *                 grade:
+ *                   type: string
+ *                 status:
+ *                   type: string
  */
+
 
 router.get('/:id', getKonversiNilaiById);
 
@@ -121,6 +175,8 @@ router.get('/:id', getKonversiNilaiById);
  *   put:
  *     summary: Memperbarui data konversi nilai berdasarkan ID
  *     tags: [KonversiNilai]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -133,11 +189,37 @@ router.get('/:id', getKonversiNilaiById);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/KonversiNilai'
+ *             type: object
+ *             properties:
+ *               id_pendaftaran_matkul_knvrs:
+ *                 type: integer
+ *                 description: ID dari pendaftaran mata kuliah konversi yang terkait
+ *               NIM:
+ *                 type: integer
+ *                 description: NIM mahasiswa yang terkait dengan konversi nilai
+ *               id_berkas_penilaian:
+ *                 type: integer
+ *                 description: ID dari berkas penilaian yang terkait
+ *               nama_berkas:
+ *                 type: string
+ *                 description: Nama berkas yang terkait dengan konversi nilai
+ *               NIP_dosbing:
+ *                 type: string
+ *                 description: NIP dosen pembimbing yang terkait
+ *               nilai_akhir:
+ *                 type: integer
+ *                 description: Nilai akhir dari konversi nilai
+ *               grade:
+ *                 type: string
+ *                 description: Grade dari konversi nilai
+ *               status:
+ *                 type: string
+ *                 description: Status konversi nilai (misalnya, "Valid" atau "Pending")
  *     responses:
  *       200:
  *         description: Data konversi nilai berhasil diperbarui
  */
+
 
 router.put('/:id', authenticateToken, authorize(['mahasiswa', 'koor_mbkm']), updateKonversiNilai);
 

@@ -39,7 +39,8 @@ const createPendaftaranMbkm = async (req, res) => {
       }));
     
       // Simpan data di tabel pivot
-      await PendaftaranMatkulKnvrs.bulkCreate(matkulEntries);
+      console.log("Data yang akan disimpan ke tabel pivot:", matkulEntries);
+      await PendaftaranMatkulKnvrs.bulkCreate(matkulEntries);      
     }
 
     res.status(201).json({
