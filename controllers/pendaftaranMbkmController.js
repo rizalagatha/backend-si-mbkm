@@ -35,7 +35,7 @@ const createPendaftaranMbkm = async (req, res) => {
     if (matkul_knvrs && matkul_knvrs.length > 0) {
       const matkulEntries = matkul_knvrs.map(matkul => ({
         id_pendaftaran_mbkm: pendaftaranMbkm.id_pendaftaran_mbkm,
-        id_matkul_knvrs: matkul.id_matkul_knvrs,
+        id_matkul_knvrs: typeof matkul === "object" ? matkul.id_matkul_knvrs : matkul, 
       }));
     
       console.log("Data sebelum disimpan ke tabel pivot:", matkulEntries);
