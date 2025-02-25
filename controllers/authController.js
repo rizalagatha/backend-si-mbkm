@@ -75,7 +75,7 @@
           ...additionalInfo,
         },
         'secretKey',
-        { expiresIn: '1h' }
+        { expiresIn: '24h' }
       );
 
       res.json({ token });
@@ -156,7 +156,7 @@
       const token = jwt.sign(
         { id: user.id, role: user.role, email: user.email },
         'secretKey',
-        { expiresIn: '1h' }
+        { expiresIn: '24h' }
       );
 
       res.status(201).json({ message: 'Registration successful', user, token });
