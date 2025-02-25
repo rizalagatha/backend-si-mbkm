@@ -138,10 +138,10 @@ const updatePendaftaranMbkm = async (req, res) => {
     );
 
     // Jika ada mata kuliah yang perlu diperbarui
-    if (id_matkul_knvrs) {
+    if (matkul_knvrs) {
       await PendaftaranMatkulKnvrs.destroy({ where: { id_pendaftaran_mbkm: id } });
 
-      const matkulEntries = id_matkul_knvrs.map((matkulId) => ({
+      const matkulEntries = matkul_knvrs.map((matkulId) => ({
         id_pendaftaran_mbkm: id,
         id_matkul_knvrs: matkulId,
       }));
