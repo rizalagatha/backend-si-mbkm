@@ -1,8 +1,7 @@
-// middlewares/upload.js
-const path = require('path');
-const multer = require('multer');
+const crypto = require('crypto');
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const cloudinary = require('cloudinary').v2;
+const path = require('path');
 
 // Konfigurasi Cloudinary
 cloudinary.config({
@@ -15,10 +14,15 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: async (req, file) => {
+    // Buat hash unik untuk nama file
+    const uniqueSuffix = crypto.randomBytes(8).toString('hex'); // Contoh: "a1b2c3d4e5f6"
+    const extension = path.extname(file.originalname).slice(1); // Ambil ekstensi file (pdf, jpg, png)
+    const originalName = path.basename(file.originalname, path.extname(file.originalname)); // Ambil nama asli tanpa ekstensi
+
     return {
-      folder: 'uploads', // Ganti dengan nama folder yang diinginkan di Cloudinary
-      format: path.extname(file.originalname).slice(1), // Ekstensi file, misalnya: pdf, jpg, dll.
-      public_id: path.basename(file.originalname, path.extname(file.originalname)), // Nama file tanpa ekstensi
+      folder: 'uploads', // Folder di Cloudinary
+      format: extension, // Format file
+      public_id: `${originalName}_${uniqueSuffix}`, // Nama unik untuk menghindari duplikasi
     };
   },
 });
