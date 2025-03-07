@@ -34,7 +34,7 @@ dotenv.config();
 
 const app = express();
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://si-mbkm-tekkom.vercel.app'],  // Ganti dengan domain frontend Anda
+  origin: ['http://localhost:3000', 'https://si-mbkm-tekkom.vercel.app', 'https://si-mbkm.vercel.app'],  // Ganti dengan domain frontend Anda
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Tambahkan metode yang diperlukan
   allowedHeaders: ['Content-Type', 'Authorization'], // Tambahkan header yang dibutuhkan
 }));
