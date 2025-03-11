@@ -109,6 +109,16 @@ const getPendaftaranMbkmByNIM = async (req, res) => {
   try {
     const pendaftaranMbkm = await PendaftaranMbkm.findAll({
       where: { NIM },
+      include: [
+        { model: Mahasiswa, as: 'mahasiswa' },
+        { model: ProgramMbkm, as: 'program_mbkm' },
+        { model: Dosbing, as: 'dosbing', required: false },
+        { 
+          model: MatkulKnvrs, 
+          as: 'pendaftaranMbkmMatkulKnvrs', 
+          through: { attributes: [] } // Menghubungkan melalui tabel pivot
+        },
+      ],
     });
 
     if (pendaftaranMbkm.length > 0) {
@@ -120,6 +130,7 @@ const getPendaftaranMbkmByNIM = async (req, res) => {
     res.status(500).json({ message: 'Error fetching Pendaftaran MBKM by NIM', error: error.message });
   }
 };
+
 
 const updatePendaftaranMbkm = async (req, res) => {
   const { id } = req.params;
