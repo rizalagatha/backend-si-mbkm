@@ -13,7 +13,11 @@ const getAdminSiap = async (req, res) => {
 const getAdminSiapByNIP = async (req, res) => {
   const { NIP_admin_siap } = req.params;
   try {
-    // Cari data admin berdasarkan NIP
+    // Pastikan NIP dikirim sebagai string
+    if (!NIP_admin_siap || typeof NIP_admin_siap !== 'string') {
+      return res.status(400).json({ error: 'NIP harus berupa string yang valid.' });
+    }
+
     const admin = await AdminSiap.findOne({ where: { NIP_admin_siap } });
 
     if (!admin) {
@@ -26,9 +30,16 @@ const getAdminSiapByNIP = async (req, res) => {
   }
 };
 
+
 // Create Admin Siap
 const createAdminSiap = async (req, res) => {
   const { NIP_admin_siap, nama_admin_siap } = req.body;
+  
+  // Validasi input
+  if (!NIP_admin_siap || typeof NIP_admin_siap !== 'string') {
+    return res.status(400).json({ error: 'NIP harus berupa string.' });
+  }
+
   try {
     const admin = await AdminSiap.create({ NIP_admin_siap, nama_admin_siap });
     res.status(201).json({ message: 'Berhasil membuat data Admin SIAP', data: admin });
@@ -36,6 +47,7 @@ const createAdminSiap = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 // Update Admin Siap
 const updateAdminSiap = async (req, res) => {

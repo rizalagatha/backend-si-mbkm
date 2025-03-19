@@ -4,7 +4,7 @@ const User = require('./user');  // Mengacu pada model User
 
 const AdminSiap = sequelize.define('AdminSiap', {
   NIP_admin_siap: {
-    type: DataTypes.BIGINT,
+    type: DataTypes.STRING,
     primaryKey: true,
     allowNull: false,
   },
