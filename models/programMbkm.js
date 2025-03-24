@@ -33,6 +33,14 @@ ProgramMbkm.init({
     type: DataTypes.DATE,
     allowNull: true,
   },
+  tahun: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+  },
+  periode:{
+    type: DataTypes.INTEGER,
+    allowNull: true,
+  },
   category_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
