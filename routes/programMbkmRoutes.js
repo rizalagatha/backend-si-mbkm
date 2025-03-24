@@ -38,6 +38,12 @@
  *         syarat:
  *           type: string
  *           description: Syarat untuk mengikuti program MBKM
+ *         tahun:
+ *           type: integer
+ *           description: Tahun program MBKM
+ *          periode:
+ *           type: integer
+ *           description: Periode program MBKM
  *       example:
  *         id_program_mbkm: 1
  *         company: "Perusahaan A"
@@ -48,6 +54,8 @@
  *         waktu_pelaksanaan: "2024-10-13T08:00:00Z"
  *         category_id: iisma
  *         syarat: "Mahasiswa semester 5 atau lebih, memiliki IPK minimal 3.0"
+ *         tahun: 2024
+ *         periode: 1
  */
 
 const express = require('express');
@@ -118,6 +126,14 @@ const {
  *                 type: string
  *                 description: Syarat untuk mengikuti program MBKM.
  *                 example: "Mahasiswa semester 5 atau lebih, memiliki IPK minimal 3.0"
+ *               tahun:
+ *                 type: integer
+ *                 description: Tahun program MBKM.
+ *                 example: 2024
+ *               periode:
+ *                 type: integer
+ *                 description: Periode program MBKM.
+ *                 example: 1
  *     responses:
  *       201:
  *         description: Program MBKM created successfully
